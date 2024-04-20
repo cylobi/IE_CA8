@@ -1,4 +1,4 @@
-package org.example.ie_ca4;
+package org.ie.mizdooni;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

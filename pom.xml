@@ -8,8 +8,8 @@
         <version>3.2.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>org.example</groupId>
-    <artifactId>IE_CA4</artifactId>
+    <groupId>org.ie.mizdooni</groupId>
+    <artifactId>CA4_MizDooni</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>IE_CA4</name>
     <description>IE_CA4</description>
