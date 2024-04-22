@@ -1,5 +1,8 @@
 package org.ie.mizdooni.model;
 
+import org.ie.mizdooni.utils.validator.BaseValidator;
+import org.ie.mizdooni.utils.validator.ValidatorException;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -7,9 +10,6 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import org.ie.mizdooni.utils.validator.BaseValidator;
-import org.ie.mizdooni.utils.validator.ValidatorException;
 
 
 
