@@ -1,5 +1,6 @@
 package org.ie.mizdooni.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.ie.mizdooni.utils.MizdooniTime;
 import org.ie.mizdooni.utils.validator.ValidatorException;
 
@@ -75,6 +76,7 @@ public class ReviewModel extends BaseModel{
         this.comment = comment;
     }
 
+    @JsonIgnore
     public LocalDateTime getDatetime() {
         return datetime;
     }
@@ -101,6 +103,9 @@ public class ReviewModel extends BaseModel{
         allObjects.add(model);
     }
 
+    public static List<ReviewModel> getAllObject(){
+        return allObjects.stream().toList();
+    }
     public static Boolean isReviewExist(String username, String restaurantName)
     {
         return getAllObjects()

@@ -196,10 +196,45 @@ class UserDownloader extends BaseModelDownloader<UserModel> {
     }
 }
 
+class ReviewDownloader extends BaseModelDownloader<ReviewModel> {
+    protected String getModelUrl(){
+        return BASE_URL+"reviews";
+    }
+
+    protected ReviewModel generateNewModelInstance(){
+        return new ReviewModel();
+    }
+
+    protected Map<String, Object> fixFieldNameAndTypes(Map<String, Object> jsonMap){
+//        Map<String, Object> addressMap = (Map<String, Object>) jsonMap.get("address");
+//        var restaurantAddress = new UserModel.UserAddress ();
+//        restaurantAddress.city = (String)addressMap.get("city");
+//        restaurantAddress.country = (String)addressMap.get("country");
+//        jsonMap.replace("address", restaurantAddress);
+//
+//        var roleObject = jsonMap.get("role").equals("client") ? UserModel.UserRole.CLIENT : UserModel.UserRole.MANAGER;
+//        jsonMap.replace("role", roleObject);
+
+        return jsonMap;
+    }
+
+    protected List<ReviewModel> convertJsonsToModels(List< Map<String, Object> > jsonMaps){
+        return jsonMaps.parallelStream().map (
+                mapIter ->
+                        convertMap( fixFieldNameAndTypes(mapIter))
+        ).toList();
+    }
+
+    protected void addObject(ReviewModel object){
+        ReviewModel.addObject(object);
+    }
+}
+
 public class InitializerAPI {
 
     public void initializeModels(){
-        var downloaders = Arrays.asList(new TableDownloader() , new RestaurantDownloader(), new UserDownloader());
+        var downloaders = Arrays.asList(new TableDownloader() , new RestaurantDownloader(), new UserDownloader()
+        , new ReviewDownloader() );
         for(var iter : downloaders){
             iter.importDataToModel();
         }
