@@ -81,11 +81,13 @@ abstract class BaseModelDownloader<ModelType extends BaseModel> {
         var modelList = convertJsonsToModels(fetchedData);
 
         for (var iter : modelList){
-            ModelType.addObject((ModelType)iter);
+            addObject((ModelType)iter);
         }
 
         printEndMessage(modelList);
     }
+
+    abstract protected void addObject(ModelType object);
 }
 
 class TableDownloader extends BaseModelDownloader<TableModel> {
@@ -119,6 +121,9 @@ class TableDownloader extends BaseModelDownloader<TableModel> {
         return BASE_URL+"tables";
     }
 
+    protected void addObject(TableModel object){
+        TableModel.addObject(object);
+    }
 }
 
 class RestaurantDownloader extends BaseModelDownloader<RestaurantModel> {
@@ -152,7 +157,9 @@ class RestaurantDownloader extends BaseModelDownloader<RestaurantModel> {
         ).toList();
     }
 
-
+    protected void addObject(RestaurantModel object){
+        RestaurantModel.addObject(object);
+    }
 }
 
 public class InitializerAPI {

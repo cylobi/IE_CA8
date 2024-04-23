@@ -51,7 +51,4 @@ public class BaseModel {
         this._validate();
     }
 
-    public static void addObject(BaseModel object){
-
-    }
 }

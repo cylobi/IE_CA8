@@ -1,5 +1,8 @@
 package org.ie.mizdooni.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.ie.mizdooni.model.TableModel;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -15,24 +18,15 @@ public class TableController {
 
     @GetMapping("/tables")
     String getAll() {
-        RestTemplate restTemplate = new RestTemplate();
+        try {
+            String json = new ObjectMapper().writeValueAsString(TableModel.getAllObjects());
+            return json;
+        }
+        catch (JsonProcessingException e){
+            e.printStackTrace();
+        }
+        return "Error!";
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.add("Header", "header1");
-
-
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://91.107.137.117:55/tables");
-
-        HttpEntity<?> entity = new HttpEntity<>(headers);
-
-        HttpEntity<String> response = restTemplate.exchange(
-                builder.toUriString(),
-                HttpMethod.GET,
-                entity,
-                String.class);
-
-        return response.toString();
 
     }
 }

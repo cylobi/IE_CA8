@@ -78,4 +78,9 @@ public class TableModel extends BaseModel{
         return allResults.get(0);
     }
 
+
+    public static List<TableModel> getAllObjects(){
+        return allObjects.stream().toList();
+    }
+
 }
