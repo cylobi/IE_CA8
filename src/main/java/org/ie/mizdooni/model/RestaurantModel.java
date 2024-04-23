@@ -99,11 +99,16 @@ public class RestaurantModel extends BaseModel{
     Date endTimeObject;
     String description;
 
-    public class RestaurantAddress{
-        public String country;
-        public String city;
-        public String street;
+    public String getImageUrl() {
+        return imageUrl;
     }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    String imageUrl;
+
     RestaurantAddress address;
 
     private boolean checkTime(String time){

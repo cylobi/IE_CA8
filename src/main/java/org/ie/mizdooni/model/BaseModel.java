@@ -50,4 +50,8 @@ public class BaseModel {
     public void validate() throws ValidatorException{
         this._validate();
     }
+
+    public static void addObject(BaseModel object){
+
+    }
 }

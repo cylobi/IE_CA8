@@ -2,7 +2,6 @@ package org.ie.mizdooni.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.ie.mizdooni.utils.CommandResponse;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -10,33 +9,30 @@ import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-class BaseEndpointGetter {
-//    public abstract String getUrl();
-    protected List< Map<String, Object> > getObjectsFromApi(String url){
-        RestTemplate restTemplate = new RestTemplate();
+abstract class BaseModelDownloader<ModelType extends BaseModel> {
+//    protected static String BASE_URL = "http://91.107.137.117:55/";
+    protected static String BASE_URL = "http://localhost:5500/";
 
+    protected abstract String getModelUrl();
+
+    protected List< Map<String, Object> > getJsonsFromUrl(String url){
+        RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.add("Header", "header1");
-
-
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
-
         HttpEntity<?> entity = new HttpEntity<>(headers);
-
         HttpEntity<String> response = restTemplate.exchange(
                 builder.toUriString(),
                 HttpMethod.GET,
                 entity,
                 String.class);
-
         String jsonBody = response.getBody();
         System.out.print(jsonBody);
-
         ObjectMapper mapper = new ObjectMapper();
         try {
             List< Map<String, Object> > l = mapper.readValue(jsonBody, List.class);
@@ -49,27 +45,50 @@ class BaseEndpointGetter {
         }
     }
 
+    abstract protected ModelType generateNewModelInstance();
 
-    protected BaseModel convertMap(Map<String, Object> jsonMap, Class<?> modelClass){
+    protected ModelType convertMap(Map<String, Object> jsonMap){
         try {
-            var newObject = modelClass.getDeclaredConstructor().newInstance();
+            var newObject = generateNewModelInstance();
             for (var key : jsonMap.keySet()) {
-                var field = modelClass.getDeclaredField(key);
+                var field = newObject.getClass().getDeclaredField(key);
                 field.setAccessible(true);
                 field.set(newObject, jsonMap.get(key) );
             }
             System.out.println(newObject);
-            return (BaseModel)newObject;
+            return newObject;
         }
         catch (Exception e){
             e.printStackTrace();
         }
         return null;
     }
+
+    protected void printEndMessage(List<ModelType> modelList) {
+        System.out.print(modelList.size());
+        System.out.println(" "+ this.getClass().getName() + " imported.");
+    }
+
+    protected void printStartMessage() {
+        System.out.println("Downloading "+ this.getClass().getName());
+    }
+
+    protected abstract List<ModelType> convertJsonsToModels(List< Map<String, Object> > jsonMaps);
+
+    protected void importDataToModel(){
+        printStartMessage();
+        var fetchedData = getJsonsFromUrl(getModelUrl());
+        var modelList = convertJsonsToModels(fetchedData);
+
+        for (var iter : modelList){
+            ModelType.addObject((ModelType)iter);
+        }
+
+        printEndMessage(modelList);
+    }
 }
 
-class TablesGetter extends BaseEndpointGetter{
-
+class TableDownloader extends BaseModelDownloader<TableModel> {
     protected Map<String, Object> fixFieldNameAndTypes(Map<String, Object> jsonMap){
         var newMap = new LinkedHashMap<String, Object>();
         for (var oldKey : jsonMap.keySet() ){
@@ -85,31 +104,63 @@ class TablesGetter extends BaseEndpointGetter{
         return newMap;
     }
 
-    public List<TableModel> fetch(){
-        var fetchedData = getObjectsFromApi("http://91.107.137.117:55/tables");
-        System.out.println(fetchedData);
-            var mapper = new ObjectMapper();
-            var fixedMap = fixFieldNameAndTypes(fetchedData.get(0));
-            var modelObject = convertMap(fixedMap, TableModel.class);
-            var modelList =
-                    fetchedData.parallelStream().map (
-                            mapIter ->
-                                convertMap( fixFieldNameAndTypes(mapIter), TableModel.class )
-                            ).toList();
-            for (var iter : modelList){
-                TableModel.addObject((TableModel)iter);
-            }
-            return null;
+    protected TableModel generateNewModelInstance(){
+        return new TableModel();
     }
+
+    protected List<TableModel> convertJsonsToModels(List< Map<String, Object> > jsonMaps){
+        return jsonMaps.parallelStream().map (
+                mapIter ->
+                        convertMap( fixFieldNameAndTypes(mapIter))
+        ).toList();
+    }
+
+    protected String getModelUrl(){
+        return BASE_URL+"tables";
+    }
+
+}
+
+class RestaurantDownloader extends BaseModelDownloader<RestaurantModel> {
+    protected String getModelUrl(){
+        return BASE_URL+"restaurants";
+    }
+
+    protected RestaurantModel generateNewModelInstance(){
+        return new RestaurantModel();
+    }
+
+    protected Map<String, Object> fixFieldNameAndTypes(Map<String, Object> jsonMap){
+        Map<String, Object> addressMap = (Map<String, Object>) jsonMap.get("address");
+        var restaurantAddress = new RestaurantAddress ();
+        restaurantAddress.city = (String)addressMap.get("city");
+        restaurantAddress.country = (String)addressMap.get("country");
+        restaurantAddress.street = (String)addressMap.get("street");
+        jsonMap.replace("address", restaurantAddress);
+
+        String imageUrl = (String) jsonMap.get("image");
+        jsonMap.remove("image");
+        jsonMap.put("imageUrl", imageUrl);
+
+        return jsonMap;
+    }
+
+    protected List<RestaurantModel> convertJsonsToModels(List< Map<String, Object> > jsonMaps){
+        return jsonMaps.parallelStream().map (
+                mapIter ->
+                        convertMap( fixFieldNameAndTypes(mapIter))
+        ).toList();
+    }
+
+
 }
 
 public class InitializerAPI {
-    protected String fetchData(String url){
-        return "";
-    }
 
     public void initializeModels(){
-        var a = new TablesGetter();
-        a.fetch();
+        var downloaders = Arrays.asList(new TableDownloader() , new RestaurantDownloader());
+        for(var iter : downloaders){
+            iter.importDataToModel();
+        }
     }
 }
