@@ -1,8 +1,7 @@
 package org.ie.mizdooni.controller;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.ie.mizdooni.model.TableModel;
+import org.ie.mizdooni.model.RestaurantModel;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -14,12 +13,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 
 @RestController
-public class TableController {
-
-    @GetMapping("/tables")
+public class RestaurantController {
+    @GetMapping("/restaurants")
     String getAll() {
         try {
-            String json = new ObjectMapper().writeValueAsString(TableModel.getAllObjects());
+            String json = new ObjectMapper().writeValueAsString(RestaurantModel.getAllObjects());
             return json;
         }
         catch (JsonProcessingException e){
