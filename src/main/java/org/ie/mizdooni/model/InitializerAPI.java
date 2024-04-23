@@ -162,10 +162,44 @@ class RestaurantDownloader extends BaseModelDownloader<RestaurantModel> {
     }
 }
 
+class UserDownloader extends BaseModelDownloader<UserModel> {
+    protected String getModelUrl(){
+        return BASE_URL+"users";
+    }
+
+    protected UserModel generateNewModelInstance(){
+        return new UserModel();
+    }
+
+    protected Map<String, Object> fixFieldNameAndTypes(Map<String, Object> jsonMap){
+        Map<String, Object> addressMap = (Map<String, Object>) jsonMap.get("address");
+        var restaurantAddress = new UserModel.UserAddress ();
+        restaurantAddress.city = (String)addressMap.get("city");
+        restaurantAddress.country = (String)addressMap.get("country");
+        jsonMap.replace("address", restaurantAddress);
+
+        var roleObject = jsonMap.get("role").equals("client") ? UserModel.UserRole.CLIENT : UserModel.UserRole.MANAGER;
+        jsonMap.replace("role", roleObject);
+
+        return jsonMap;
+    }
+
+    protected List<UserModel> convertJsonsToModels(List< Map<String, Object> > jsonMaps){
+        return jsonMaps.parallelStream().map (
+                mapIter ->
+                        convertMap( fixFieldNameAndTypes(mapIter))
+        ).toList();
+    }
+
+    protected void addObject(UserModel object){
+        UserModel.addObject(object);
+    }
+}
+
 public class InitializerAPI {
 
     public void initializeModels(){
-        var downloaders = Arrays.asList(new TableDownloader() , new RestaurantDownloader());
+        var downloaders = Arrays.asList(new TableDownloader() , new RestaurantDownloader(), new UserDownloader());
         for(var iter : downloaders){
             iter.importDataToModel();
         }

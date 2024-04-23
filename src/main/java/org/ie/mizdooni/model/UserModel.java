@@ -96,6 +96,9 @@ public class UserModel extends BaseModel {
     static public void addObject(UserModel user){
         allObjects.add(user); // TODO : remove data redundancy
     }
+    static public List<UserModel> getAllObjects(){
+        return allObjects.stream().toList();
+    }
 
     static public UserModel findByUsername(String username){
         List<UserModel> matchedUserList = allObjects.stream().filter(
