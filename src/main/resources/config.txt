@@ -1,0 +1,28 @@
+addUser {"role": "client","username": "client1","password": "client1","email": "user1@gmail.com","address": {"country": "Iran","city": "Tehran"} }
+
+addUser {"role": "manager", "username": "manager1", "password": "manager1", "email": "manager1@gmail.com", "address": {"country": "Iran", "city": "Tehran"}}
+
+addUser {"role": "client", "username": "client2", "password": "client2", "email": "user2@gmail.com", "address": {"country": "Iran", "city": "Boushehr"}}
+
+addUser {"role": "manager", "username": "manager2", "password": "manager2", "email": "user3@gmail.com", "address": {"country": "Germany", "city": "Berlin"}}
+
+
+addRestaurant {"name": "PizzaMilano", "managerUsername": "manager1", "type": "Italian", "startTime": "07:00", "endTime": "22:00", "description": "Authentic Italian cuisine", "address": {"country": "Italy", "city": "Rome", "street": "Via del Corso"}}
+addRestaurant {"name": "Jomoong", "managerUsername": "manager1", "type": "Japanese", "startTime": "10:00", "endTime": "21:00", "description": "Experience authentic Japanese cuisine in a traditional setting. We offer a wide range of sushi, sashimi, and other Japanese specialties.", "address": {"country": "Japan", "city": "Tokyo", "street": "Ginza"}}
+addRestaurant {"name": "AbodanBrezilete", "managerUsername": "manager2", "type": "FastFood", "startTime": "10:00", "endTime": "21:00", "description": "description of restaurant 3.", "address": {"country": "Iran", "city": "Abadan", "street": "Brezil"}}
+addRestaurant {"name": "asdf", "managerUsername": "manager2", "type": "Iranian", "startTime": "08:00", "endTime": "14:00", "description": "description of restaurant 4", "address": {"country": "Iran", "city": "Shiraz", "street": "Hafez"}}
+
+addTable {"tableNumber": 1, "restaurantName": "PizzaMilano", "managerUsername": "manager1","seatsNumber": 4}
+addTable {"tableNumber": 2, "restaurantName": "PizzaMilano", "managerUsername": "manager1","seatsNumber": 2}
+addTable {"tableNumber": 3, "restaurantName": "PizzaMilano", "managerUsername": "manager1","seatsNumber": 6}
+addTable {"tableNumber": 1, "restaurantName": "AbodanBrezilete", "managerUsername": "manager2","seatsNumber": 6}
+addTable {"tableNumber": 1, "restaurantName": "Jomoong", "managerUsername": "manager1","seatsNumber": 5}
+
+reserveTable {"username": "client1", "restaurantName": "PizzaMilano", "tableNumber": 1, "datetime": "2024-02-14 21:00"}
+reserveTable {"username": "client2", "restaurantName": "PizzaMilano", "tableNumber": 1, "datetime": "2050-02-14 21:00"}
+reserveTable {"username": "client2", "restaurantName": "Jomoong", "tableNumber": 1, "datetime": "2023-02-14 21:00"}
+reserveTable {"username": "client1", "restaurantName": "Jomoong", "tableNumber": 1, "datetime": "2024-02-13 21:00"}
+
+addReview {"username": "client1", "restaurantName": "PizzaMilano", "foodRate": 2.5, "serviceRate": 3, "ambianceRate": 2, "overallRate": 2.5, "comment": "Disappointing, needs improvement."}
+addReview {"username": "client2", "restaurantName": "Jomoong", "foodRate": 5.0, "serviceRate": 0, "ambianceRate": 1, "overallRate": 3.5, "comment": "Soosona hastam. inam shomarame 09127203642"}
+
