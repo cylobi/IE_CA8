@@ -1,0 +1,119 @@
+#open_label {
+    border-radius: 12px;
+}
+
+#tumbdnail {
+    position: relative;
+}
+
+#title_status_container {
+    position: absolute;
+    bottom: 0%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.88);
+}
+
+#number_date_form_container {
+    width: 300px;
+}
+
+#number_input {
+    background-color: #F5F5F5;
+    border-color: #F5F5F5;
+    padding-right: 2.5rem;
+}
+
+
+#date_input_wrapper {
+    background-color: #F5F5F5;
+    border-color: #F5F5F5;
+    border-radius: .5rem;
+    padding: 0.3rem;
+}
+
+#date_input,
+#date_input {
+    background-color: #F5F5F5;
+    border: #F5F5F5;
+}
+
+.time_radio {
+    color: #ED3545;
+    background-color: #FFFCFC;
+    border-color: #ED3545;
+    border-radius: 0.5rem;
+}
+
+
+.time_radio:hover {
+    color: #fff;
+    background-color: #ee6573;
+    border-color: #bd2130;
+    cursor: pointer;
+}
+
+.time_radio:focus {
+    box-shadow: 0 0 0 .2rem pink;
+}
+
+.time_radio:active,
+.time_radio_active,
+.time_radio_active:hover {
+    border-color: #dc3545;
+    background-color: #ED3545;
+    border-radius: 0.5rem;
+    color: #FFFFFF;
+}
+
+
+#reviews_container {
+    background-color: #FFF6F7;
+}
+
+.profile_letters {
+    font-size: 1.5rem;
+    background-color: #F0B5BA;
+    color: black;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.profile_letters p {
+    margin: auto;
+    text-align: center;
+}
+
+.comment_wrapper {
+    box-shadow: 0px 1px 0px #D9D9D9;
+}
+
+.page_button,
+.active_page_button {
+    width: 2rem;
+    height: 2rem;
+    padding: .3rem;
+    text-align: center;
+}
+
+.page_button {
+    border: 1px solid #D9D9D9;
+    color: #303030;
+}
+
+.page_button:hover {
+    color: #c82333;
+}
+
+.page_button:active {
+    color: #881c25;
+    text-shadow: #dc3545;
+}
+
+.active_page_button {
+    border: 2px solid #dc3545;
+    color: #303030;
+}
+
+.page_button:focus {
+    box-shadow: 0 0 0 .2rem pink;
+}

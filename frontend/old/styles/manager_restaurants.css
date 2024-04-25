@@ -1,0 +1,24 @@
+th {
+    color: #303030;
+    border-bottom: 2px solid #D5D5D5;
+}
+
+table {
+    background-color: #FFFFFF;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+td,
+th {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+table th:last-child,td:nth-child(3){
+    /* buttons */
+    padding-right: 5px;
+    text-align: right;
+}

@@ -1,0 +1,89 @@
+#nav_header_container {
+    padding: 0;
+}
+
+.restaurant_header {
+    margin: 0;
+}
+
+.restaurant_header #restaurant_name {
+    color: #FFF6F7;
+    font-size: 22px;
+    margin: auto;
+}
+
+.restaurant_header #restaurant_address {
+    color: #FFF6F7;
+    position: relative;
+    margin: auto;
+}
+
+/* Stretch panel until bottom of the page */
+html,
+body,
+#panel_wrapper {
+    height: 100%;
+}
+
+#reservation_panel {
+    background-color: #FFFFFF;
+}
+
+#reservation_panel h2 {
+    color: #303030;
+    font-size: 16px;
+}
+
+#reservation_panel p {
+    color: #7E7E7E;
+    font-size: 12px;
+}
+
+#reservation_history_table td {
+    border-bottom: 1px solid #FFF6F7;
+    border-top: 1px solid #FFF6F7;
+}
+
+#reservation_history_table td:first-child {
+    border-right: 1px solid #FFF6F7;
+}
+
+#table_grid {
+    background-color: #FFF6F7;
+    border-left-style: solid;
+    border-left-color: #ED3545;
+    border-left-width: 1rem;
+}
+
+#table_grid .item {
+    background-color: #861A24;
+    color: #FFF6F7;
+    border-radius: 12px;
+    margin: auto;
+    max-width: 102px;
+    max-height: 70px;
+    cursor: pointer;
+}
+
+#table_grid .item:hover {
+    background-color: #a12a36;
+}
+
+#table_grid .item .col {
+    margin: auto;
+    padding: 5px;
+}
+
+#table_grid .item p {
+    margin: auto;
+    color: #FFF6F7;
+}
+
+#tables_widget_wrapper {
+    margin: auto;
+    height: 65%;
+}
+
+#tables_widget {
+    margin: auto;
+}

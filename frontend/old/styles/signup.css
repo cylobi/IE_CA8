@@ -1,0 +1,63 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+
+.custom-focus:focus {
+    border-color: pink;
+    box-shadow: 0 0 8px pink; /* Change the shadow color to red */
+}
+
+.form-signin input[id="inputUsername"] {
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.btn-primary {
+    background-color: pink; /* Your desired background color */
+    border: transparent; /* Your desired border color */
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: #f38b9d; /* Darker shade for hover/focus/active states */
+    border: transparent; /* Even darker shade for hover/focus/active states */
+}
