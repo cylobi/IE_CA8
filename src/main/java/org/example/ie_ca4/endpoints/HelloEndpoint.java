@@ -1,4 +1,4 @@
-package org.example.ie_ca4.endpoints;
+package org.ie.mizdooni.endpoints;
 
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import dev.hilla.Endpoint;
