@@ -1,8 +1,4 @@
 import React from "react"
-import NormalButton from "./base/NormalButton";
-import HeaderLogo from "./base/HeaderLogo";
-import { useNavigate } from "react-router-dom";
-import "./Header.css"
 
 interface Pros{
     user ?: string
@@ -12,7 +8,7 @@ function Footer({user} : Pros) {
     const text = "Copyright © 2024 Mizdooni - All rights reserved.";
 
     const footerStyle : React.CSSProperties = {
-          position: "absolute",
+        //   position: "absolute",
           bottom: 0,
           width: "100%",
           height: "2.5rem",
