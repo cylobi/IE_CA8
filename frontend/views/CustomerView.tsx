@@ -1,7 +1,10 @@
 import Header from "../components/Header"
 import Footer from "../components/Footer"
+import CustomerTopMessage from "../components/CustomerTopMessage"
 
 function CustomerView () {
+    
+
     const backgroundCss = {
         backgroundColor: "#fffcfc",
         color: "white",
@@ -12,6 +15,9 @@ function CustomerView () {
     return (
     <div style={backgroundCss}>
     <Header />
+    <div className="container-fluid">
+        <CustomerTopMessage />
+    </div>
     <Footer />
     </div>
     );
