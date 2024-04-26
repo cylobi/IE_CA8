@@ -8,6 +8,8 @@ import jakarta.validation.OverridesAttribute.List;
 
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.Comparator;
+
 import org.ie.mizdooni.model.ReserveTableModel;
 import org.ie.mizdooni.model.TableModel;
 import org.ie.mizdooni.model.UserModel;
@@ -26,6 +28,7 @@ public class ReservationController {
                 return ResponseEntity.badRequest().build();
             }
             var reservations = ReserveTableModel.findByUsername(user.getUsername());
+            reservations.sort(Comparator.comparing(ReserveTableModel::getDatetime).reversed());
             var mapper = new ObjectMapper();
 
             ArrayList<Map<String, Object>> aggregatedResult = new ArrayList<>();

@@ -18,7 +18,7 @@ export default function MainView() {
       <Button
         onClick={async () => {
           const serverResponse = await HelloEndpoint.sayHello(name);
-          Notification.show(serverResponse);
+          Notification.show(serverResponse || "null!");
         }}
       >
         Say hello
