@@ -7,9 +7,11 @@ interface Props{
     className : string
 }
 export default function NormalButton({text, handler, className}:Props) {
-
+    const styleCss={
+        borderRadius: '12px'
+    };
   return (
-    <button className="btn normal_button" onClick={handler} type="button">
+    <button className="btn btn-danger" onClick={handler} type="button" style={styleCss}>
         {text}
     </button>
   );
