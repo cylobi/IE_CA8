@@ -382,7 +382,7 @@ template {
 
 @font-face {
   font-family: 'Spline Sans';
-  src: url('font/SplineSans-VariableFont_wght.ttf');
+  src: url('/public/font/SplineSans-VariableFont_wght.ttf');
 }
 
 * {
