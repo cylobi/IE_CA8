@@ -1,6 +1,7 @@
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import CustomerTopMessage from "../components/CustomerTopMessage"
+import CustomerReserveList from "Frontend/components/CustomerReserveList";
 
 function CustomerView () {
     
@@ -17,6 +18,7 @@ function CustomerView () {
     <Header />
     <div className="container-fluid">
         <CustomerTopMessage />
+        <CustomerReserveList />
     </div>
     <Footer />
     </div>
