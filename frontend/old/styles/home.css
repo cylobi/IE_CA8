@@ -1,0 +1,35 @@
+#hero_container{
+    background-image: url('../statics/image/Background.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    height: 830px;
+}
+
+#logo_search_container{
+    position:absolute;
+    top:25%;
+}
+
+#hero_logo{
+    max-height: 25%;
+}
+
+#restaurant_name{
+    border-radius: 12px;
+}
+
+#restaurant_name:focus{
+  box-shadow: 0 0 0 .1rem pink;
+}
+
+#aboutus_container h4{
+    color: #ED3545;
+}
+
+#aboutus_container img{
+    max-width: 474px;
+    max-height: 439px;
+}

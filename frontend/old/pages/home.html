@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../styles/global.css">
+    <link rel="stylesheet" href="../styles/home.css">
+    <title>Mizdooni - Home</title>
+</head>
+
+<body>
+
+    <div class="container-fluid m-0 p-0"> <!--root container -->
+
+        <!-- header + nav -->
+        <nav class="navbar navbar-expand-md mizdooni_header row mx-0">
+            <div class="container-fluid m-0 p-0">
+                <img src="../statics/image/Logo.svg" class="logo navbar-brand" alt="mizdooni_logo">
+                <p class="nav-item mr-auto navbar-nav" id="header_brand_text">Reserve Table from anywhere!</p>
+                <button class="mt-2 mt-md-0 btn normal_button" type="button">Reserve Now!</button>
+            </div>
+        </nav>
+
+        <div class="jumbotron jumbotron-fluid m-0 py-4" id="hero_container">
+            <div class="container h-100 ml-5 col-md-6" id="logo_search_container">
+                <img alt="img" class="h-50 mx-auto row mb-2" src="../statics/image/Logo.svg" id="hero_logo">
+                <form>
+                    <div class="row">
+                        <select class="mizdooni_dropdown form-control col-2 mx-2" id="location">
+                            <option selected disabled hidden>Location</option>
+                            <option>Tehran</option>
+                            <option>Shiraz</option>
+                            <option>Boushehr</option>
+                        </select>
+
+                        <select class="mizdooni_dropdown form-control col-2 mx-2" id="restaurant_type">
+                            <option selected disabled hidden>Restaurant</option>
+                            <option>Irani</option>
+                            <option>Pizza</option>
+                            <option>Italy</option>
+                            <option>Dizy</option>
+                        </select>
+                        <input class="form-control col-5 mx-2" type="text" placeholder="Type Restaurant..."
+                            id="restaurant_name">
+                        <button type="submit" class="col-2 mx-2 btn normal_button">Search</button>
+                    </div>
+                </form>
+                <!-- <h1 class="display-4 text-white">Fluid jumbotron</h1> -->
+            </div>
+        </div>
+
+        <!--restaurants cards-->
+        <div class="container row my-5 mx-auto">
+            <h5 class="text-secondary my-2">Top Restaurants in Mizdooni</h5>
+            <div class="row row_card">
+
+                <div class="col-md-2">
+                    <a href="restaurant_detail.html">
+                        <div class="card">
+                            <div class="card-img">
+                                <div class="img-bar d-flex">
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                </div>
+                                <img class="card-img-top"
+                                    src="../statics/image/restaurant_profile/The_Ivy_Brasserie.png"
+                                    alt="The Ivy Brasserie Picture">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-name">The Ivy Brasserie</div>
+                                <div class="card-reviews">2096 reviews</div>
+                                <div class="card-type">Contemporary British</div>
+                                <div class="card-location">
+                                    <img alt="img" src="../statics/image/location_vector.svg" >
+                                    <span>Tehran</span>
+                                </div>
+                                <div class="card-status">
+                                    <span class="open">Open</span>
+                                    <img alt="img" src="../statics/image/dot_vector.svg" >
+                                    Closes at 11 PM
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+
+                <div class="col-md-2">
+                    <a href="restaurant_detail.html">
+
+                        <div class="card">
+                            <div class="card-img">
+                                <div class="img-bar d-flex">
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                </div>
+                                <img class="card-img-top" src="../statics/image/restaurant_profile/Halia_Restaurant.png"
+                                    alt="Halia Restaurant Picture">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-name">Halia Restaurant</div>
+                                <div class="card-reviews">12096 reviews</div>
+                                <div class="card-type">Fast Food</div>
+                                <div class="card-location">
+                                    <img alt="img" src="../statics/image/location_vector.svg" >
+                                    <span>karaj</span>
+                                </div>
+                                <div class="card-status">
+                                    <span class="closed">Closed</span>
+                                    <img alt="img" src="../statics/image/dot_vector.svg" >
+                                    Opens at 10 AM
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-2">
+                    <a href="restaurant_detail.html">
+                        <div class="card">
+                            <div class="card-img">
+                                <div class="img-bar d-flex">
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                </div>
+                                <img class="card-img-top" src="../statics/image/restaurant_profile/Eline_cafe.png"
+                                    alt="Elin Cafe Picture">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-name">Eline Cafe</div>
+                                <div class="card-reviews">0 reviews</div>
+                                <div class="card-type">Sea Food</div>
+                                <div class="card-location">
+                                    <img alt="img" src="../statics/image/location_vector.svg" >
+                                    <span>Rasht</span>
+                                </div>
+                                <div class="card-status">
+                                    <span class="open">Open</span>
+                                    <img alt="img" src="../statics/image/dot_vector.svg" >
+                                    Closes at 12 PM
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-2">
+                    <a href="restaurant_detail.html">
+                        <div class="card">
+                            <div class="card-img">
+                                <div class="img-bar d-flex">
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                </div>
+                                <img class="card-img-top" src="../statics/image/restaurant_profile/Cecconis.png"
+                                    alt="cecconi's picture">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-name">Cecconi's</div>
+                                <div class="card-reviews">2096 reviews</div>
+                                <div class="card-type">Healthy Food</div>
+                                <div class="card-location">
+                                    <img alt="img" src="../statics/image/location_vector.svg" >
+                                    <span>Ahvaz</span>
+                                </div>
+                                <div class="card-status">
+                                    <span class="open">Open</span>
+                                    <img alt="img" src="../statics/image/dot_vector.svg" >
+                                    Closes at 11 PM
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-2">
+                    <a href="restaurant_detail.html">
+                        <div class="card">
+                            <div class="card-img">
+                                <div class="img-bar d-flex">
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                </div>
+                                <img class="card-img-top" src="../statics/image/restaurant_profile/Hard_Rock_Cafe.png"
+                                    alt="Hard Rock Cafe Picture">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-name">Hard Rock Cafe</div>
+                                <div class="card-reviews">2096 reviews</div>
+                                <div class="card-type">Vegetarian Food</div>
+                                <div class="card-location">
+                                    <img alt="img" src="../statics/image/location_vector.svg" >
+                                    <span>Tabriz</span>
+                                </div>
+                                <div class="card-status">
+                                    <span class="open">Open</span>
+                                    <img alt="img" src="../statics/image/dot_vector.svg" >
+                                    Closes at 11 PM
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-2">
+                    <a href="restaurant_detail.html">
+                        <div class="card">
+                            <div class="card-img">
+                                <div class="img-bar d-flex">
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                </div>
+                                <img class="card-img-top" src="../statics/image/restaurant_profile/Marlybone.png"
+                                    alt="28 - 50 Marylebone Picture">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-name">28 - 50 Marylebone</div>
+                                <div class="card-reviews">2096 reviews</div>
+                                <div class="card-type">Kebab</div>
+                                <div class="card-location">
+                                    <img alt="img" src="../statics/image/location_vector.svg" >
+                                    <span>Tehran</span>
+                                </div>
+                                <div class="card-status">
+                                    <span class="open">Open</span>
+                                    <img alt="img" src="../statics/image/dot_vector.svg" >
+                                    Closes at 11 PM
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <h5 class="text-secondary my-2">You Might Also Like</h5>
+            <div class="row row_card">
+
+                <div class="col-md-2">
+                    <a href="restaurant_detail.html">
+                        <div class="card">
+                            <div class="card-img">
+                                <div class="img-bar d-flex">
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                </div>
+                                <img class="card-img-top"
+                                    src="../statics/image/restaurant_profile/Maman_Joon_Felafeli.png"
+                                    alt="Maman Joon Felafel Picture">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-name">Maman Joon Felafel</div>
+                                <div class="card-reviews">10000000 reviews</div>
+                                <div class="card-type">Falafel</div>
+                                <div class="card-location">
+                                    <img alt="img" src="../statics/image/location_vector.svg" >
+                                    <span>Qom</span>
+                                </div>
+                                <div class="card-status">
+                                    <span class="open">Open</span>
+                                    <img alt="img" src="../statics/image/dot_vector.svg" >
+                                    Closes at 11 PM
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-2">
+                    <a href="restaurant_detail.html">
+                        <div class="card">
+                            <div class="card-img">
+                                <div class="img-bar d-flex">
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                </div>
+                                <img class="card-img-top" src="../statics/image/restaurant_profile/Dizy_Ali_Daei.png"
+                                    alt="Dizy Ali Daei Picture">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-name">Dizy Ali Daei</div>
+                                <div class="card-reviews">2096 reviews</div>
+                                <div class="card-type">Dizy</div>
+                                <div class="card-location">
+                                    <img alt="img" src="../statics/image/location_vector.svg" >
+                                    <span>Boshehr</span>
+                                </div>
+                                <div class="card-status">
+                                    <span class="open">Open</span>
+                                    <img alt="img" src="../statics/image/dot_vector.svg" >
+                                    Closes at 11 PM
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-2">
+                    <a href="restaurant_detail.html">
+                        <div class="card">
+                            <div class="card-img">
+                                <div class="img-bar d-flex">
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                </div>
+                                <img class="card-img-top" src="../statics/image/restaurant_profile/Orkideh.png"
+                                    alt="Orkideh Picture">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-name">Orkideh</div>
+                                <div class="card-reviews">2096 reviews</div>
+                                <div class="card-type">Iranian Food</div>
+                                <div class="card-location">
+                                    <img alt="img" src="../statics/image/location_vector.svg" >
+                                    <span>Sari</span>
+                                </div>
+                                <div class="card-status">
+                                    <span class="open">Open</span>
+                                    <img alt="img" src="../statics/image/dot_vector.svg" >
+                                    Clses at 11 PM
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-2">
+                    <a href="restaurant_detail.html">
+                        <div class="card">
+                            <div class="card-img">
+                                <div class="img-bar d-flex">
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                </div>
+                                <img class="card-img-top" src="../statics/image/restaurant_profile/Narenjak.png"
+                                    alt="Narenjak Picture">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-name">Narenjak</div>
+                                <div class="card-reviews">2096 reviews</div>
+                                <div class="card-type">Local Food</div>
+                                <div class="card-location">
+                                    <img alt="img" src="../statics/image/location_vector.svg" >
+                                    <span>Mashahd</span>
+                                </div>
+                                <div class="card-status">
+                                    <span class="open">Open</span>
+                                    <img alt="img" src="../statics/image/dot_vector.svg" >
+                                    Closes at 11 PM
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-2">
+                    <a href="restaurant_detail.html">
+                        <div class="card">
+                            <div class="card-img">
+                                <div class="img-bar d-flex">
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                </div>
+                                <img class="card-img-top" src="../statics/image/restaurant_profile/Siraz_Kadikoy.png"
+                                    alt="Siraz Kadikoy Picture">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-name">SIRAZ KADIKOY</div>
+                                <div class="card-reviews">2096 reviews</div>
+                                <div class="card-type">Turkish Food</div>
+                                <div class="card-location">
+                                    <img alt="img" src="../statics/image/location_vector.svg" >
+                                    <span>Tehran</span>
+                                </div>
+                                <div class="card-status">
+                                    <span class="open">Open</span>
+                                    <img alt="img" src="../statics/image/dot_vector.svg" >
+                                    Closes at 11 PM
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-2">
+                    <a href="restaurant_detail.html">
+                        <div class="card">
+                            <div class="card-img">
+                                <div class="img-bar d-flex">
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                    <img alt="img" src="../statics/image/full_star_vector.svg" >
+                                </div>
+                                <img class="card-img-top"
+                                    src="../statics/image/restaurant_profile/The_Ivy_Brasserie_2.png"
+                                    alt="The Ivy Bresserie Picture">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-name">The Ivy Bresserie</div>
+                                <div class="card-reviews">2096 reviews</div>
+                                <div class="card-type">Contemporary British</div>
+                                <div class="card-location">
+                                    <img alt="img" src="../statics/image/location_vector.svg" >
+                                    <span>Tehran</span>
+                                </div>
+                                <div class="card-status">
+                                    <span class="open">Open</span>
+                                    <img alt="img" src="../statics/image/dot_vector.svg" >
+                                    Closes at 11 PM
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <!-- about us -->
+        <div class="d-flex container mx-auto my-3" id="aboutus_container">
+            <img alt="img" class="float-left" src="../statics/image/AboutUsBanner.png">
+            <div class="float-right">
+                <article>
+                    <h4 class="text-red">About Mizdooni</h4>
+                    <p class="text-secondary">
+                        Are you tired of waiting in long lines at restaurants or struggling to find a table at your
+                        favorite eatery?
+                        <br>
+                        Look no further than Mizdooni – the ultimate solution for all your dining reservation needs.
+                        <br>
+                        Mizdooni is a user-friendly website where you can reserve a table at any restaurant, from
+                        anywhere, at a specific time. Whether you're craving sushi, Italian, or a quick bite to eat,
+                        Mizdooni has you covered.
+                        <br>
+                        With a simple search feature, you can easily find a restaurant based on cuisine or location.
+                        <br> <br>
+                        <span class="text-danger">The best part?</span> There are no fees for making a reservation
+                        through Mizdooni. Say goodbye to the hassle of calling multiple restaurants or showing up only
+                        to find there's a long wait. With Mizdooni, you can relax knowing that your table is secured and
+                        waiting for you.
+                        <br>
+                        Don't let dining out be a stressful experience. Visit Mizdooni today and start enjoying your
+                        favorite meals without the headache of making reservations. Reserve your table with ease and
+                        dine with peace of mind.
+                    </p>
+                </article>
+            </div>
+        </div>
+
+        <footer class="mizdooni_footer row">
+            <p> Copyright © 2024 Mizdooni - All rights reserved. </p>
+        </footer>
+
+    </div>
+
+</html>

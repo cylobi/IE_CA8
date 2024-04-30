@@ -1,0 +1,15 @@
+#mizdooni_header {
+   background-color: #FFFFFF;
+   box-shadow: 0px 0px 3px 0px #00000040;
+}
+
+#header_brand_text {
+    color: red;
+    font-size: 22px;
+}
+
+#welcome_message {
+    color: #303030;
+    font-size: 16px;
+    padding-right: 10px;
+}

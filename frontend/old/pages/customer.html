@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../styles/customer.css">
+    <link rel="stylesheet" href="../styles/global.css">
+    <title>Customer</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md mb-4 mizdooni_header">
+        <div class="container-fluid">
+          <img src="../statics/image/Logo.svg" class="logo navbar-brand" alt="mizdooni_logo">
+          <p class="nav-item mr-auto navbar-nav" id="header_brand_text">Reserve Table from anywhere!</p>
+          <p class="nav-item navbar-nav" id="welcome_message">Welcome, Parna!</p>
+          <button class="mt-2 mt-md-0 btn normal_button" type="button">My Reservations</button>
+        </div>
+    </nav>
+
+    <div class="container alert alert-info">
+        <div class="wrapper">
+            <p>
+                Your reservations are also emailed to&nbsp;&nbsp;
+                <a href="mailto:Tom_holland@ut.ac.ir" class="email">Tom_holland@ut.ac.ir</a>
+            </p>
+            <p> Address: Tehran, Iran</p>
+        </div>
+    </div>
+
+    <div class="container" id="customer_reservations">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="5">
+                        My reservations
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="enabled">
+                    <td id="date">2024-06-22 16:00</td>
+                    <td id="restaurant"><a href="">Ali Daei Dizy</a></td>
+                    <td id="table">Table-12</td>
+                    <td id="seats">4 Seats</td>
+                    <td class="action" id="Cancel"><a href="">Cancel</a></td>
+                </tr>
+                <tr class="disabled">
+                    <td id="date">2024-06-22 16:00</td>
+                    <td id="restaurant"><a href="">Ali Daei Dizy</a></td>
+                    <td id="table">Table-12</td>
+                    <td id="seats">4 Seats</td>
+                    <td class="action" id="comment"><a href="">Add comment</a></td>
+                </tr>
+                <tr class="disabled">
+                    <td id="date">2024-06-22 16:00</td>
+                    <td id="restaurant"><a href="">Ali Daei Dizy</a></td>
+                    <td id="table">Table-12</td>
+                    <td id="seats">4 Seats</td>
+                    <td class="action" id="comment"><a href="">Add comment</a></td>
+                </tr>
+                <tr class="disabled">
+                    <td id="date">2024-06-22 16:00</td>
+                    <td id="restaurant"><a href="">Ali Daei Dizy</a></td>
+                    <td id="table">Table-12</td>
+                    <td id="seats">4 Seats</td>
+                    <td class="action" id="comment"><a href="">Add comment</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer class="mizdooni_fixed_footer">
+        <p> Copyright © 2024 Mizdooni - All rights reserved. </p>
+      </footer>
+</body>
+</html>

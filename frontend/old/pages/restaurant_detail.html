@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../styles/global.css">
+    <link rel="stylesheet" href="../styles/restaurant_detail.css">
+    <title>Dizy Ali Daei</title>
+</head>
+
+<body>
+    <div class="container-fluid m-0">
+
+        <nav class="navbar navbar-expand-md mizdooni_header row">
+            <div class="container-fluid">
+                <img src="../statics/image/Logo.svg" class="logo navbar-brand" alt="mizdooni_logo">
+                <p class="nav-item mr-auto navbar-nav" id="header_brand_text">Reserve Table from anywhere!</p>
+                <p class="nav-item navbar-nav" id="welcome_message">Welcome, Admin!</p>
+                <button class="mt-2 mt-md-0 btn normal_button" type="button">My restaurants</button>
+            </div>
+        </nav>
+
+        <div class="bg-white my-2 justify-content-center row">
+            <div class="row container justify-content-center">
+                <!-- restaurant info + reserve widget container -->
+                <div class="container-lg row mb-4 d-flex px-0 mx-0 pt-4">
+
+                    <!-- tumbdnail -->
+                    <div class="card col mr-3 px-0 border-0" id="tumbdnail">
+                        <div class="container-fluid p-0 m-0" id="tumbdnail">
+                            <img alt="img" class="card-img-top" src="../statics/image/AliDaieeDizyImage.png"
+                                alt="restaurant image">
+                            <div class="d-flex justify-content-between pb-2 pt-3 px-3" id="title_status_container">
+                                <!-- title and status -->
+                                <h1 class="card-title mr-auto my-auto">Dizy Ali Daei</h1>
+                                <p class="text-white my-auto px-3 py-1 small display-5 bg-success" id="open_label">Open!
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row d-flex justify-content-between container-fluid p-0">
+                                    <!--time + review + type icons-->
+                                    <div class="mr-2 text-dark">
+                                        <img alt="img" class="fa" src="../statics/image/clock_sign.svg">
+                                        <span class="align-middle ml-1">From 11 AM to 10 PM</span>
+                                    </div>
+
+                                    <div class="mx-2 text-dark">
+                                        <img alt="img" class="fa" src="../statics/image/review_sign.svg">
+                                        <span class="align-middle ml-1">160 Reviews</span>
+                                    </div>
+
+                                    <div class="mx-2 text-dark">
+                                        <img alt="img" class="fa" src="../statics/image/food_tyle_sign.svg">
+                                        <span class="align-middle ml-1">Dizy</span>
+                                    </div>
+                                </div>
+                                <div class="container row p-0 my-3">
+                                    <img alt="img" class="fa" src="../statics/image/location_sign.svg">
+                                    <span class="align-middle small ml-2 text-muted">Iran, Boshehr, Vali-e-Asr
+                                        Square</span>
+                                </div>
+                            </div>
+
+                            <article>
+                                <p class="card-text text-dark">Ali Daei Dizy restaurant is a cultural oasis in
+                                    the heart of the
+                                    city,
+                                    serving up
+                                    the best of traditional Iranian cuisine.
+                                    With a menu that boasts a diverse selection of flavorful dishes such as kebabs,
+                                    stews,
+                                    and
+                                    rice
+                                    dishes, guests will experience the richness and depth of Persian flavors. The
+                                    ambiance
+                                    of
+                                    the
+                                    restaurant is warm and inviting, with intricate Persian rugs adorning the walls and
+                                    the
+                                    soothing
+                                    sounds of traditional Iranian music playing in the background.
+                                    Whether you're looking to indulge in a delicious meal with friends or simply craving
+                                    a taste of Iran, Ali Daei Dizy restaurant is the perfect spot to satisfy your
+                                    culinary
+                                    cravings.
+                                </p>
+                            </article>
+                        </div>
+                    </div>
+
+                    <!-- reserv form -->
+                    <div class="container-fluid col m-2">
+                        <h5 class="row">Reserve Table</h5>
+                        <form>
+                            <div class="d-flex flex-row text-center">
+                                <span class="mx-2 my-auto">For</span>
+
+                                <div class="mx-2 my-auto select_box">
+                                    <select class="form-control pr-6 mizdooni_dropdown" id="number_input">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                                </div>
+
+                                <span class="mx-2 my-auto">people, on date</span>
+
+                                <div class="mx-2 my-auto" class="form-control" id="date_input_wrapper">
+                                    <img alt="img" class="fa" src="../statics/image/date_sign.svg">
+                                    <input type="date" id="date_input" name="date">
+                                </div>
+
+                            </div>
+                            <div class="container-fuild row m-1 p-1">
+                                <h6>Available Times for Table #1 (2 seats)</h6>
+                                <div class="row btn-group-toggle " data-toggle="buttons">
+                                    <label class="item m-2 btn time_radio_active"> <input type="radio" checked>10:00
+                                        AM</label>
+                                    <label class="item m-2 btn time_radio"> <input type="radio">11:00 AM</label>
+                                    <label class="item m-2 btn time_radio"> <input type="radio">12:00 PM</label>
+                                    <label class="item m-2 btn time_radio"> <input type="radio">13:00 PM</label>
+                                    <label class="item m-2 btn time_radio"> <input type="radio">14:00 PM</label>
+                                    <label class="item m-2 btn time_radio"> <input type="radio">15:00 PM</label>
+                                    <label class="item m-2 btn time_radio"> <input type="radio">16:00 AM</label>
+                                </div>
+
+                            </div>
+                            <div class="row ">
+                                <p class="text-danger">You will reserve this table only for <u
+                                        class="text-danger">one</u>
+                                    hour, for more time please contact the restaurant.</p>
+                            </div>
+                            <button type="submit" class="btn normal_button container-fluid row">Complete the
+                                Reservation</button>
+                        </form>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="container d-flex justify-content-between rounded my-5 py-2" id="reviews_container">
+                    <div class>
+                        <h5>What 160 people are saying</h5>
+                        <div class="d-flex mx-auto">
+
+                            <div class="float-left">
+                                <img alt="img" src="../statics/image/star_filled.svg">
+                                <img alt="img" src="../statics/image/star_filled.svg">
+                                <img alt="img" src="../statics/image/star_filled.svg">
+                                <img alt="img" src="../statics/image/star_filled.svg">
+                                <img alt="img" src="../statics/image/star_unfilled.svg">
+                            </div>
+
+                            <div class="float-right m-1">
+                                <p class="small text-muted">
+                                    4 based on recent ratings
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row text-center mr-4">
+                        <div class="col">
+                            <p><small>Food</small></p>
+                            <p><strong>4.5</strong></p>
+                        </div>
+
+                        <div class="col">
+                            <p><small>Service</small></p>
+                            <p><strong>3.2</strong></p>
+                        </div>
+                        <div class="col">
+                            <p><small>Ambiance</small></p>
+                            <p><strong>2.15</strong></p>
+                        </div>
+                        <div class="col">
+                            <p><small>Overall</small></p>
+                            <p><strong>3.63</strong></p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="d-flex justify-content-between container-fluid my-2 row">
+                    <div class="mr-auto p-2 bd-highlight">
+                        <h5>160 Reviews</h5>
+                    </div>
+                    <div class="p-2 bd-highlight"> <button type="button" class="btn normal_button">Add Review</button>
+                    </div>
+                </div>
+
+                <div class="row d-flex justify-content-between container-fluid my-2 row">
+                    <ul class="list-unstyled container-fluid"> <!-- comment list element -->
+
+                        <li class="media comment_wrapper "> <!-- container of a comment -->
+
+                            <div class="rounded-circle profile_letters mr-3"> <!--comment profile-->
+                                <p>AD</p>
+                            </div>
+
+                            <div class="media-body"> <!-- comment body (anything except for profile) -->
+
+                                <div class="d-flex"> <!-- client name + stars + date  -->
+
+                                    <h5 class="mt-0 my-1 mr-auto">Ali Daei</h5> <!-- name -->
+                                    <div class="mr-2"> <!--stars-->
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                    </div>
+                                    <p class="small my-auto">Dined on February 17, 2024</p> <!--date-->
+
+                                </div>
+
+                                <!-- ratings -->
+                                <h6 class="my-1 small text-secondary ">Overall <span class="text-danger">5</span> · Food
+                                    <span class="text-danger">4</span> · Service <span class="text-danger">4</span> ·
+                                    Ambience <span class="text-danger">5</span>
+                                </h6>
+
+                                <!-- comment text -->
+                                <p class="my-2">Excellent pre-theatre meal. Good food and service. Only small criticism
+                                    is that music was intrusive.</p>
+                            </div>
+                        </li>
+
+
+                    </ul>
+
+                    <ul class="list-unstyled container-fluid"> <!-- comment list element -->
+
+                        <li class="media comment_wrapper "> <!-- container of a comment -->
+
+                            <div class="rounded-circle profile_letters mr-3"> <!--comment profile-->
+                                <p>AD</p>
+                            </div>
+
+                            <div class="media-body"> <!-- comment body (anything except for profile) -->
+
+                                <div class="d-flex"> <!-- client name + stars + date  -->
+
+                                    <h5 class="mt-0 my-1 mr-auto">Ali Daei</h5> <!-- name -->
+                                    <div class="mr-2"> <!--stars-->
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_unfilled.svg">
+                                    </div>
+                                    <p class="small my-auto">Dined on February 17, 2024</p> <!--date-->
+
+                                </div>
+
+                                <!-- ratings -->
+                                <h6 class="my-1 small text-secondary ">Overall <span class="text-danger">5</span> · Food
+                                    <span class="text-danger">5</span> · Service <span class="text-danger">5</span> ·
+                                    Ambience <span class="text-danger">5</span>
+                                </h6>
+
+                                <!-- comment text -->
+                                <p class="my-2">Excellent pre-theatre meal. Good food and service. Only small criticism
+                                    is that music was intrusive.</p>
+                            </div>
+                        </li>
+
+
+                    </ul>
+
+                    <ul class="list-unstyled container-fluid"> <!-- comment list element -->
+
+                        <li class="media comment_wrapper "> <!-- container of a comment -->
+
+                            <div class="rounded-circle profile_letters mr-3"> <!--comment profile-->
+                                <p>AD</p>
+                            </div>
+
+                            <div class="media-body"> <!-- comment body (anything except for profile) -->
+
+                                <div class="d-flex"> <!-- client name + stars + date  -->
+
+                                    <h5 class="mt-0 my-1 mr-auto">Ali Daei</h5> <!-- name -->
+                                    <div class="mr-2"> <!--stars-->
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_unfilled.svg">
+                                    </div>
+                                    <p class="small my-auto">Dined on February 17, 2024</p> <!--date-->
+
+                                </div>
+
+                                <!-- ratings -->
+                                <h6 class="my-1 small text-secondary ">Overall <span class="text-danger">5</span> · Food
+                                    <span class="text-danger">5</span> · Service <span class="text-danger">5</span> ·
+                                    Ambience <span class="text-danger">5</span>
+                                </h6>
+
+                                <!-- comment text -->
+                                <p class="my-2">Excellent pre-theatre meal. Good food and service. Only small criticism
+                                    is that music was intrusive.</p>
+                            </div>
+                        </li>
+
+
+                    </ul>
+
+                    <ul class="list-unstyled container-fluid"> <!-- comment list element -->
+
+                        <li class="media comment_wrapper "> <!-- container of a comment -->
+
+                            <div class="rounded-circle profile_letters mr-3"> <!--comment profile-->
+                                <p>AD</p>
+                            </div>
+
+                            <div class="media-body"> <!-- comment body (anything except for profile) -->
+
+                                <div class="d-flex"> <!-- client name + stars + date  -->
+
+                                    <h5 class="mt-0 my-1 mr-auto">Ali Daei</h5> <!-- name -->
+                                    <div class="mr-2"> <!--stars-->
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_unfilled.svg">
+                                    </div>
+                                    <p class="small my-auto">Dined on February 17, 2024</p> <!--date-->
+
+                                </div>
+
+                                <!-- ratings -->
+                                <h6 class="my-1 small text-secondary ">Overall <span class="text-danger">5</span> · Food
+                                    <span class="text-danger">5</span> · Service <span class="text-danger">5</span> ·
+                                    Ambience <span class="text-danger">5</span>
+                                </h6>
+
+                                <!-- comment text -->
+                                <p class="my-2">Excellent pre-theatre meal. Good food and service. Only small criticism
+                                    is that music was intrusive.</p>
+                            </div>
+                        </li>
+
+
+                    </ul>
+
+                    <ul class="list-unstyled container-fluid"> <!-- comment list element -->
+
+                        <li class="media comment_wrapper "> <!-- container of a comment -->
+
+                            <div class="rounded-circle profile_letters mr-3"> <!--comment profile-->
+                                <p>AD</p>
+                            </div>
+
+                            <div class="media-body"> <!-- comment body (anything except for profile) -->
+
+                                <div class="d-flex"> <!-- client name + stars + date  -->
+
+                                    <h5 class="mt-0 my-1 mr-auto">Ali Daei</h5> <!-- name -->
+                                    <div class="mr-2"> <!--stars-->
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_filled.svg">
+                                        <img alt="img" src="../statics/image/star_unfilled.svg">
+                                    </div>
+                                    <p class="small my-auto">Dined on February 17, 2024</p> <!--date-->
+
+                                </div>
+
+                                <!-- ratings -->
+                                <h6 class="my-1 small text-secondary ">Overall <span class="text-danger">5</span> · Food
+                                    <span class="text-danger">5</span> · Service <span class="text-danger">5</span> ·
+                                    Ambience <span class="text-danger">5</span>
+                                </h6>
+
+                                <!-- comment text -->
+                                <p class="my-2">Excellent pre-theatre meal. Good food and service. Only small criticism
+                                    is that music was intrusive.</p>
+                            </div>
+                        </li>
+
+
+                    </ul>
+                </div>
+
+                <div class="row"> <!--paggination-->
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item col"><a class="page-link rounded-circle active_page_button"
+                                    href="#">1</a></li>
+                            <li class="page-item col"><a class="page-link rounded-circle page_button text-center"
+                                    href="#">2</a></li>
+                            <li class="page-item col"><a class="page-link rounded-circle page_button" href="#">3</a>
+                            </li>
+                            <li class="page-item col">
+                                <p>...</p>
+                            <li class="page-item col"><a class="page-link rounded-circle page_button" href="#">19</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+        <footer class="mizdooni_footer row">
+            <p> Copyright © 2024 Mizdooni - All rights reserved. </p>
+        </footer>
+
+    </div>
+</body>
+
+</html>
