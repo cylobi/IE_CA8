@@ -7,7 +7,7 @@ interface CancelReservationModalBodyProps {
     handler : () => void;
 }
 
-const CancelReservationModalBody : React.FC<CancelReservationModalBodyProps> = ({handler}  : CancelReservationModalBodyProps) => {
+function CancelReservationModalBody({handler}  : CancelReservationModalBodyProps){
     const [isAgreed, setAgreement] = useState(false);
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,9 +18,9 @@ const CancelReservationModalBody : React.FC<CancelReservationModalBodyProps> = (
             <div className="alert-note">
                 Note: Once you hit the Cancel button, your reserve will be canceled
             </div>
-            <button type="checkbox" onChange={handleCheckboxChange}>
+            <input type="checkbox" onChange={handleCheckboxChange}>
                 I agree
-            </button>
+            </input>
             <NormalButton
                 text={"Cancel"}
                 handler={handler}

@@ -14,19 +14,17 @@ const MainView = () => {
 
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen); // Toggle modal visibility
+        console.log("asdasdafdv");
     };
 
     return (
-        <div>
-            <button onClick={toggleModal}>Toggle Modal</button> {/* Button to toggle modal */}
-            {isModalOpen && ( // Conditionally render the modal based on the state
-                <BaseModal
-                    title="This is a specific modal"
-                    highlightWord="specific"
-                    bodyContent={<p>This is the body content for the specific modal.</p>}
-                    onSubmit={handleSubmit}
-                />
-            )}
+        <div className="w-100 h-100">
+            <BaseModal
+                title="This is a specific modal"
+                highlightWord="specific"
+                bodyContent={<p>This is the body content for the specific modal.</p>}
+                onSubmit={handleSubmit}
+            />
         </div>
     );
 };

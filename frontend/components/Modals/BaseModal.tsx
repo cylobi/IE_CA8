@@ -18,12 +18,12 @@ const BaseModal: React.FC<BaseModalProps> = ({ title, highlightWord, bodyContent
     };
 
     return (
-        <div className="modal fade" id="baseModal" tabindex="-1" aria-labelledby="baseModalLabel" aria-hidden="true">
+        <div className="d-flex modal w-100 h-100" >
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title" id="baseModalLabel">{highlightedTitle}</h5>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close">img</button>
                     </div>
                     <div className="modal-body">
                         {bodyContent}
