@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @RequestMapping(path = "/users/current_user", method = RequestMethod.GET)
-    String requestMethodName() {
+    String getLoginnedUser() {
         try {
             String json = new ObjectMapper().writeValueAsString(UserModel.getLoginnedUser());
             return json;
@@ -44,6 +44,12 @@ public class UserController {
             e.printStackTrace();
         }
         return "Error!";
+    }
+
+    @RequestMapping(path = "/users/current_user/logout", method = RequestMethod.PUT)
+    String logout() {
+        UserModel.setLoginnedUser(null);
+        return "";
     }
 
 }
