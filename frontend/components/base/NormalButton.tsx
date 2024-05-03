@@ -4,12 +4,14 @@ import "./NormalButton.css"
 interface Props{
     text : string,
     handler : () => void,
-    isDisabled : boolean
+    isDisabled : boolean,
+    className : string | null
 }
+
 export default function NormalButton({text, handler, isDisabled}:Props) {
     const styleCss={
         borderRadius: '12px',
-        backgroundColor: isDisabled ? 'grey' : 'initial'
+        // backgroundColor: isDisabled ? 'grey' : 'initial'
     };
   return (
     <button

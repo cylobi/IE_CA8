@@ -1,6 +1,6 @@
 import * as React from 'react'
 import "./Modal.css"
-import NormalButton from "../base/NormalButton"
+import LongButton from "../base/LongButton"
 import {useState} from "react";
 
 interface CancelReservationModalBodyProps {
@@ -14,19 +14,22 @@ function CancelReservationModalBody({handler}  : CancelReservationModalBodyProps
         setAgreement(event.target.checked);
     };
     return (
-        <div className="container flex-column" id="cancel-reservation-modal-body">
+
+        <div className="d-flex flex-column" id="cancel-reservation-modal-body">
             <div className="alert-note">
                 Note: Once you hit the Cancel button, your reserve will be canceled
             </div>
-            <input type="checkbox" onChange={handleCheckboxChange}>
+            <label>
+                <input type="checkbox" onChange={handleCheckboxChange} />
                 I agree
-            </input>
-            <NormalButton
-                text={"Cancel"}
+            </label>
+            <LongButton
+                text="Add"
                 handler={handler}
                 isDisabled={!isAgreed}
             />
         </div>
+
     )
 }
 
