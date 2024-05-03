@@ -1,4 +1,7 @@
 import { useUserInfoContext } from "Frontend/contexts/UserInfoContext";
+import NormalButton from "./base/NormalButton";
+import { useNavigate } from "react-router-dom";
+import LogoutButton from "./LogoutButton";
 
 export default function CustomerTopMessage() {
   const userInfo = useUserInfoContext();
@@ -19,6 +22,7 @@ export default function CustomerTopMessage() {
     borderColor: "pink",
   };
 
+  // TODO : more styling
   return (
     <div className="container alert alert-info" style={alertInfoStyle}>
       <div className="wrapper" style={wrapperStyle}>
@@ -29,9 +33,9 @@ export default function CustomerTopMessage() {
           </a>
         </p>
         <p>
-          {" "}
           Address: {userInfo?.address.city}, {userInfo?.address.country}
         </p>
+        <LogoutButton />
       </div>
     </div>
   );

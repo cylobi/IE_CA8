@@ -22,7 +22,7 @@ function Header({ user }: Pros) {
           {userInfo && "Welcome, " + userInfo.username}
         </p>
         <NormalButton
-          className="mt-2 mt-md-0"
+          otherClass="mt-2 mt-md-0"
           text="My Reservations"
           handler={() => {
             navigate("/");

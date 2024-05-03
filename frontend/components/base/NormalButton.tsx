@@ -1,18 +1,24 @@
-import React, { MouseEventHandler, ReactEventHandler } from 'react'
-import "./NormalButton.css"
+import React, { MouseEventHandler, ReactEventHandler } from "react";
+import "./NormalButton.css";
 
-interface Props{
-    text : string,
-    handler : () => void,
-    className : string
+interface Props {
+  text: string;
+  handler: () => void;
+  otherClass?: string;
 }
-export default function NormalButton({text, handler, className}:Props) {
-    const styleCss={
-        borderRadius: '12px'
-    };
+export default function NormalButton({ text, handler, otherClass }: Props) {
+  const styleCss = {
+    borderRadius: "12px",
+  };
+  const classNames = "btn btn-danger" + " " + otherClass;
   return (
-    <button className="btn btn-danger" onClick={handler} type="button" style={styleCss}>
-        {text}
+    <button
+      className={classNames}
+      onClick={handler}
+      type="button"
+      style={styleCss}
+    >
+      {text}
     </button>
   );
 }

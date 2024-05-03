@@ -2,7 +2,10 @@ import { router } from "Frontend/routes.js";
 import { RouterProvider } from "react-router-dom";
 import "./components/base/global.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { UserInfoContext } from "./contexts/UserInfoContext";
+import {
+  SetUserInfoContext,
+  UserInfoContext,
+} from "./contexts/UserInfoContext";
 import { useEffect, useState } from "react";
 import UserInfo from "./types/UserInfo";
 
@@ -18,7 +21,9 @@ export default function App() {
   return (
     <>
       <UserInfoContext.Provider value={loginnedUser}>
-        <RouterProvider router={router} />
+        <SetUserInfoContext.Provider value={setLoginnedUser}>
+          <RouterProvider router={router} />
+        </SetUserInfoContext.Provider>
       </UserInfoContext.Provider>
     </>
   );
