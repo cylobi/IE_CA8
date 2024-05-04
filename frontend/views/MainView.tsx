@@ -1,30 +1,63 @@
 // noinspection TypeScriptCheckImport
-import * as React from 'react'
-import { useState } from 'react';
-import BaseModal from '../components/Modals/BaseModal';
+import * as React from "react";
+import { useState } from "react";
+import BaseModal from "../components/Modals/BaseModal";
 import AddRestaurantModalBody from "Frontend/components/Modals/AddRestaurantModalBody";
+import Header from "Frontend/components/Header";
+import Footer from "Frontend/components/Footer";
+import MainPageHero from "Frontend/components/MainPageHero";
+import RestaurantInfo from "Frontend/types/RestaurantInfo";
+import RestaurantsGrid from "Frontend/components/RestaurantsGrid";
 
-const MainView = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
+interface RestaurantGroupProps {
+  url: string;
+  title: string;
+}
 
-    const toggleModal = () => {
-        setIsModalOpen(!isModalOpen); // Toggle modal visibility
-    };
+function RestaurantGroup({ url, title }: RestaurantGroupProps) {
+  const [restaurantsData, setRestaurantsData] = useState<
+    RestaurantInfo[] | null
+  >();
+  function fetchRestaurants() {
+    fetch(url)
+      .then((r) => r.json())
+      .then((data) => {
+        setRestaurantsData(data);
+      });
+  }
+  React.useEffect(fetchRestaurants, []);
 
-    const handlerA = () => {
-        console.log("Added");
-    }
+  return (
+    <div className="container-fluid row">
+      <h5 className="text-secondary my-2">{title}</h5>
+      {restaurantsData ? (
+        RestaurantsGrid(restaurantsData)
+      ) : (
+        <p>Data is loading</p>
+      )}
+    </div>
+  );
+}
 
-    return (
-        <div className="w-100 h-100">
-            <BaseModal
-                title="This is a specific "
-                highLightedTitle="modal"
-            >
-                <AddRestaurantModalBody handler={handlerA} />
-            </BaseModal>
-        </div>
-    );
-};
+function MainView() {
+  return (
+    <>
+      <Header />
+      <MainPageHero />
+      <div className="container row my-5 mx-auto">
+        <RestaurantGroup
+          url="/restaurants/best_ones"
+          title="Top Restaurants in Mizdooni"
+        />
+        <RestaurantGroup
+          url="/restaurants/recommend"
+          title="You Might Also Like"
+        />
+      </div>
+      hello world
+      <Footer />
+    </>
+  );
+}
 
 export default MainView;

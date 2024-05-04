@@ -6,22 +6,58 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.ie.mizdooni.model.RestaurantModel;
 import org.ie.mizdooni.model.ReviewModel;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 public class RestaurantController {
     @GetMapping("/restaurants")
     String getAll() {
         try {
-            // String json = new
-            // ObjectMapper().writeValueAsString(RestaurantModel.getAllObjects());
-            // return json;
             return buildJsonList(RestaurantModel.getAllObjects());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return "Error!";
+    }
+
+    @GetMapping("/restaurants/best_ones")
+    String getBestOnes(@RequestParam(name = "count", defaultValue = "6") int count) {
+        try {
+            var restaurants = RestaurantModel.getAllObjects();
+            Map<String, Float> ratingMap = new HashMap<>();
+            for (var rest : restaurants) {
+                ratingMap.put(rest.getName(),
+                        ReviewModel.calculateAverageForRestaurant(rest.getName()).getOverallRate());
+            }
+            float defaultRating = 0;
+            var bestOnes = restaurants.stream().sorted(
+                    (r1, r2) -> ratingMap.getOrDefault(r1.getName(), defaultRating) > ratingMap
+                            .getOrDefault(r2.getName(), defaultRating)
+                                    ? -1
+                                    : 1)
+                    .limit(count).toList();
+
+            return buildJsonList(bestOnes);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return "Error!";
+    }
+
+    @GetMapping("/restaurants/recommend")
+    public String getRecommentedOnes(@RequestParam(name = "count", defaultValue = "6") int count) {
+        var restaurants = RestaurantModel.getAllObjects();
+        var list = restaurants.subList(0, Math.min(count, restaurants.size()));
+        try {
+            return buildJsonList(list);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
