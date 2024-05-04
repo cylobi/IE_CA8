@@ -27,6 +27,7 @@ function Header({ user }: Pros) {
           handler={() => {
             navigate("/");
           }}
+          isDisabled={false}
         />
       </div>
     </nav>
