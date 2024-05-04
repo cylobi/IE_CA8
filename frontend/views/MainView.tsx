@@ -8,6 +8,7 @@ import Footer from "Frontend/components/Footer";
 import MainPageHero from "Frontend/components/MainPageHero";
 import RestaurantInfo from "Frontend/types/RestaurantInfo";
 import RestaurantsGrid from "Frontend/components/RestaurantsGrid";
+import AboutUs from "Frontend/components/AboutUs";
 
 interface RestaurantGroupProps {
   url: string;
@@ -54,7 +55,7 @@ function MainView() {
           title="You Might Also Like"
         />
       </div>
-      hello world
+      <AboutUs />
       <Footer />
     </>
   );
