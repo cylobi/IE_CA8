@@ -13,6 +13,7 @@ function CancelReservationModalBody({handler}  : CancelReservationModalBodyProps
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAgreement(event.target.checked);
     };
+
     return (
 
         <div className="d-flex flex-column" id="cancel-reservation-modal-body">

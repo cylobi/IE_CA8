@@ -4,7 +4,7 @@ import "./NormalButton.css"
 
 interface Props{
     text : string,
-    handler : () => void,
+    handler : (e:any) => void,
     isDisabled : boolean,
 }
 
@@ -13,7 +13,7 @@ const LongButton = ({text, handler, isDisabled}:Props) => {
     const Button = styled.button<{ isDisabled: boolean }>`
      border-radius: 12px;
      color: white;
-     background-color: ${props => props.isDisabled ? '#ED3545' : '#D9D9D9'};
+     background-color: ${props => props.isDisabled ? '#D9D9D9' : '#ED3545' };
      border: none;
      padding-top: 0.5rem;
      padding-bottom: 0.5rem;
@@ -25,7 +25,7 @@ const LongButton = ({text, handler, isDisabled}:Props) => {
             className="container-fluid text-center"
             onClick={handler}
             type="button"
-            disabled={isDisabled}
+            isDisabled={isDisabled}
         >
             {text}
         </Button>

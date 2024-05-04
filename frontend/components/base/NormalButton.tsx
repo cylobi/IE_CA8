@@ -8,7 +8,7 @@ interface Props{
     className : string | null
 }
 
-export default function NormalButton({text, handler, isDisabled}:Props) {
+export default function NormalButton({text, handler, isDisabled = false}:Props) {
     const styleCss={
         borderRadius: '12px',
         // backgroundColor: isDisabled ? 'grey' : 'initial'

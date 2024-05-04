@@ -1,5 +1,6 @@
 import * as React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import styled from "styled-components";
 
 interface BaseModalProps {
     title: string;
@@ -11,8 +12,10 @@ const BaseModal: React.FC<React.PropsWithChildren<BaseModalProps>> = (
         highLightedTitle,
         children }) => {
 
+
+
     return (
-        <div className="d-flex modal" >
+        <div className="d-flex modal border-0 h-100" >
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header">
