@@ -25,11 +25,9 @@ export default function LogoutButton() {
       body: JSON.stringify({}),
     };
 
-    fetch("/users/current_user/logout", requestOptions)
-      .then((response) => onLogoutResponse(response))
-      .catch((any) => {
-        console.log("ohhh ... ", any);
-      });
+    fetch("/users/current_user/logout", requestOptions).then((response) =>
+      onLogoutResponse(response)
+    );
   }
 
   return (
