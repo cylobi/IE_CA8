@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./Paggination.css";
+import styled from "styled-components";
 
 interface Props {
   initialIndex: number;
@@ -13,6 +13,29 @@ export default function Paggination({
   pageCapacity,
   onChanged,
 }: Props) {
+  const PagginationButton = styled.a`
+    width: 2rem;
+    height: 2rem;
+    padding: 0.3rem;
+    text-align: center;
+
+    border: 1px solid #d9d9d9;
+    color: #303030;
+
+    :hover {
+      color: #c82333;
+    }
+
+    :active {
+      color: #881c25;
+      text-shadow: #dc3545;
+    }
+
+    :focus {
+      box-shadow: 0 0 0 0.2rem pink;
+    }
+  `; // TODO more style
+
   const neighberLimit = 1;
   const pagesCount = Math.ceil(itemsCount / pageCapacity);
   const [indexArray, setIndexArray] = useState<number[]>(); // use -1 for inserting cut (`...`)
@@ -55,12 +78,12 @@ export default function Paggination({
     } else {
       return (
         <li className="page-item col">
-          <a
+          <PagginationButton
             className="page-link rounded-circle page_button"
             onClick={() => onButtonClicked(num)}
           >
             {num}
-          </a>
+          </PagginationButton>
         </li>
       );
     }

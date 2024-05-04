@@ -36,7 +36,7 @@ export default function ResturantsView() {
       behavior: "smooth",
     });
   }
-
+  // TODO margin
   return (
     <div style={backgroundCss}>
       <Header />
