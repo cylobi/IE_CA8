@@ -3,6 +3,7 @@ import * as React from 'react'
 import { useState } from 'react';
 import BaseModal from '../components/Modals/BaseModal';
 import AddRestaurantModalBody from "Frontend/components/Modals/AddRestaurantModalBody";
+import AddReviewModalBody from "Frontend/components/Modals/AddReviewModalBody";
 
 const MainView = () => {
     const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
@@ -21,7 +22,7 @@ const MainView = () => {
                 title="This is a specific "
                 highLightedTitle="modal"
             >
-                <AddRestaurantModalBody handler={handlerA} />
+                <AddReviewModalBody handler={handlerA} />
             </BaseModal>
         </div>
     );
