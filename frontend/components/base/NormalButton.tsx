@@ -1,10 +1,11 @@
-import React, { MouseEventHandler, ReactEventHandler } from "react";
 import "./NormalButton.css";
+import stled from "styled-components";
 
 interface Props {
   text: string;
   handler: () => void;
   otherClass?: string;
+  isDisabled?: boolean;
 }
 export default function NormalButton({ text, handler, otherClass }: Props) {
   const styleCss = {
