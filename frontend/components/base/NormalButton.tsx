@@ -1,26 +1,25 @@
-import {MouseEventHandler, ReactEventHandler} from "react";
 import "./NormalButton.css"
+import stled from 'styled-components'
 
-interface Props{
-    text : string,
-    handler : () => void,
-    isDisabled : boolean,
-    className : string | null
+interface Props {
+  text: string;
+  handler: () => void;
+  otherClass?: string;
+  isDisabled: boolean;
 }
-
-export default function NormalButton({text, handler, isDisabled = false}:Props) {
-    const styleCss={
-        borderRadius: '12px',
-        // backgroundColor: isDisabled ? 'grey' : 'initial'
-    };
+export default function NormalButton({ text, handler, otherClass }: Props) {
+  const styleCss = {
+    borderRadius: "12px",
+  };
+  const classNames = "btn btn-danger" + " " + otherClass;
   return (
     <button
-        className="btn btn-danger"
-        onClick={handler}
-        type="button"
-        style={styleCss}
+      className={classNames}
+      onClick={handler}
+      type="button"
+      style={styleCss}
     >
-        {text}
+      {text}
     </button>
   );
 }

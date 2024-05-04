@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, createContext, useContext } from "react";
 
 export const UserInfoContext = createContext<UserInfo | null>(null);
 export const SetUserInfoContext = createContext<
-  Dispatch<SetStateAction<UserInfo>> | undefined
+  Dispatch<SetStateAction<UserInfo | null>> | undefined
 >(undefined);
 
 export function useUserInfoContext() {
