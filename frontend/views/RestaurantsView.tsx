@@ -1,8 +1,8 @@
 import Footer from "Frontend/components/Footer";
 import Header from "Frontend/components/Header";
-import UserInfo from "Frontend/types/UserInfo";
+import RestaurantInfo from "Frontend/types/RestaurantInfo";
+import RestaurantsGrid from "Frontend/components/RestaurantsGrid";
 import { useState } from "react";
-import { json } from "react-router-dom";
 
 export default function ResturantsView() {
   const backgroundCss = {
@@ -13,7 +13,9 @@ export default function ResturantsView() {
     margin: 0,
   };
 
-  const [resturantsData, setRestaurantsData] = useState<UserInfo[] | null>();
+  const [restaurantsData, setRestaurantsData] = useState<
+    RestaurantInfo[] | null
+  >();
   fetch("/restaurants")
     .then((r) => r.json())
     .then((data) => {
@@ -26,7 +28,13 @@ export default function ResturantsView() {
   return (
     <div style={backgroundCss}>
       <Header />
-      <div className="container-fluid">{}</div>
+      <div className="container-fluid">
+        {restaurantsData ? (
+          RestaurantsGrid(restaurantsData.slice(0, 10))
+        ) : (
+          <p>Data is loading</p>
+        )}
+      </div>
       <Footer />
     </div>
   );
