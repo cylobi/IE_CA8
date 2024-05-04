@@ -1,11 +1,11 @@
-import "./NormalButton.css"
-import stled from 'styled-components'
+import "./NormalButton.css";
+import stled from "styled-components";
 
 interface Props {
   text: string;
   handler: () => void;
   otherClass?: string;
-  isDisabled: boolean;
+  isDisabled?: boolean;
 }
 export default function NormalButton({ text, handler, otherClass }: Props) {
   const styleCss = {
