@@ -3,6 +3,7 @@ import * as React from "react";
 import { useState } from "react";
 import BaseModal from "../components/Modals/BaseModal";
 import AddRestaurantModalBody from "Frontend/components/Modals/AddRestaurantModalBody";
+
 import Header from "Frontend/components/Header";
 import Footer from "Frontend/components/Footer";
 import MainPageHero from "Frontend/components/MainPageHero";
@@ -39,6 +40,7 @@ function RestaurantGroup({ url, title }: RestaurantGroupProps) {
     </div>
   );
 }
+
 
 function MainView() {
   return (

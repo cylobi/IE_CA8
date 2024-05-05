@@ -9,7 +9,7 @@ interface AddRestaurantModalBodyProps {
     handler : (e:any) => void;
 }
 
-const AddTableModalBody : React.FC<AddRestaurantModalBodyProps> = ({handler} : AddRestaurantModalBodyProps) => {
+const AddRestaurantModalBody : React.FC<AddRestaurantModalBodyProps> = ({handler} : AddRestaurantModalBodyProps) => {
 
     const [formData, setFormData] = useState({
         name: "",
@@ -51,4 +51,4 @@ const AddTableModalBody : React.FC<AddRestaurantModalBodyProps> = ({handler} : A
     )
 }
 
-export default AddTableModalBody;
+export default AddRestaurantModalBody;
