@@ -8,7 +8,7 @@ export default function (info: RestaurantInfo) {
   return (
     <>
       <div className="col-md-2">
-        <a href="restaurant_detail.html">
+        <a href={"/restaurant/" + info.id}>
           <div className="card">
             <RatingStars value={info.overall} />
             <img
