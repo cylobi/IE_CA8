@@ -23,6 +23,7 @@
     "@vaadin/common-frontend": "0.0.19",
     "@vaadin/router": "1.7.5",
     "bootstrap": "^4.6.2",
+    "classnames": "^2.3.2",
     "construct-style-sheets-polyfill": "3.1.0",
     "lit": "3.1.0",
     "styled-components": "^6.1.9"
@@ -47,6 +48,32 @@
     "workbox-build": "7.0.0",
     "workbox-core": "7.0.0",
     "workbox-precaching": "7.0.0"
+  },
+  "overrides": {
+    "classnames": "$classnames",
+    "@vaadin/bundles": "$@vaadin/bundles",
+    "@hilla/react-components": "$@hilla/react-components",
+    "@vaadin/common-frontend": "$@vaadin/common-frontend",
+    "construct-style-sheets-polyfill": "$construct-style-sheets-polyfill",
+    "lit": "$lit",
+    "@vaadin/router": "$@vaadin/router",
+    "@polymer/polymer": "$@polymer/polymer",
+    "@hilla/react-auth": "$@hilla/react-auth",
+    "@hilla/generator-typescript-plugin-model": "$@hilla/generator-typescript-plugin-model",
+    "@hilla/generator-typescript-plugin-barrel": "$@hilla/generator-typescript-plugin-barrel",
+    "@hilla/react-form": "$@hilla/react-form",
+    "@hilla/generator-typescript-plugin-push": "$@hilla/generator-typescript-plugin-push",
+    "@hilla/generator-typescript-core": "$@hilla/generator-typescript-core",
+    "@hilla/generator-typescript-plugin-client": "$@hilla/generator-typescript-plugin-client",
+    "@hilla/generator-typescript-utils": "$@hilla/generator-typescript-utils",
+    "@hilla/frontend": "$@hilla/frontend",
+    "@hilla/form": "$@hilla/form",
+    "@hilla/generator-typescript-plugin-subtypes": "$@hilla/generator-typescript-plugin-subtypes",
+    "@hilla/react-crud": "$@hilla/react-crud",
+    "@hilla/generator-typescript-plugin-backbone": "$@hilla/generator-typescript-plugin-backbone",
+    "@hilla/generator-typescript-cli": "$@hilla/generator-typescript-cli",
+    "bootstrap": "$bootstrap",
+    "styled-components": "$styled-components"
   },
   "vaadin": {
     "dependencies": {
@@ -90,31 +117,6 @@
       "workbox-core": "7.0.0",
       "workbox-precaching": "7.0.0"
     },
-    "hash": "77faa9f02639ce6328aa5db0cce3fdee288673ac951b326d5c64084f4240e32f"
-  },
-  "overrides": {
-    "@vaadin/bundles": "$@vaadin/bundles",
-    "@hilla/react-components": "$@hilla/react-components",
-    "@hilla/form": "$@hilla/form",
-    "@hilla/frontend": "$@hilla/frontend",
-    "@hilla/react-auth": "$@hilla/react-auth",
-    "@hilla/react-crud": "$@hilla/react-crud",
-    "@hilla/react-form": "$@hilla/react-form",
-    "lit": "$lit",
-    "styled-components": "$styled-components",
-    "@vaadin/common-frontend": "$@vaadin/common-frontend",
-    "construct-style-sheets-polyfill": "$construct-style-sheets-polyfill",
-    "@vaadin/router": "$@vaadin/router",
-    "@polymer/polymer": "$@polymer/polymer",
-    "@hilla/generator-typescript-plugin-model": "$@hilla/generator-typescript-plugin-model",
-    "@hilla/generator-typescript-plugin-barrel": "$@hilla/generator-typescript-plugin-barrel",
-    "@hilla/generator-typescript-plugin-push": "$@hilla/generator-typescript-plugin-push",
-    "@hilla/generator-typescript-core": "$@hilla/generator-typescript-core",
-    "@hilla/generator-typescript-plugin-client": "$@hilla/generator-typescript-plugin-client",
-    "@hilla/generator-typescript-utils": "$@hilla/generator-typescript-utils",
-    "@hilla/generator-typescript-plugin-subtypes": "$@hilla/generator-typescript-plugin-subtypes",
-    "@hilla/generator-typescript-plugin-backbone": "$@hilla/generator-typescript-plugin-backbone",
-    "@hilla/generator-typescript-cli": "$@hilla/generator-typescript-cli",
-    "bootstrap": "$bootstrap"
+    "hash": "b9d0331db018d4955f5daf4650f954d205492e40af9841d0215bd0c826d0f775"
   }
 }

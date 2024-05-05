@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import Paggination from "Frontend/components/Paggination";
 
 export default function ResturantsView() {
+  const queryString = location.search; // Get the entire query string
+  const getUrl = "/restaurants/" + queryString;
   const backgroundCss = {
     backgroundColor: "#fffcfc",
     color: "white",
@@ -22,7 +24,7 @@ export default function ResturantsView() {
     RestaurantInfo[] | null
   >();
   function fetchRestaurants() {
-    fetch("/restaurants")
+    fetch(getUrl)
       .then((r) => r.json())
       .then((data) => {
         setRestaurantsData(data);
