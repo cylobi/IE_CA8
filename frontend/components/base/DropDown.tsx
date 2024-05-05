@@ -1,15 +1,22 @@
-import React, { Children } from "react";
+import React, { Children, useState } from "react";
 import styled from "styled-components";
 import SelectArrow from "Frontend/public/images/select_arrow.svg";
 
-interface Props {
+interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
   children?: any;
   className?: string;
   title?: string;
   items?: string[];
 }
 
-function DropDown({ children, className, title, items }: Props) {
+function DropDown({
+  children,
+  className,
+  title,
+  items,
+  onChange,
+  ...rest
+}: Props) {
   const StyledDropDown = styled.select`
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -25,14 +32,30 @@ function DropDown({ children, className, title, items }: Props) {
       border-color: #fffcfc;
     }
   `;
+
+  const [selectedValue, setSelectedValue] = useState("");
+
+  const itemsWithNone = [""].concat(items || []);
   return (
-    <StyledDropDown className={className}>
-      {title && (
+    <StyledDropDown
+      className={className}
+      onChange={(e) => {
+        setSelectedValue(e.target.value);
+        onChange && onChange(e);
+      }}
+      {...rest}
+    >
+      {selectedValue === "" && title && (
         <option selected disabled hidden>
           {title}
         </option>
       )}
-      {items && items.map((value) => <option>{value}</option>)}
+      {itemsWithNone &&
+        itemsWithNone.map((value) => (
+          <option key={value} value={value}>
+            {value}
+          </option>
+        ))}
       {children}
     </StyledDropDown>
   );
