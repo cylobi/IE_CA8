@@ -16,6 +16,8 @@ import org.ie.mizdooni.model.UserModel;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/reservations")
@@ -47,4 +49,10 @@ public class ReservationController {
         }
         return ResponseEntity.internalServerError().body(null);
     }
+
+    // @GetMapping("/")
+    // public String getMethodName(@RequestParam String param) {
+    // return new String();
+    // }
+
 }
