@@ -1,8 +1,6 @@
 package org.ie.mizdooni.controller;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
@@ -106,7 +104,8 @@ public class RestaurantController {
     @RequestMapping(path = "/restaurant/{id}", method = RequestMethod.GET)
     String getDetailsById(@PathVariable int id) {
         try {
-            String json = new ObjectMapper().writeValueAsString(RestaurantModel.findById(id));
+            var restaurant = RestaurantModel.findById(id);
+            String json = new ObjectMapper().writeValueAsString(appendReviewsCountAverageMap(restaurant));
             return json;
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -148,21 +147,25 @@ public class RestaurantController {
         return "Error!";
     }
 
+    private Map<String, Object> appendReviewsCountAverageMap(RestaurantModel restaurant) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        var mapObject = mapper.convertValue(restaurant, Map.class);
+
+        var reviews = ReviewModel.findByRestaurantName(restaurant.getName());
+        double overall = reviews.stream().mapToDouble(r -> r.getOverallRate()).average().orElse(0);
+        var reviewsCount = reviews.size();
+        mapObject.put("reviewsCount", reviewsCount);
+        mapObject.put("overall", overall);
+        return mapObject;
+    }
+
     private String buildJsonList(List<RestaurantModel> restaurants) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         ArrayList<Map> objects = new ArrayList<>();
 
         for (var iter : restaurants) {
-            var mapObject = mapper.convertValue(iter, Map.class);
-
-            var reviews = ReviewModel.findByRestaurantName(iter.getName());
-            double overall = reviews.stream().mapToDouble(r -> r.getOverallRate()).average().orElse(0);
-            var reviewsCount = reviews.size();
-            // var overall = overallList.average();/
-
-            mapObject.put("reviewsCount", reviewsCount);
-            mapObject.put("overall", overall);
-            mapObject.remove("description"); // description length is too large
+            var mapObject = appendReviewsCountAverageMap(iter);
             objects.add(mapObject);
         }
 
