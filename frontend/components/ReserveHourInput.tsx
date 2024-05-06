@@ -2,7 +2,11 @@ import RestaurantInfo from "Frontend/types/RestaurantInfo";
 import React from "react";
 import styled from "styled-components";
 
-function ReserveHourInput(info: RestaurantInfo) {
+interface Props {
+  info: RestaurantInfo;
+}
+
+function ReserveHourInput({ info }: Props) {
   const StyledDiv = styled.div`
     .time_radio {
       color: #ed3545;
