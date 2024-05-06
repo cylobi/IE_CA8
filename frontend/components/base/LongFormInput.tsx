@@ -21,7 +21,7 @@ const LongFormInput : React.FC<Props> = ({label, value, onChange} : Props) => {
     return (
         <div className="d-flex flex-column">
             <label> {label} </label>
-            <LongInputBox className="w-75 justify-content-center" type="text" value={value} onChange={onChange}/>
+            <LongInputBox className=" justify-content-center" type="text" value={value} onChange={onChange}/>
         </div>
     )
 };

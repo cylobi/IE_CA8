@@ -36,8 +36,8 @@ const AuthenticationView = () => {
 
     return (
         <>
-            <Background className="justify-content-center align-items-center">
-                <div className="justify-center">
+            <Background className="d-flex flex-column justify-content-center align-items-center mh-100 ">
+                <div className="container my-auto w-75">
                     <div className="container d-flex w-100 flex-row mb-2">
                         <div id="registerIndicator" className='w-50 text-center' style={registerIndicatorStyle} onClick={() => {setAuthMethod(AuthMethod.Register)}}>
                             Register
@@ -46,9 +46,9 @@ const AuthenticationView = () => {
                             Login
                         </div>
                     </div>
+                    {authMethod === AuthMethod.Register && <Register/>}
+                    {authMethod === AuthMethod.Login && <Login/>}
                 </div>
-                {authMethod === AuthMethod.Register && <Register/>}
-                {authMethod === AuthMethod.Login && <Login/>}
             </Background>
             <Footer className="align-self-end"/>
         </>
