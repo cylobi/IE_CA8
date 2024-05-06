@@ -37,7 +37,7 @@ const AuthenticationView = () => {
     return (
         <>
             <Background className="d-flex flex-column justify-content-center align-items-center mh-100 ">
-                <div className="container my-auto w-75">
+                <div className="container my-auto w-50">
                     <div className="container d-flex w-100 flex-row mb-2">
                         <div id="registerIndicator" className='w-50 text-center' style={registerIndicatorStyle} onClick={() => {setAuthMethod(AuthMethod.Register)}}>
                             Register

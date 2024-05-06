@@ -8,6 +8,10 @@ import org.ie.mizdooni.model.UserModel;
 import org.ie.mizdooni.model.UserModel.UserRole;
 import org.ie.mizdooni.serializer.LoginUserRequestBody;
 import org.ie.mizdooni.serializer.RegisterRequestBody;
+import org.ie.mizdooni.utils.exception.BaseWebappException;
+import org.ie.mizdooni.utils.exception.UserAlreadyExistsException;
+import org.ie.mizdooni.utils.exception.UserNotFoundException;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,61 +20,77 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 @RestController
+@RequestMapping("/api")
 public class UserController {
     @GetMapping("/users")
-    String getAll() {
-        try {
-            String json = new ObjectMapper().writeValueAsString(UserModel.getAllObjects());
-            return json;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return "Error!";
-    }
-
-    @RequestMapping(path = "/users/{name}", method = RequestMethod.GET)
-    String getDetails(@PathVariable String name) {
-        try {
-            String json = new ObjectMapper().writeValueAsString(UserModel.findByUsername(name));
-            return json;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return "Error!";
+    @ResponseBody
+    ResponseEntity<String> getAllUsers() throws JsonProcessingException
+    {
+        String json = new ObjectMapper().writeValueAsString(UserModel.getAllObjects());
+        return new ResponseEntity<>(json, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/users/current_user", method = RequestMethod.GET)
-    String getLoginnedUser() {
-        try {
-            String json = new ObjectMapper().writeValueAsString(UserModel.getLoginnedUser());
-            return json;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+    @ResponseBody
+    ResponseEntity<String> getLoginnedUser() throws JsonProcessingException
+    {
+        UserModel user = UserModel.getLoginnedUser();
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        return "Error!";
+        String json = new ObjectMapper().writeValueAsString(user);
+        return new ResponseEntity<>(json, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/users/current_user/logout", method = RequestMethod.PUT)
-    String logout() {
+    @RequestMapping(path = "/auth/logout", method = RequestMethod.PUT)
+    @ResponseBody
+    ResponseEntity<String> logout()
+    {
         UserModel.setLoginnedUser(null);
-        return "";
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/users/current_user/login", method = RequestMethod.PUT)
-    public String login(@RequestBody LoginUserRequestBody lrb) {
-        var user = UserModel.findUserByUserPass(lrb.getUsername(), lrb.getPassword());
-        if (user.isEmpty()) {
-            return "ERORRRRRRRRRRRRRRRRRR";
+    @RequestMapping(path = "/auth/login", method = RequestMethod.PUT)
+    @ResponseBody
+    public ResponseEntity<String> login(@RequestBody LoginUserRequestBody body) throws BaseWebappException,JsonProcessingException
+    {
+        var user = UserModel.findUserByUserPass(body.getUsername(), body.getPassword());
+        if (user.isEmpty()){
+            throw new UserNotFoundException();
         }
         UserModel.setLoginnedUser(user.get(0));
-        try {
-            String json = new ObjectMapper().writeValueAsString(UserModel.getLoginnedUser());
-            return json;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+        String json = new ObjectMapper().writeValueAsString(UserModel.getLoginnedUser());
+        return new ResponseEntity<>(json, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/auth/register", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<String> registerUser(@RequestBody RegisterRequestBody body) throws BaseWebappException
+    {
+        boolean doesAlreadyExist = doesUsernameEmailExist(body.username, body.email);
+        if (doesAlreadyExist) {
+            throw new UserAlreadyExistsException();
         }
-        return "BAGHBAGHOOOOOOO";
+        var newUser = createInstanceFromRequest(body);
+        UserModel.addObject(newUser);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @ExceptionHandler(BaseWebappException.class)
+    public ResponseEntity<String> handleException(BaseWebappException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatusCode.valueOf(e.getCode()));
+    }
+
+    @ExceptionHandler(JsonProcessingException.class)
+    public ResponseEntity<String> handleException(JsonProcessingException e) {
+        return new ResponseEntity<>("Error Processing JSON" + e.getMessage() , HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private boolean doesUsernameEmailExist(String username, String email) {
@@ -81,19 +101,6 @@ public class UserController {
             }
         }
         return false;
-    }
-
-    @RequestMapping(path = "/users/current_user/register", method = RequestMethod.POST)
-    public String requestMethodName(@RequestBody RegisterRequestBody body) {
-        boolean doesAlreadyExist = doesUsernameEmailExist(body.username, body.email);
-        if (doesAlreadyExist) {
-            // throw new ValidatorException("Username and email combination is not
-            // unique!");
-            return "Username and email combination is not unique!";
-        }
-        var newUser = createInstanceFromRequest(body);
-        UserModel.addObject(newUser);
-        return "User added";
     }
 
     private UserModel createInstanceFromRequest(RegisterRequestBody body) {
