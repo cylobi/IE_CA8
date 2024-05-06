@@ -90,7 +90,7 @@ public class UserController {
 
     @ExceptionHandler(JsonProcessingException.class)
     public ResponseEntity<String> handleException(JsonProcessingException e) {
-        return new ResponseEntity<>("Error Processing JSON" , HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>("Error Processing JSON" + e.getMessage() , HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private boolean doesUsernameEmailExist(String username, String email) {
