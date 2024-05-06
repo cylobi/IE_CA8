@@ -22,7 +22,6 @@ class RestaurantSearchInfo {
 
 @RestController
 public class RestaurantController {
-    @GetMapping("/restaurants")
     String getAll() {
         try {
             return buildJsonList(RestaurantModel.getAllObjects());
@@ -129,7 +128,7 @@ public class RestaurantController {
             @RequestParam(value = "city", required = false) String city,
             @RequestParam(value = "type", required = false) String type) {
         if (city == null && type == null && name == null) {
-            return "Error, fill at least a parameter";
+            return getAll();
         }
 
         try {

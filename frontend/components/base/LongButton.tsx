@@ -8,9 +8,7 @@ interface Props{
     isDisabled : boolean,
 }
 
-const LongButton = ({text, handler, isDisabled}:Props) => {
-
-    const Button = styled.button<{ isDisabled: boolean }>`
+const Button = styled.button<{ isDisabled: boolean }>`
      border-radius: 12px;
      color: white;
      background-color: ${props => props.isDisabled ? '#D9D9D9' : '#ED3545' };
@@ -18,6 +16,8 @@ const LongButton = ({text, handler, isDisabled}:Props) => {
      padding-top: 0.5rem;
      padding-bottom: 0.5rem;
     `;
+
+const LongButton = ({text, handler, isDisabled}:Props) => {
 
 
     return (
