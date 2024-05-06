@@ -11,19 +11,18 @@ export function tumbdailSummary(info: RestaurantInfo) {
     let [hour, minute] = time.split(":");
     let hourNum = Number(hour);
     let AMPM = hourNum > 12 ? "PM" : "AM";
-    hourNum = hourNum % 12;
+    hourNum = hourNum % 13;
     return `${hourNum}:${minute} ${AMPM}`;
   }
 
-  // <!--time + review + type icons-->
   return (
     <div className="container">
       <div className="row d-flex justify-content-between container-fluid p-0">
         <div className="mr-2 text-dark">
           <img alt="img" className="fa" src={ClockIcon} />
-          <span className="align-middle ml-1">{`From ${displayTime(
-            info.startTime
-          )} to ${displayTime(info.endTime)}`}</span>
+          <span className="align-middle ml-1">{`From ${
+            info.startTime && displayTime(info.startTime)
+          } to ${info.startTime && displayTime(info.endTime)}`}</span>
         </div>
 
         <div className="mx-2 text-dark">

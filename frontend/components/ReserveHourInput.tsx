@@ -5,66 +5,66 @@ import styled from "styled-components";
 interface Props {
   info: RestaurantInfo;
 }
+const StyledDiv = styled.div`
+  .time_radio {
+    color: #ed3545;
+    background-color: #fffcfc;
+    border-color: #ed3545;
+    border-radius: 0.5rem;
+  }
+
+  .time_radio:hover {
+    color: #fff;
+    background-color: #ee6573;
+    border-color: #bd2130;
+    cursor: pointer;
+  }
+
+  .time_radio:focus {
+    box-shadow: 0 0 0 0.2rem pink;
+  }
+
+  .time_radio:active,
+  .time_radio_active,
+  .time_radio_active:hover {
+    border-color: #dc3545;
+    background-color: #ed3545;
+    border-radius: 0.5rem;
+    color: #ffffff;
+  }
+  #number_date_form_container {
+    width: 300px;
+  }
+
+  .time_radio {
+    color: #ed3545;
+    background-color: #fffcfc;
+    border-color: #ed3545;
+    border-radius: 0.5rem;
+  }
+
+  .time_radio:hover {
+    color: #fff;
+    background-color: #ee6573;
+    border-color: #bd2130;
+    cursor: pointer;
+  }
+
+  .time_radio:focus {
+    box-shadow: 0 0 0 0.2rem pink;
+  }
+
+  .time_radio:active,
+  .time_radio_active,
+  .time_radio_active:hover {
+    border-color: #dc3545;
+    background-color: #ed3545;
+    border-radius: 0.5rem;
+    color: #ffffff;
+  }
+`;
 
 function ReserveHourInput({ info }: Props) {
-  const StyledDiv = styled.div`
-    .time_radio {
-      color: #ed3545;
-      background-color: #fffcfc;
-      border-color: #ed3545;
-      border-radius: 0.5rem;
-    }
-
-    .time_radio:hover {
-      color: #fff;
-      background-color: #ee6573;
-      border-color: #bd2130;
-      cursor: pointer;
-    }
-
-    .time_radio:focus {
-      box-shadow: 0 0 0 0.2rem pink;
-    }
-
-    .time_radio:active,
-    .time_radio_active,
-    .time_radio_active:hover {
-      border-color: #dc3545;
-      background-color: #ed3545;
-      border-radius: 0.5rem;
-      color: #ffffff;
-    }
-    #number_date_form_container {
-      width: 300px;
-    }
-
-    .time_radio {
-      color: #ed3545;
-      background-color: #fffcfc;
-      border-color: #ed3545;
-      border-radius: 0.5rem;
-    }
-
-    .time_radio:hover {
-      color: #fff;
-      background-color: #ee6573;
-      border-color: #bd2130;
-      cursor: pointer;
-    }
-
-    .time_radio:focus {
-      box-shadow: 0 0 0 0.2rem pink;
-    }
-
-    .time_radio:active,
-    .time_radio_active,
-    .time_radio_active:hover {
-      border-color: #dc3545;
-      background-color: #ed3545;
-      border-radius: 0.5rem;
-      color: #ffffff;
-    }
-  `;
   console.log("generate hour", info);
   let startHour = Number(info.startTime.split(":").at(0));
   let endHour = Number(info.endTime.split(":").at(0));

@@ -6,13 +6,18 @@ import NormalButton from "./base/NormalButton";
 import ReserveHourInput from "./ReserveHourInput";
 import RestaurantInfo from "Frontend/types/RestaurantInfo";
 import SeatsAndDateInput from "./SeatsAndDateInput";
+const StyledDiv = styled.div`
+  #number_date_form_container {
+    width: 300px;
+  }
+`;
+interface Props {
+  info: RestaurantInfo;
+}
 
-function ReserveForm(info: RestaurantInfo) {
-  const StyledDiv = styled.div`
-    #number_date_form_container {
-      width: 300px;
-    }
-  `;
+function ReserveForm({ info }: Props) {
+  const [date, setDate] = useState("");
+  const [seats, setSeats] = useState(1);
 
   const NoticeMessage = () => (
     <div className="row ">
@@ -27,14 +32,19 @@ function ReserveForm(info: RestaurantInfo) {
     <div className="container-fluid col m-2">
       <h5 className="row">Reserve Table</h5>
       <form>
-        <SeatsAndDateInput />
-        <ReserveHourInput info={info} />
-        <NoticeMessage />
-        <NormalButton
+        <SeatsAndDateInput
+          date={date}
+          seats={seats}
+          onDateChanged={setDate}
+          onSeatsChanged={setSeats}
+        />
+        {/* <ReserveHourInput info={info} /> */}
+        {/* <NoticeMessage /> */}
+        {/* <NormalButton
           otherClass="container-fluid row"
           text="Complete the Reservation"
           handler={() => {}}
-        />
+        /> */}
       </form>
     </div>
   );
