@@ -19,7 +19,7 @@ const Register = () => {
 
     const handleSubmit = async () => {
         try {
-            const response = await fetch('/users/current_user/login', {
+            const response = await fetch('api/auth/login', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
