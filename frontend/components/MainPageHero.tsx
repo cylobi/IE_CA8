@@ -2,7 +2,6 @@
 import LogoImage from "Frontend/public/images/Logo.svg";
 import HeroBackground from "Frontend/public/images/HeroBackground.png";
 import styled from "styled-components";
-import DropDown from "./base/DropDown";
 import SearchBox from "./SearchBox";
 
 export default function MainPageHero() {

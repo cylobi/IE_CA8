@@ -13,7 +13,7 @@ export default function App() {
   const [loginnedUser, setLoginnedUser] = useState<UserInfo | null>(null);
 
   useEffect(() => {
-    fetch("/users/current_user")
+    fetch("/api/users/current_user")
       .then((r) => r.json())
       .then((data) => setLoginnedUser(data));
   }, []);

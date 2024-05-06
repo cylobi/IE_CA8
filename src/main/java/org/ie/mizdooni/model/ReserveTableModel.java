@@ -130,4 +130,19 @@ public class ReserveTableModel extends BaseModel {
     public static boolean deleteById(int id) {
         return allObjects.removeIf(model -> model.getId() == id);
     }
+
+    public static List<ReserveTableModel> findByRestauranName(String name) {
+        return allObjects.stream().filter(r -> r.getRestaurantName().equals(name)).toList();
+    }
+
+    public static List<ReserveTableModel> findForRestaurantInDate(String restaurantName, Date date) {
+        var allCasesInRestaurant = findByRestauranName(restaurantName);
+        var allInDate = allCasesInRestaurant.stream().filter(
+                r -> r.getDatetime().getDay() == date.getDay() &&
+                        r.getDatetime().getMonth() == date.getMonth() &&
+                        r.getDatetime().getYear() == date.getYear())
+                .toList();
+
+        return allInDate;
+    }
 }

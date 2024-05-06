@@ -25,7 +25,7 @@ function Header({ user }: Pros) {
           otherClass="mt-2 mt-md-0"
           text="My Reservations"
           handler={() => {
-            navigate("/");
+            navigate("/home");
           }}
           isDisabled={false}
         />
