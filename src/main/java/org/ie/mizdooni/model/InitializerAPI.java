@@ -173,7 +173,7 @@ class UserDownloader extends BaseModelDownloader<UserModel> {
 
     protected Map<String, Object> fixFieldNameAndTypes(Map<String, Object> jsonMap) {
         Map<String, Object> addressMap = (Map<String, Object>) jsonMap.get("address");
-        var restaurantAddress = new UserModel.UserAddress();
+        var restaurantAddress = new UserAddress();
         restaurantAddress.city = (String) addressMap.get("city");
         restaurantAddress.country = (String) addressMap.get("country");
         jsonMap.replace("address", restaurantAddress);
