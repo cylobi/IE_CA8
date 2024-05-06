@@ -3,13 +3,13 @@ package org.ie.mizdooni.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ie.mizdooni.model.UserModel;
+import org.ie.mizdooni.serializer.LoginUserRequestBody;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 public class UserController {
@@ -50,6 +50,22 @@ public class UserController {
     String logout() {
         UserModel.setLoginnedUser(null);
         return "";
+    }
+
+    @RequestMapping(path="/users/current_user/login", method = RequestMethod.PUT)
+    public String login(@RequestBody LoginUserRequestBody lrb) {
+        var user = UserModel.findUserByUserPass(lrb.getUsername(), lrb.getPassword());
+        if (user.isEmpty()){
+            return "ERORRRRRRRRRRRRRRRRRR";
+        }
+        UserModel.setLoginnedUser(user.get(0));
+        try {
+            String json = new ObjectMapper().writeValueAsString(UserModel.getLoginnedUser());
+            return json;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return "BAGHBAGHOOOOOOO";
     }
 
 }
