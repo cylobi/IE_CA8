@@ -31,33 +31,37 @@ function DropDown({
       box-shadow: 0 0 0 0.1rem pink;
       border-color: #fffcfc;
     }
+    background-color: #f5f5f5;
+    border-color: #f5f5f5;
+    padding-right: 2.5rem;
   `;
 
   const [selectedValue, setSelectedValue] = useState("");
 
   const itemsWithNone = [""].concat(items || []);
   return (
-    <StyledDropDown
-      className={className}
-      onChange={(e) => {
-        setSelectedValue(e.target.value);
-        onChange && onChange(e);
-      }}
-      {...rest}
-    >
-      {selectedValue === "" && title && (
-        <option selected disabled hidden>
-          {title}
-        </option>
-      )}
-      {itemsWithNone &&
-        itemsWithNone.map((value) => (
-          <option key={value} value={value}>
-            {value}
+    <div className={className}>
+      <StyledDropDown
+        onChange={(e) => {
+          setSelectedValue(e.target.value);
+          onChange && onChange(e);
+        }}
+        {...rest}
+      >
+        {selectedValue === "" && title && (
+          <option selected disabled hidden>
+            {title}
           </option>
-        ))}
-      {children}
-    </StyledDropDown>
+        )}
+        {itemsWithNone &&
+          itemsWithNone.map((value) => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
+        {children}
+      </StyledDropDown>
+    </div>
   );
 }
 

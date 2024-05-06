@@ -35,7 +35,7 @@ export default function SeatsAndDateInput({
 
       <div className="mx-2 my-auto select_box">
         <DropDown
-          className="form-control mizdooni_dropdown"
+          className="mizdooni_dropdown"
           value={seats}
           onChange={(e) => {
             onSeatsChanged(Number(e.target.value));

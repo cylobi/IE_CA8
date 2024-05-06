@@ -38,13 +38,13 @@ function ReserveForm({ info }: Props) {
           onDateChanged={setDate}
           onSeatsChanged={setSeats}
         />
-        {/* <ReserveHourInput info={info} /> */}
-        {/* <NoticeMessage /> */}
-        {/* <NormalButton
+        <ReserveHourInput info={info} />
+        <NoticeMessage />
+        <NormalButton
           otherClass="container-fluid row"
           text="Complete the Reservation"
           handler={() => {}}
-        /> */}
+        />
       </form>
     </div>
   );
