@@ -11,10 +11,6 @@ import java.util.stream.Collectors;
 public class UserModel extends BaseModel {
     static private List<UserModel> allObjects = new ArrayList<>();
 
-    static class UserAddress {
-        public String country, city;
-    }
-
     public enum UserRole {
         @JsonProperty("client")
         CLIENT, @JsonProperty("manager")
