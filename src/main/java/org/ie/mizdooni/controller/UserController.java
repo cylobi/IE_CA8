@@ -71,7 +71,7 @@ public class UserController {
 
     @RequestMapping(path = "/auth/register", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity registerUser(@RequestBody RegisterRequestBody body) throws BaseWebappException
+    public ResponseEntity<String> registerUser(@RequestBody RegisterRequestBody body) throws BaseWebappException
     {
         boolean doesAlreadyExist = doesUsernameEmailExist(body.username, body.email);
         if (doesAlreadyExist) {
