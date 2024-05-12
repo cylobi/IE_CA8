@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.ie.mizdooni</groupId>
-    <artifactId>CA4_MizDooni</artifactId>
+    <artifactId>CA5_MizDooni</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>IE_CA4</name>
-    <description>IE_CA4</description>
+    <name>IE_CA5</name>
+    <description>IE_CA5</description>
     <properties>
         <java.version>17</java.version>
         <hilla.version>2.5.5</hilla.version>
