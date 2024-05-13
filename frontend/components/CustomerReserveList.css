@@ -1,0 +1,64 @@
+
+#customer_reservations {
+    padding: 0;
+}
+
+table {
+    background-color: #FFFFFF;
+    width: 100%;
+    border-radius: 0px 0px 12px 12px;
+}
+
+th {
+    width: 100%;
+    text-align: left;
+    padding: 20px;
+    background-color: #F5F5F5;
+    font-size: 20px;
+    border-radius: 12px 12px 0px 0px;
+}
+
+tr:last-child td{
+    border-bottom: none;
+}
+  
+td {
+    padding: 20px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+}
+
+td.action {
+    text-align: right;
+}
+
+.action a {
+    color: #ed3545;
+}
+
+.action a:hover {
+    color: #ed3545;
+    text-decoration: none;
+}
+
+#restaurant a{
+    color: #ed3545;
+}
+
+#restaurant a:hover {
+    color: #ed3545;
+    text-decoration: none;
+}
+
+.disabled #date,
+.disabled #table,
+.disabled #seats {
+    color: #D4D4D4; /* Replace #yourColorHere with the color you want */
+}
+
+.enabled #date,
+.enabled #table,
+.enabled #seats {
+    color: #2B9407;
+}

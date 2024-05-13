@@ -11,13 +11,11 @@ import java.util.stream.Collectors;
 public class UserModel extends BaseModel {
     static private List<UserModel> allObjects = new ArrayList<>();
 
-    static class UserAddress {
-        public String country, city;
-    }
-
-    public enum UserRole{
-                @JsonProperty("client") CLIENT,@JsonProperty("manager") MANAGER
-        };
+    public enum UserRole {
+        @JsonProperty("client")
+        CLIENT, @JsonProperty("manager")
+        MANAGER
+    };
 
     public UserRole getRole() {
         return role;
@@ -28,14 +26,17 @@ public class UserModel extends BaseModel {
     }
 
     UserRole role;
-    @FieldValidator(UserNameVlidator.class) String username;
+    @FieldValidator(UserNameVlidator.class)
+    String username;
     String password;
-    @FieldValidator(EmailValidator.class) String email;
+    @FieldValidator(EmailValidator.class)
+    String email;
     UserAddress address;
 
     public UserModel() {
 
     }
+
     public String getUsername() {
         return username;
     }
@@ -69,11 +70,11 @@ public class UserModel extends BaseModel {
         this.address = address;
     }
 
-//    @Override public void validate() throws ValidatorException{
-//        var usernameValidator = new UserNameVlidator();
-//        usernameValidator.validate(this.username);
-//        (new EmailValidator() ).validate(this.email);
-//    }
+    // @Override public void validate() throws ValidatorException{
+    // var usernameValidator = new UserNameVlidator();
+    // usernameValidator.validate(this.username);
+    // (new EmailValidator() ).validate(this.email);
+    // }
 
     static private UserModel loginnedUser = null;
 
@@ -85,26 +86,25 @@ public class UserModel extends BaseModel {
         loginnedUser = user;
     }
 
-
-    static public List<UserModel> findUserByUserPass(String username, String password){
+    static public List<UserModel> findUserByUserPass(String username, String password) {
         List<UserModel> matchedUserList = allObjects.stream().filter(
-                user -> user.getUsername().compareTo(username)==0 && user.getPassword().compareTo(password)==0
-        ).collect(Collectors.toList());
+                user -> user.getUsername().compareTo(username) == 0 && user.getPassword().compareTo(password) == 0)
+                .collect(Collectors.toList());
         return matchedUserList;
     }
 
-    static public void addObject(UserModel user){
+    static public void addObject(UserModel user) {
         allObjects.add(user); // TODO : remove data redundancy
     }
-    static public List<UserModel> getAllObjects(){
+
+    static public List<UserModel> getAllObjects() {
         return allObjects.stream().toList();
     }
 
-    static public UserModel findByUsername(String username){
+    static public UserModel findByUsername(String username) {
         List<UserModel> matchedUserList = allObjects.stream().filter(
-                user -> user.getUsername().compareTo(username)==0
-        ).collect(Collectors.toList());
-        if(matchedUserList.isEmpty()){
+                user -> user.getUsername().compareTo(username) == 0).collect(Collectors.toList());
+        if (matchedUserList.isEmpty()) {
             return null;
         }
         return matchedUserList.get(0);
