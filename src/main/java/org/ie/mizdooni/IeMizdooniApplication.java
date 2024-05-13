@@ -34,9 +34,10 @@ public class IeMizdooniApplication {
         try (var sesssionFactory = configuration.buildSessionFactory()) {
             var session = sesssionFactory.openSession();
 
-            var newData = new GlobalData();
+            GlobalData newData = new GlobalData();
             newData.setIsUserLoginned(false);
             newData.setVersion("1.00Alpha");
+            newData.setId(1);
             session.getTransaction().begin();
             session.persist(newData);
             session.getTransaction().commit();
