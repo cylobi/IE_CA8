@@ -1,5 +1,7 @@
 package org.ie.mizdooni;
 
+import org.hibernate.cfg.Configuration;
+
 import org.ie.mizdooni.model.GlobalData;
 import org.ie.mizdooni.model.InitializerAPI;
 import org.ie.mizdooni.model.repository.GlobalDataRepository;
@@ -24,17 +26,22 @@ public class IeMizdooniApplication {
     }
 
     protected static void importGlobalDataFromDatabase() {
+
         // GlobalDataRepository globalData;
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("GlobalDataManager");
-        EntityManager em = emf.createEntityManager();
-        var newData = new GlobalData();
-        em.getTransaction().begin();
-        newData.setIsUserLoginned(false);
-        newData.setVersion("1.00Alpha");
-        em.persist(newData);
-        em.getTransaction().commit();
-        emf.close();
-        em.close();
+        var configuration = new Configuration();
+        configuration.configure("hibernate.cfg.xml");
+        configuration.addAnnotatedClass(GlobalData.class);
+        try (var sesssionFactory = configuration.buildSessionFactory()) {
+            var session = sesssionFactory.openSession();
+
+            var newData = new GlobalData();
+            newData.setIsUserLoginned(false);
+            newData.setVersion("1.00Alpha");
+            session.getTransaction().begin();
+            session.persist(newData);
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     protected static void initializeModelsFromApi() {
