@@ -2,9 +2,6 @@ package org.ie.mizdooni.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nimbusds.jose.shaded.gson.internal.LinkedTreeMap;
-
-import jakarta.validation.OverridesAttribute.List;
 
 import java.util.Map;
 import java.util.ArrayList;
@@ -35,8 +32,8 @@ public class ReservationController {
 
             ArrayList<Map<String, Object>> aggregatedResult = new ArrayList<>();
             for (var reservationIter : reservations) {
-                var tableModel = TableModel.findByRestaurantNameAndNumber(
-                        reservationIter.getRestaurantName(), reservationIter.getTableNumber());
+                var tableModel = TableModel.findByRestaurantNameAndNumber(reservationIter.getRestaurantName(),
+                        reservationIter.getTableNumber());
                 var newMap = mapper.convertValue(reservationIter, Map.class);
                 newMap.put("seatsNumber", tableModel.getSeatsNumber());
                 aggregatedResult.add(newMap);
