@@ -8,7 +8,7 @@
         <!-- Set URL --> 
         <property name = "hibernate.connection.url">jdbc:mysql://localhost:3306/mizdooni_ca5</property> 
   
-        <!-- Set User Name --> 
+        <!-- Set Username -->
         <property name = "hibernate.connection.username">springuser</property> 
   
         <!-- Set Password --> 
@@ -20,7 +20,7 @@
         <property name = "hibernate.show_sql">true</property> 
         
         <!-- Optional: Auto-generate schema --> 
-        <property name = "hibernate.hbm2ddl.auto">create</property> 
+        <property name = "hibernate.hbm2ddl.auto">update</property>
   
     </session-factory> 
 </hibernate-configuration>

@@ -6,6 +6,7 @@ import org.hibernate.cfg.Configuration;
 
 public class BaseDao {
     Configuration configuration;
+
     SessionFactory sessionFactory;
     Session session;
 
