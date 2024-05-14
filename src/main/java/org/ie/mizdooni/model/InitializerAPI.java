@@ -1,7 +1,9 @@
 package org.ie.mizdooni.model;
 
+import ch.qos.logback.core.net.server.Client;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.ie.mizdooni.dao.ClientUserDao;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -9,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -52,11 +55,25 @@ abstract class BaseModelDownloader<ModelType extends BaseModel> {
 
     abstract protected ModelType generateNewModelInstance();
 
+    protected Field findFieldFor(String key, ModelType newObject){
+        Class<?> clazz = newObject.getClass();
+        while (clazz!= null) {
+            Field[] fields = clazz.getDeclaredFields();
+            for (Field field : fields) {
+                if (key.equals(field.getName())){
+                    return field;
+                }
+            }
+            clazz = clazz.getSuperclass();
+        }
+        return null;
+    }
+
     protected ModelType convertMap(Map<String, Object> jsonMap) {
         try {
             var newObject = generateNewModelInstance();
             for (var key : jsonMap.keySet()) {
-                var field = newObject.getClass().getDeclaredField(key);
+                var field = findFieldFor(key, newObject);
                 field.setAccessible(true);
                 field.set(newObject, jsonMap.get(key));
             }
@@ -149,6 +166,8 @@ class RestaurantDownloader extends BaseModelDownloader<RestaurantModel> {
         jsonMap.remove("image");
         jsonMap.put("imageUrl", imageUrl);
 
+
+
         return jsonMap;
     }
 
@@ -166,20 +185,19 @@ class UserDownloader extends BaseModelDownloader<UserModel> {
     protected String getModelUrl() {
         return BASE_URL + "users";
     }
-
+    ClientUserDao userDao = new ClientUserDao();
     protected UserModel generateNewModelInstance() {
-        return new UserModel();
+        return new ClientUserModel();
     }
 
     protected Map<String, Object> fixFieldNameAndTypes(Map<String, Object> jsonMap) {
         Map<String, Object> addressMap = (Map<String, Object>) jsonMap.get("address");
-        var restaurantAddress = new UserAddress();
-        restaurantAddress.city = (String) addressMap.get("city");
-        restaurantAddress.country = (String) addressMap.get("country");
-        jsonMap.replace("address", restaurantAddress);
-
-        var roleObject = jsonMap.get("role").equals("client") ? UserModel.UserRole.CLIENT : UserModel.UserRole.MANAGER;
-        jsonMap.replace("role", roleObject);
+        String city = (String) addressMap.get("city");
+        String country = (String) addressMap.get("country");
+        jsonMap.remove("address");
+        jsonMap.put("city", city);
+        jsonMap.put("country", country);
+        jsonMap.remove("role");
 
         return jsonMap;
     }
@@ -190,7 +208,7 @@ class UserDownloader extends BaseModelDownloader<UserModel> {
     }
 
     protected void addObject(UserModel object) {
-        UserModel.addObject(object);
+        userDao.create((ClientUserModel) object);
     }
 }
 
@@ -288,8 +306,8 @@ public class InitializerAPI {
 
         var reserveImporter = new ReservationReader();
         reserveImporter.importDataToModel();
-
-        var user = UserModel.findByUsername("MohammadJavad_Afsari");
-        UserModel.setLoginnedUser(user);
+//
+//        var user = UserModel.findByUsername("MohammadJavad_Afsari");
+//        UserModel.setLoginnedUser(user);
     }
 }

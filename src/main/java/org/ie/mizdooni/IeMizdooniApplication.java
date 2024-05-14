@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class IeMizdooniApplication {
 
     public static void main(String[] args) {
-        importGlobalDataFromDatabase();
+//        importGlobalDataFromDatabase();
         initializeModelsFromApi();
         SpringApplication.run(IeMizdooniApplication.class, args);
 
@@ -20,16 +20,14 @@ public class IeMizdooniApplication {
 
     protected static void importGlobalDataFromDatabase() {
         var dao = new GlobalDataDao();
-        var gdata = dao.getAll();
-        if (gdata.isEmpty()) {
+        var gdata = dao.findAll();
+//        if (gdata.isEmpty()) {
             GlobalData newData = new GlobalData();
             newData.setIsUserLoginned(false);
-            newData.setVersion("1.00Alpha");
-            newData.setId(1);
-            dao.saveRecord(newData);
-        }
-        // GlobalDataRepository globalData;
-
+            newData.setVersion("2.00Beta");
+            newData.setId(2);
+            dao.deleteById(3);
+//        }
     }
 
     protected static void initializeModelsFromApi() {

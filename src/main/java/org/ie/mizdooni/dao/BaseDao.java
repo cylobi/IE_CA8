@@ -1,31 +1,115 @@
 package org.ie.mizdooni.dao;
-
+import com.google.common.base.Preconditions;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.PersistenceContextType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.ie.mizdooni.model.GlobalData;
+import org.ie.mizdooni.model.UserModel;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class BaseDao {
-    Configuration configuration;
+import java.util.List;
 
-    SessionFactory sessionFactory;
-    Session session;
+class SessionFactoryUtil {
+    private static SessionFactory sessionFactory;
+    private static Configuration configuration;
 
-    public BaseDao() {
-        configuration = new Configuration();
-        configuration.configure("hibernate.cfg.xml");
+    private SessionFactoryUtil() {}
+
+    public static Configuration getConfiguration() {
+        if(configuration == null) {
+            configuration = new Configuration();
+            configuration.configure("hibernate.cfg.xml");
+        }
+        return configuration;
     }
 
-    public void startSession() {
+    public static SessionFactory getSessionFactory() {
+        if(sessionFactory == null) {
+            var conf = getConfiguration();
+            sessionFactory = conf.buildSessionFactory();
+        }
+        return sessionFactory;
+    }
+}
 
-        sessionFactory = configuration.buildSessionFactory();
-        session = sessionFactory.openSession();
+public abstract class BaseDao<T> {
+    private Class<T> entityClass;
 
+    public BaseDao(final Class<T> entityClass) {
+        setEntityClass(entityClass);
     }
 
-    public void endSession() {
-        session.close();
+    protected void setEntityClass(final Class<T> entityClass) {
+        this.entityClass = Preconditions.checkNotNull(entityClass);
     }
-
-    // public void saveRecord();
-
+    protected Session getCurrentSession() {
+        return SessionFactoryUtil.getSessionFactory().getCurrentSession();
+    }
+    public T findOne(final Long id) {
+        T result;
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()){
+            result = session.get(entityClass, id);
+        }
+        return result;
+    }
+    public List<T> findAll() {
+        SessionFactoryUtil.getConfiguration().addAnnotatedClass(entityClass);
+        List<T> result;
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()){
+            session.getTransaction().begin();
+            result = session.createQuery("from " + entityClass.getSimpleName(), entityClass).getResultList();
+            session.getTransaction().commit();
+        }
+        return result;
+    }
+    public void create(final T entity) {
+        Transaction transaction = null;
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()){
+            transaction = session.getTransaction();
+            transaction.begin();
+            session.persist(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
+    }
+    public void update(final T entity) {
+        Transaction transaction = null;
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()){
+            transaction = session.beginTransaction();
+            session.merge(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+    public void delete(final T entity) {
+        Transaction transaction = null;
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()){
+            transaction = session.beginTransaction();
+            session.remove(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+    public void deleteById(final long entityId) {
+        final T entity = findOne(entityId);
+        if (entity != null) {
+            delete(entity);
+        }
+    }
 }

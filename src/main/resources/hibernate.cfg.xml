@@ -21,6 +21,9 @@
         
         <!-- Optional: Auto-generate schema --> 
         <property name = "hibernate.hbm2ddl.auto">update</property>
+
+        <mapping class="org.ie.mizdooni.model.ClientUserModel"/>
+        <mapping class="org.ie.mizdooni.model.UserModel"/>
   
     </session-factory> 
 </hibernate-configuration>
