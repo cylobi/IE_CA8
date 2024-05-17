@@ -1,50 +1,42 @@
 package org.ie.mizdooni.model;
 
+import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.ie.mizdooni.utils.validator.ValidatorException;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-class TableId implements Serializable {
-    private String restaurantName;
-    private Integer tableNumber;
-
-    public String getRestaurantName() {
-        return restaurantName;
-    }
-
-    public void setRestaurantName(String restaurantName) {
-        this.restaurantName = restaurantName;
-    }
-
-    public Integer getTableNumber() {
-        return tableNumber;
-    }
-
-    public void setTableNumber(Integer tableNumber) {
-        this.tableNumber = tableNumber;
-    }
-}
+//@Embeddable
+//class TableId implements Serializable {
+//    private String restaurantName;
+//    private int tableNumber;
+//
+//    public String getRestaurantName() {
+//        return restaurantName;
+//    }
+//
+//    public void setRestaurantName(String restaurantName) {
+//        this.restaurantName = restaurantName;
+//    }
+//
+//    public Integer getTableNumber() {
+//        return tableNumber;
+//    }
+//
+//    public void setTableNumber(Integer tableNumber) {
+//        this.tableNumber = tableNumber;
+//    }
+//}
 
 @Entity
 @Table(name = "Tables")
-@IdClass(TableId.class)
 public class TableModel extends BaseModel {
     @Id
-    @Column(name = "tableNumber", nullable = false)
-    private int tableNumber;
-
-    @Id
+    @GeneratedValue
+    private Integer tableNumber;
     @Column(name = "restaurantName", nullable = false)
     private String restaurantName;
 
@@ -58,6 +50,9 @@ public class TableModel extends BaseModel {
 
     @Column(name = "managerUsername")
     private String managerUsername;
+
+    @OneToMany(mappedBy = "tableNumber")
+    private List<ReserveTableModel> reservations = new ArrayList<>();
 
     public int getTableNumber() {
         return tableNumber;

@@ -25,28 +25,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 public class TableController {
 
-    @GetMapping("/tables")
-    String getAll() {
-        try {
-            String json = new ObjectMapper().writeValueAsString(TableModel.getAllObjects());
-            return json;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return "Error!";
-    }
+//    @GetMapping("/tables")
+//    String getAll() {
+//        try {
+//            String json = new ObjectMapper().writeValueAsString(TableModel.getAllObjects());
+//            return json;
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+//        return "Error!";
+//    }
 
-    @RequestMapping(path = "/table/{restname}/{number}", method = RequestMethod.GET)
-    String getDetails(@PathVariable String restname, @PathVariable int number) {
-        try {
-            String json = new ObjectMapper().writeValueAsString(
-                    TableModel.findByRestaurantNameAndNumber(restname, number));
-            return json;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return "Error!";
-    }
+//    @RequestMapping(path = "/table/{restname}/{number}", method = RequestMethod.GET)
+//    String getDetails(@PathVariable String restname, @PathVariable int number) {
+//        try {
+//            String json = new ObjectMapper().writeValueAsString(
+//                    TableModel.findByRestaurantNameAndNumber(restname, number));
+//            return json;
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+//        return "Error!";
+//    }
 
     // @GetMapping("/tables/availables")
     // public String getAvailablesInDate(@RequestParam(name = "restId", required =

@@ -48,6 +48,8 @@ public class ReviewModel extends BaseModel {
     @Column(columnDefinition = "TEXT")
     String comment;
 
+    private LocalDateTime datetime;
+
     public String getUsername() {
         return username;
     }
@@ -113,7 +115,7 @@ public class ReviewModel extends BaseModel {
         this.datetime = datetime;
     }
 
-    private LocalDateTime datetime;
+
 
     @Override
     public void validate() throws ValidatorException {

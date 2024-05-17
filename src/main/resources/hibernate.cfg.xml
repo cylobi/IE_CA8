@@ -28,6 +28,8 @@
         <mapping class="org.ie.mizdooni.model.RestaurantModel"/>
         <mapping class="org.ie.mizdooni.model.TableModel"/>
         <mapping class="org.ie.mizdooni.model.ReviewModel"/>
+        <mapping class="org.ie.mizdooni.model.ReserveTableModel"/>
+        <mapping class="org.ie.mizdooni.model.GlobalData"/>
 
   
     </session-factory> 
