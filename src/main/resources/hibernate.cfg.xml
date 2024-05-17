@@ -20,7 +20,8 @@
         <property name = "hibernate.show_sql">true</property> 
         
         <!-- Optional: Auto-generate schema --> 
-        <property name = "hibernate.hbm2ddl.auto">update</property>
+        <!-- drop after run for debug reason -->
+        <property name = "hibernate.hbm2ddl.auto">craete-drop</property>
 
         <mapping class="org.ie.mizdooni.model.ClientUserModel"/>
         <mapping class="org.ie.mizdooni.model.UserModel"/>
