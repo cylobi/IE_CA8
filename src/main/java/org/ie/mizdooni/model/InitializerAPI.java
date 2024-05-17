@@ -1,10 +1,20 @@
 package org.ie.mizdooni.model;
 
-import ch.qos.logback.core.net.server.Client;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.ie.mizdooni.dao.ClientUserDao;
 import org.ie.mizdooni.dao.RestaurantDao;
+import org.ie.mizdooni.dao.TableDao;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -12,17 +22,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 abstract class BaseModelDownloader<ModelType extends BaseModel> {
     protected static String BASE_URL = "http://91.107.137.117:55/";
@@ -110,6 +111,8 @@ abstract class BaseModelDownloader<ModelType extends BaseModel> {
 }
 
 class TableDownloader extends BaseModelDownloader<TableModel> {
+    TableDao dao = new TableDao();
+
     protected Map<String, Object> fixFieldNameAndTypes(Map<String, Object> jsonMap) {
         var newMap = new LinkedHashMap<String, Object>();
         for (var oldKey : jsonMap.keySet()) {
@@ -138,7 +141,7 @@ class TableDownloader extends BaseModelDownloader<TableModel> {
     }
 
     protected void addObject(TableModel object) {
-        TableModel.addObject(object);
+        dao.create(object);
     }
 }
 
@@ -294,7 +297,7 @@ class ReservationReader {
 public class InitializerAPI {
 
     public void initializeModels() {
-        var downloaders = Arrays.asList(new TableDownloader(), new RestaurantDownloader(), new UserDownloader(),
+        var downloaders = Arrays.asList(new RestaurantDownloader(), new TableDownloader(), new UserDownloader(),
                 new ReviewDownloader());
         for (var iter : downloaders) {
             iter.importDataToModel();
