@@ -1,12 +1,17 @@
 package org.ie.mizdooni.dao;
 
 import com.google.common.base.Preconditions;
+import jakarta.persistence.criteria.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import org.hibernate.engine.spi.SessionDelegatorBaseImpl;
+import org.hibernate.query.Query;
+
 import java.util.List;
+import java.util.Map;
 
 class SessionFactoryUtil {
     private static SessionFactory sessionFactory;
@@ -116,6 +121,42 @@ public abstract class BaseDao<T> {
             delete(entity);
         }
     }
+
+    public List<T> findByCriteria(List<String> selectedColumns, Map<String, Object> criteria) {
+        try(Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<T> cq = cb.createQuery(entityClass);
+            Root<T> root = cq.from(entityClass);
+            if (criteria != null) {
+                for (Map.Entry<String, Object> entry : criteria.entrySet()) {
+                    String key = entry.getKey();
+                    Object value = entry.getValue();
+
+                    Predicate predicate;
+                    if (value instanceof Number) {
+                        predicate = cb.equal(root.get(key), value);
+                    } else if (value instanceof String) {
+                        predicate = cb.like(root.get(key), "%" + value + "%");
+                    } else if (value instanceof Boolean) {
+                        predicate = cb.equal(root.get(key), value);
+                    } else {
+                        throw new IllegalArgumentException("Unsupported type for criteria");
+                    }
+                    cq.where(predicate);
+                }
+            }
+            if (selectedColumns != null) {
+                Expression<?>[] selections = selectedColumns.stream()
+                        .map(root::get)
+                        .toArray(Expression[]::new);
+                cq.multiselect(selections);
+            }
+
+            Query<T> query = session.createQuery(cq);
+            return query.getResultList();
+        }
+    }
+
 
     // singleton
     protected static BaseDao instance = null;

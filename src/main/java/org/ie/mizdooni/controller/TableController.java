@@ -5,10 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
+import org.ie.mizdooni.dao.TableDao;
 import org.ie.mizdooni.model.ReserveTableModel;
 import org.ie.mizdooni.model.RestaurantModel;
 import org.ie.mizdooni.model.TableModel;
@@ -25,37 +24,40 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 public class TableController {
 
-//    @GetMapping("/tables")
-//    String getAll() {
-//        try {
-//            String json = new ObjectMapper().writeValueAsString(TableModel.getAllObjects());
-//            return json;
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }
-//        return "Error!";
-//    }
+    @GetMapping("/tables")
+    String getAll() {
+        try {
+            String json = new ObjectMapper().writeValueAsString(TableDao.getInstance().findAll());
+            return json;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return "Error!";
+    }
 
-//    @RequestMapping(path = "/table/{restname}/{number}", method = RequestMethod.GET)
-//    String getDetails(@PathVariable String restname, @PathVariable int number) {
-//        try {
-//            String json = new ObjectMapper().writeValueAsString(
-//                    TableModel.findByRestaurantNameAndNumber(restname, number));
-//            return json;
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }
-//        return "Error!";
-//    }
+    @RequestMapping(path = "/table/{restname}/{number}", method = RequestMethod.GET)
+    @ResponseBody
+    String getDetails(@PathVariable String restname, @PathVariable int number) {
+        try {
+            Map<String, Object> criteria = new HashMap<>();
+            criteria.put("restaurantName", restname);
+            criteria.put("tableNumber", number);
+            List<String> selectedCols = Arrays.asList("tableNumber", "restaurantName", "seatsNumber");
+            return new ObjectMapper().writeValueAsString(TableDao.getInstance().findByCriteria(selectedCols,criteria));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return "Error!";
+    }
 
-    // @GetMapping("/tables/availables")
-    // public String getAvailablesInDate(@RequestParam(name = "restId", required =
-    // true) int restId,
-    // @RequestParam(name = "date", required = true) String dateStr) {
-    // var restaurant = RestaurantModel.findById(restId);
-    // if (restaurant == null) {
-    // return "Error";
-    // }
+//     @GetMapping("/tables/availables")
+//     public String getAvailablesInDate(@RequestParam(name = "restId", required =
+//     true) int restId, @RequestParam(name = "date", required = true) String dateStr) {
+////     var restaurant = RestaurantModel.findById(restId);
+//         var
+//         if (restaurant == null) {
+//         return "Error";
+//     }
 
     // SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     // Date date;
