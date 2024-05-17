@@ -1,15 +1,10 @@
 package org.ie.mizdooni.dao;
+
 import com.google.common.base.Preconditions;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.PersistenceContextType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.ie.mizdooni.model.GlobalData;
-import org.ie.mizdooni.model.UserModel;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -17,10 +12,11 @@ class SessionFactoryUtil {
     private static SessionFactory sessionFactory;
     private static Configuration configuration;
 
-    private SessionFactoryUtil() {}
+    private SessionFactoryUtil() {
+    }
 
     public static Configuration getConfiguration() {
-        if(configuration == null) {
+        if (configuration == null) {
             configuration = new Configuration();
             configuration.configure("hibernate.cfg.xml");
         }
@@ -28,7 +24,7 @@ class SessionFactoryUtil {
     }
 
     public static SessionFactory getSessionFactory() {
-        if(sessionFactory == null) {
+        if (sessionFactory == null) {
             var conf = getConfiguration();
             sessionFactory = conf.buildSessionFactory();
         }
@@ -37,6 +33,7 @@ class SessionFactoryUtil {
 }
 
 public abstract class BaseDao<T> {
+
     private Class<T> entityClass;
 
     public BaseDao(final Class<T> entityClass) {
@@ -46,29 +43,33 @@ public abstract class BaseDao<T> {
     protected void setEntityClass(final Class<T> entityClass) {
         this.entityClass = Preconditions.checkNotNull(entityClass);
     }
+
     protected Session getCurrentSession() {
         return SessionFactoryUtil.getSessionFactory().getCurrentSession();
     }
+
     public T findOne(final Long id) {
         T result;
-        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()){
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             result = session.get(entityClass, id);
         }
         return result;
     }
+
     public List<T> findAll() {
         SessionFactoryUtil.getConfiguration().addAnnotatedClass(entityClass);
         List<T> result;
-        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()){
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             session.getTransaction().begin();
             result = session.createQuery("from " + entityClass.getSimpleName(), entityClass).getResultList();
             session.getTransaction().commit();
         }
         return result;
     }
+
     public void create(final T entity) {
         Transaction transaction = null;
-        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()){
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             transaction = session.getTransaction();
             transaction.begin();
             session.persist(entity);
@@ -80,9 +81,10 @@ public abstract class BaseDao<T> {
             }
         }
     }
+
     public void update(final T entity) {
         Transaction transaction = null;
-        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()){
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.merge(entity);
             transaction.commit();
@@ -93,9 +95,10 @@ public abstract class BaseDao<T> {
             e.printStackTrace();
         }
     }
+
     public void delete(final T entity) {
         Transaction transaction = null;
-        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()){
+        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.remove(entity);
             transaction.commit();
@@ -106,10 +109,14 @@ public abstract class BaseDao<T> {
             e.printStackTrace();
         }
     }
+
     public void deleteById(final long entityId) {
         final T entity = findOne(entityId);
         if (entity != null) {
             delete(entity);
         }
     }
+
+    // singleton
+    protected static BaseDao instance = null;
 }
