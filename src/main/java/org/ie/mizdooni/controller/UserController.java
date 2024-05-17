@@ -70,19 +70,22 @@ public class UserController {
         return new ResponseEntity<>(json, HttpStatus.OK);
     }
 
-    // @RequestMapping(path = "/auth/register", method = RequestMethod.POST)
-    // @ResponseBody
-    // public ResponseEntity<String> registerUser(@RequestBody RegisterRequestBody
-    // body) throws BaseWebappException
-    // {
-    // boolean doesAlreadyExist = doesUsernameEmailExist(body.username, body.email);
-    // if (doesAlreadyExist) {
-    // throw new UserAlreadyExistsException();
-    // }
-    // var newUser = createInstanceFromRequest(body);
-    // UserModel.addObject(newUser);
-    // return new ResponseEntity<>(HttpStatus.OK);
-    // }
+    @RequestMapping(path = "/auth/register", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<String> registerUser(@RequestBody RegisterRequestBody body) throws BaseWebappException {
+        boolean isUsernameAllowed = UserDao.getInstance().findOneByUsername(body.username) == null;
+        if (!isUsernameAllowed) {
+            throw new UserAlreadyExistsException();
+        }
+        boolean isEmailAllowed = UserDao.getInstance().isEmailAllowed(body.email);
+        if (!isEmailAllowed) {
+            throw new UserAlreadyExistsException();
+        }
+
+        var newUser = createInstanceFromRequest(body);
+        UserModel.addObject(newUser);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @ExceptionHandler(BaseWebappException.class)
     public ResponseEntity<String> handleException(BaseWebappException e) {
