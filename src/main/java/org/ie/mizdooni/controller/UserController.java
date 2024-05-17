@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.ie.mizdooni.dao.GlobalDataDao;
+import org.ie.mizdooni.dao.UserDao;
 import org.ie.mizdooni.model.UserAddress;
 import org.ie.mizdooni.model.UserModel;
 //import org.ie.mizdooni.model.UserModel.UserRole;
@@ -56,21 +57,18 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    // @RequestMapping(path = "/auth/login", method = RequestMethod.PUT)
-    // @ResponseBody
-    // public ResponseEntity<String> login(@RequestBody LoginUserRequestBody body)
-    // throws BaseWebappException,JsonProcessingException
-    // {
-    // var user = UserModel.findUserByUserPass(body.getUsername(),
-    // body.getPassword());
-    // if (user.isEmpty()){
-    // throw new UserNotFoundException();
-    // }
-    // UserModel.setLoginnedUser(user.get(0));
-    // String json = new
-    // ObjectMapper().writeValueAsString(UserModel.getLoginnedUser());
-    // return new ResponseEntity<>(json, HttpStatus.OK);
-    // }
+    @RequestMapping(path = "/auth/login", method = RequestMethod.PUT)
+    @ResponseBody
+    public ResponseEntity<String> login(@RequestBody LoginUserRequestBody body)
+            throws BaseWebappException, JsonProcessingException {
+        var user = UserDao.getInstance().findUserByUserPass(body.getUsername(), body.getPassword());
+        if (user == null) {
+            throw new UserNotFoundException();
+        }
+        GlobalDataDao.getInstance().setLoginnedUserByUsername(user.getUsername());
+        String json = new ObjectMapper().writeValueAsString(GlobalDataDao.getInstance().getLoginnedUser());
+        return new ResponseEntity<>(json, HttpStatus.OK);
+    }
 
     // @RequestMapping(path = "/auth/register", method = RequestMethod.POST)
     // @ResponseBody
