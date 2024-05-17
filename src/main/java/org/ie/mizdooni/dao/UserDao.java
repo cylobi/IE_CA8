@@ -4,8 +4,6 @@ import org.ie.mizdooni.model.UserModel;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import com.journaldev.hibernate.util.HibernateUtil;
-
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.ie.mizdooni.dao.GlobalDataDao;
 import org.ie.mizdooni.dao.UserDao;
+import org.ie.mizdooni.model.ClientUserModel;
+import org.ie.mizdooni.model.ManagerUserModel;
 import org.ie.mizdooni.model.UserAddress;
 import org.ie.mizdooni.model.UserModel;
 //import org.ie.mizdooni.model.UserModel.UserRole;
@@ -81,9 +83,8 @@ public class UserController {
         if (!isEmailAllowed) {
             throw new UserAlreadyExistsException();
         }
-
         var newUser = createInstanceFromRequest(body);
-        UserModel.addObject(newUser);
+        UserDao.getInstance().create(newUser);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -108,17 +109,19 @@ public class UserController {
     // return false;
     // }
 
-    // private UserModel createInstanceFromRequest(RegisterRequestBody body) {
-    // var instance = new UserModel();
-    // instance.setUsername(body.username);
-    // instance.setPassword(body.password);
-    // instance.setEmail(body.email);
-    // instance.setRole(body.role.equals("client") ? UserModel.UserRole.CLIENT :
-    // UserModel.UserRole.MANAGER);
-    // var addr = new UserAddress(body.country, body.city);
-    // instance.setAddress(addr);
-
-    // return instance;
-    // }
+     private UserModel createInstanceFromRequest(RegisterRequestBody body) {
+        UserModel instance;
+        if (body.role.equals("client")){
+            instance = new ClientUserModel();
+        } else {
+            instance = new ManagerUserModel();
+        }
+         instance.setUsername(body.username);
+         instance.setPassword(body.password);
+         instance.setEmail(body.email);
+         instance.setCountry(body.country);
+         instance.setCity(body.city);
+         return instance;
+     }
 
 }
