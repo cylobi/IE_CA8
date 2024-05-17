@@ -1,14 +1,18 @@
 package org.ie.mizdooni.model;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "Users")
 @DiscriminatorValue("client")
 public class ClientUserModel extends UserModel{
     public ClientUserModel(){ super(); }
+
+
+    @OneToMany(mappedBy = "clientUsername")
+    private List<ReserveTableModel> clientReservations = new ArrayList<>();
 
     @Override
     public String getRole() {

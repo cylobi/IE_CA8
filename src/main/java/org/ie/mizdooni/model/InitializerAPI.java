@@ -13,10 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.ie.mizdooni.dao.ClientUserDao;
-import org.ie.mizdooni.dao.RestaurantDao;
-import org.ie.mizdooni.dao.ReviewDao;
-import org.ie.mizdooni.dao.TableDao;
+import org.ie.mizdooni.dao.*;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -127,6 +124,7 @@ class TableDownloader extends BaseModelDownloader<TableModel> {
 
             newMap.put(newKey, newValue);
         }
+        newMap.remove("tableNumber");
         return newMap;
     }
 
@@ -246,6 +244,7 @@ class ReviewDownloader extends BaseModelDownloader<ReviewModel> {
 }
 
 class ReservationReader {
+    private ReservationDao dao = new ReservationDao();
     public String readFileContent() {
         String filePath = "asset/reservations";
         try {
@@ -295,7 +294,8 @@ class ReservationReader {
             mapper = new ObjectMapper();
             var objects = l.parallelStream().map(mapIter -> convertMap(fixFieldNameAndTypes(mapIter))).toList();
             for (var iter : objects) {
-                ReserveTableModel.addObject(iter);
+//                ReserveTableModel.addObject(iter);
+                dao.create(iter);
             }
 
         } catch (JsonProcessingException e) {
@@ -313,8 +313,8 @@ public class InitializerAPI {
             iter.importDataToModel();
         }
 
-        var reserveImporter = new ReservationReader();
-        reserveImporter.importDataToModel();
+//        var reserveImporter = new ReservationReader();
+//        reserveImporter.importDataToModel();
         //
         // var user = UserModel.findByUsername("MohammadJavad_Afsari");
         // UserModel.setLoginnedUser(user);
