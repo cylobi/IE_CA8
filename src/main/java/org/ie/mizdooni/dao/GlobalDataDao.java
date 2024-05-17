@@ -15,7 +15,6 @@ public class GlobalDataDao extends BaseDao<GlobalData> {
 
     public GlobalData initializeData() {
         GlobalData newData = new GlobalData();
-        newData.setIsUserLoginned(false);
         newData.setVersion("2.00Beta");
         newData.setId(1);
         this.create(newData);
@@ -48,6 +47,10 @@ public class GlobalDataDao extends BaseDao<GlobalData> {
         getData().setLoginnedUsername(username);
         update(getData());
         data = importOrCreateData();
+    }
+
+    public void setLogoutUser() {
+        setLoginnedUserByUsername(null);
     }
 
     private static class SingletonHelper {

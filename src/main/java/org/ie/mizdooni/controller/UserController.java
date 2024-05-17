@@ -49,14 +49,12 @@ public class UserController {
         return new ResponseEntity<>(json, HttpStatus.OK);
     }
 
-    //
-    // @RequestMapping(path = "/auth/logout", method = RequestMethod.PUT)
-    // @ResponseBody
-    // ResponseEntity<String> logout()
-    // {
-    // UserModel.setLoginnedUser(null);
-    // return new ResponseEntity<>(HttpStatus.OK);
-    // }
+    @RequestMapping(path = "/auth/logout", method = RequestMethod.PUT)
+    @ResponseBody
+    ResponseEntity<String> logout() {
+        GlobalDataDao.getInstance().setLogoutUser();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     // @RequestMapping(path = "/auth/login", method = RequestMethod.PUT)
     // @ResponseBody
