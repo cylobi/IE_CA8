@@ -2,37 +2,49 @@ package org.ie.mizdooni.model;
 
 import org.ie.mizdooni.utils.validator.ValidatorException;
 
+import jakarta.persistence.*;
+import org.ie.mizdooni.utils.validator.EmailValidator;
+import org.ie.mizdooni.utils.validator.UserNameVlidator;
+
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class RestaurantModel extends BaseModel{
-    static private List<RestaurantModel> allObjects = new ArrayList<>();
-    static private int maxGeneratedId = 1000;
-    static private int getNewId(){maxGeneratedId += 1; return maxGeneratedId;}
+@Entity
+@Table(name = "Restaurants")
+public class RestaurantModel extends BaseModel {
+    // static private List<RestaurantModel> allObjects = new ArrayList<>();
+    // static private int maxGeneratedId = 1000;
+    // static private int getNewId(){maxGeneratedId += 1; return maxGeneratedId;}
 
+    @Id
+    @GeneratedValue
+    private long id;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Column(unique = true)
     String name;
+
     public String getName() {
         return name;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    private int id;
-
     public void setName(String name) {
         this.name = name;
     }
+
+    String managerUsername;
 
     public String getManagerUsername() {
         return managerUsername;
@@ -41,6 +53,8 @@ public class RestaurantModel extends BaseModel{
     public void setManagerUsername(String managerUsername) {
         this.managerUsername = managerUsername;
     }
+
+    String type;
 
     public String getType() {
         return type;
@@ -53,7 +67,8 @@ public class RestaurantModel extends BaseModel{
     public String getStartTime() {
         return startTime;
     }
-    public int getStartHour(){
+
+    public int getStartHour() {
         return Integer.valueOf(getStartTime().split(":")[0]);
     }
 
@@ -69,7 +84,7 @@ public class RestaurantModel extends BaseModel{
         this.endTime = endTime;
     }
 
-    public int getEndHour(){
+    public int getEndHour() {
         return Integer.valueOf(getEndTime().split(":")[0]);
     }
 
@@ -77,7 +92,9 @@ public class RestaurantModel extends BaseModel{
         return description;
     }
 
-    public String getCity(){return address.city;}
+    public String getCity() {
+        return address.city;
+    }
 
     public void setDescription(String description) {
         this.description = description;
@@ -91,12 +108,14 @@ public class RestaurantModel extends BaseModel{
         this.address = address;
     }
 
-    String managerUsername;
-    String type;
-
     String startTime, endTime;
-    Date startTimeObject;
-    Date endTimeObject;
+
+    @Transient
+    LocalTime startTimeObject;
+    @Transient
+    LocalTime endTimeObject; // SOS
+
+    @Column(columnDefinition = "TEXT")
     String description;
 
     public String getImageUrl() {
@@ -109,96 +128,87 @@ public class RestaurantModel extends BaseModel{
 
     String imageUrl;
 
+    @Embedded
     RestaurantAddress address;
 
-    private boolean checkTime(String time){
+    private boolean checkTime(String time) {
         String regex = "^([01]?[0-9]|2[0-3]):00$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(time);
         return matcher.matches();
     }
 
-    private void checkTimesAreSimple() throws ValidatorException{
-        if(checkTime(startTime) == false || checkTime(endTime) == false){
-            throw new ValidatorException("Start and end times should be valid and simple. like 00:00, 01:00, ... , 23:00");
+    private void checkTimesAreSimple() throws ValidatorException {
+        if (checkTime(startTime) == false || checkTime(endTime) == false) {
+            throw new ValidatorException(
+                    "Start and end times should be valid and simple. like 00:00, 01:00, ... , 23:00");
         }
     }
+
     @Override
     public void validate() throws ValidatorException {
         super.validate();
         checkTimesAreSimple();
     }
 
-    public static void addObject(RestaurantModel model){
-        model.setId( getNewId() );
-        allObjects.add(model);
-    }
+    // public static void addObject(RestaurantModel model) {
+    // model.setId(getNewId());
+    // allObjects.add(model);
+    // }
 
-    public static List<RestaurantModel> getAllObjects(){
-        return allObjects;
-    }
+    // public static List<RestaurantModel> getAllObjects() {
+    // return allObjects;
+    // }
 
-    static public RestaurantModel findByName(String name){
-        var resultList = allObjects.stream().filter(
-                model -> model.getName().compareTo(name) == 0
-        ).collect(Collectors.toList());
-        if(resultList.isEmpty()){
-            return null;
-        }
+    // static public RestaurantModel findByName(String name) {
+    // var resultList = allObjects.stream().filter(model ->
+    // model.getName().compareTo(name) == 0)
+    // .collect(Collectors.toList());
+    // if (resultList.isEmpty()) {
+    // return null;
+    // }
 
-        return resultList.get(0);
-    }
+    // return resultList.get(0);
+    // }
 
-    static public List<RestaurantModel> filterByName(String name)
-    {
-        return  getAllObjects()
-                .stream()
-                .filter(restaurant -> restaurant.getName().contains(name))
-                .toList();
-    }
+    // static public List<RestaurantModel> filterByName(String name) {
+    // return getAllObjects().stream().filter(restaurant ->
+    // restaurant.getName().contains(name)).toList();
+    // }
 
-    static public List<RestaurantModel> filterByType(String type)
-    {
-        return  getAllObjects()
-                .stream()
-                .filter(restaurant -> restaurant.getType().equals(type))
-                .toList();
-    }
+    // static public List<RestaurantModel> filterByType(String type) {
+    // return getAllObjects().stream().filter(restaurant ->
+    // restaurant.getType().equals(type)).toList();
+    // }
 
-    static public List<RestaurantModel> filterByCity(String city)
-    {
-        return  getAllObjects()
-                .stream()
-                .filter(restaurant -> restaurant.getCity().equals(city))
-                .toList();
-    }
+    // static public List<RestaurantModel> filterByCity(String city) {
+    // return getAllObjects().stream().filter(restaurant ->
+    // restaurant.getCity().equals(city)).toList();
+    // }
 
-    static public List<RestaurantModel> sortByReview()
-    {
-        List<RestaurantModel> allRestaurants = getAllObjects();
-        allRestaurants.sort(
-                Comparator.comparingDouble(
-                        (RestaurantModel restaurant) -> ReviewModel.getOverallScoreByRestaurantName(restaurant.getName()))
-                        .reversed()
-        );
-        return allRestaurants;
-    }
+    // static public List<RestaurantModel> sortByReview() {
+    // List<RestaurantModel> allRestaurants = getAllObjects();
+    // allRestaurants.sort(Comparator.comparingDouble(
+    // (RestaurantModel restaurant) ->
+    // ReviewModel.getOverallScoreByRestaurantName(restaurant.getName()))
+    // .reversed());
+    // return allRestaurants;
+    // }
 
-    static public List<RestaurantModel> findByManager(String username){
-        return allObjects.stream().filter(
-                model -> model.getManagerUsername().compareTo(username) == 0
-        ).collect(Collectors.toList());
-    }
+    // static public List<RestaurantModel> findByManager(String username) {
+    // return allObjects.stream().filter(model ->
+    // model.getManagerUsername().compareTo(username) == 0)
+    // .collect(Collectors.toList());
+    // }
 
-    static public RestaurantModel findById(int id){
-        var result = allObjects.stream().filter(
-                model -> model.getId() == id
-        ).collect(Collectors.toList());
-        if(result.isEmpty()){
-            return null;
-        }
+    // static public RestaurantModel findById(int id) {
+    // var result = allObjects.stream().filter(model -> model.getId() ==
+    // id).collect(Collectors.toList());
+    // if (result.isEmpty()) {
+    // return null;
+    // }
 
-        assert result.size() == 1;
-        return result.get(0);
-    }
+    // assert result.size() == 1;
+    // return result.get(0);
+    // }
 }

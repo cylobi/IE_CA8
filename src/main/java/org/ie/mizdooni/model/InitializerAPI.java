@@ -4,6 +4,7 @@ import ch.qos.logback.core.net.server.Client;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ie.mizdooni.dao.ClientUserDao;
+import org.ie.mizdooni.dao.RestaurantDao;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -35,10 +36,7 @@ abstract class BaseModelDownloader<ModelType extends BaseModel> {
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
         HttpEntity<?> entity = new HttpEntity<>(headers);
-        HttpEntity<String> response = restTemplate.exchange(
-                builder.toUriString(),
-                HttpMethod.GET,
-                entity,
+        HttpEntity<String> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity,
                 String.class);
         String jsonBody = response.getBody();
         System.out.print(jsonBody);
@@ -55,12 +53,12 @@ abstract class BaseModelDownloader<ModelType extends BaseModel> {
 
     abstract protected ModelType generateNewModelInstance();
 
-    protected Field findFieldFor(String key, ModelType newObject){
+    protected Field findFieldFor(String key, ModelType newObject) {
         Class<?> clazz = newObject.getClass();
-        while (clazz!= null) {
+        while (clazz != null) {
             Field[] fields = clazz.getDeclaredFields();
             for (Field field : fields) {
-                if (key.equals(field.getName())){
+                if (key.equals(field.getName())) {
                     return field;
                 }
             }
@@ -132,8 +130,7 @@ class TableDownloader extends BaseModelDownloader<TableModel> {
     }
 
     protected List<TableModel> convertJsonsToModels(List<Map<String, Object>> jsonMaps) {
-        return jsonMaps.parallelStream().map(
-                mapIter -> convertMap(fixFieldNameAndTypes(mapIter))).toList();
+        return jsonMaps.parallelStream().map(mapIter -> convertMap(fixFieldNameAndTypes(mapIter))).toList();
     }
 
     protected String getModelUrl() {
@@ -146,6 +143,8 @@ class TableDownloader extends BaseModelDownloader<TableModel> {
 }
 
 class RestaurantDownloader extends BaseModelDownloader<RestaurantModel> {
+    RestaurantDao restaurantDao = new RestaurantDao();
+
     protected String getModelUrl() {
         return BASE_URL + "restaurants";
     }
@@ -166,18 +165,15 @@ class RestaurantDownloader extends BaseModelDownloader<RestaurantModel> {
         jsonMap.remove("image");
         jsonMap.put("imageUrl", imageUrl);
 
-
-
         return jsonMap;
     }
 
     protected List<RestaurantModel> convertJsonsToModels(List<Map<String, Object>> jsonMaps) {
-        return jsonMaps.parallelStream().map(
-                mapIter -> convertMap(fixFieldNameAndTypes(mapIter))).toList();
+        return jsonMaps.parallelStream().map(mapIter -> convertMap(fixFieldNameAndTypes(mapIter))).toList();
     }
 
     protected void addObject(RestaurantModel object) {
-        RestaurantModel.addObject(object);
+        restaurantDao.create(object);
     }
 }
 
@@ -185,7 +181,9 @@ class UserDownloader extends BaseModelDownloader<UserModel> {
     protected String getModelUrl() {
         return BASE_URL + "users";
     }
+
     ClientUserDao userDao = new ClientUserDao();
+
     protected UserModel generateNewModelInstance() {
         return new ClientUserModel();
     }
@@ -203,8 +201,7 @@ class UserDownloader extends BaseModelDownloader<UserModel> {
     }
 
     protected List<UserModel> convertJsonsToModels(List<Map<String, Object>> jsonMaps) {
-        return jsonMaps.parallelStream().map(
-                mapIter -> convertMap(fixFieldNameAndTypes(mapIter))).toList();
+        return jsonMaps.parallelStream().map(mapIter -> convertMap(fixFieldNameAndTypes(mapIter))).toList();
     }
 
     protected void addObject(UserModel object) {
@@ -227,8 +224,7 @@ class ReviewDownloader extends BaseModelDownloader<ReviewModel> {
     }
 
     protected List<ReviewModel> convertJsonsToModels(List<Map<String, Object>> jsonMaps) {
-        return jsonMaps.parallelStream().map(
-                mapIter -> convertMap(fixFieldNameAndTypes(mapIter))).toList();
+        return jsonMaps.parallelStream().map(mapIter -> convertMap(fixFieldNameAndTypes(mapIter))).toList();
     }
 
     protected void addObject(ReviewModel object) {
@@ -306,8 +302,8 @@ public class InitializerAPI {
 
         var reserveImporter = new ReservationReader();
         reserveImporter.importDataToModel();
-//
-//        var user = UserModel.findByUsername("MohammadJavad_Afsari");
-//        UserModel.setLoginnedUser(user);
+        //
+        // var user = UserModel.findByUsername("MohammadJavad_Afsari");
+        // UserModel.setLoginnedUser(user);
     }
 }
