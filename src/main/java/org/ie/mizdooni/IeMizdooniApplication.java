@@ -14,8 +14,14 @@ public class IeMizdooniApplication {
     public static void main(String[] args) {
         // importGlobalDataFromDatabase();
         initializeModelsFromApi();
+        setTestUser();
         SpringApplication.run(IeMizdooniApplication.class, args);
 
+    }
+
+    protected static void setTestUser() {
+        var dao = new GlobalDataDao();
+        dao.setLoginnedUserByUsername("MohammadJavad_Afsari");
     }
 
     protected static void importGlobalDataFromDatabase() {
