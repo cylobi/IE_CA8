@@ -4,6 +4,8 @@ import org.ie.mizdooni.utils.validator.ValidatorException;
 
 import jakarta.persistence.*;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -139,5 +141,8 @@ public class RestaurantModel extends BaseModel {
         super.validate();
         checkTimesAreSimple();
     }
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<TableModel> tables;
 
 }

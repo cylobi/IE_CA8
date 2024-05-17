@@ -26,6 +26,7 @@
         <mapping class="org.ie.mizdooni.model.ClientUserModel"/>
         <mapping class="org.ie.mizdooni.model.UserModel"/>
         <mapping class="org.ie.mizdooni.model.RestaurantModel"/>
+        <mapping class="org.ie.mizdooni.model.TableModel"/>
 
   
     </session-factory> 
