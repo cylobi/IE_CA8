@@ -1,10 +1,19 @@
 package org.ie.mizdooni.dao;
 
+import jakarta.persistence.Table;
 import org.ie.mizdooni.model.TableModel;
 
 public class TableDao extends BaseDao<TableModel> {
     public TableDao() {
         super(TableModel.class);
+    }
+
+    private static class SingletonHelper {
+        private static final TableDao INSTANCE = new TableDao();
+    }
+
+    public static TableDao getInstance() {
+        return TableDao.SingletonHelper.INSTANCE;
     }
 
     // public static List<TableModel> findByRestaurantName(String restaurantName){

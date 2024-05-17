@@ -34,6 +34,7 @@ import java.util.List;
 @Entity
 @Table(name = "Tables")
 public class TableModel extends BaseModel {
+
     @Id
     @GeneratedValue
     private Integer tableNumber;
@@ -53,6 +54,15 @@ public class TableModel extends BaseModel {
 
     @OneToMany(mappedBy = "tableNumber")
     private List<ReserveTableModel> reservations = new ArrayList<>();
+
+    public TableModel(Integer tableNumber, String restaurantName, Integer seatsNumber) {
+        this.tableNumber = tableNumber;
+        this.restaurantName = restaurantName;
+        this.seatsNumber = seatsNumber;
+    }
+
+    public TableModel() {
+    }
 
     public int getTableNumber() {
         return tableNumber;
