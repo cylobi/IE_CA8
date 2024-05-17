@@ -3,24 +3,13 @@ package org.ie.mizdooni.model;
 import org.ie.mizdooni.utils.validator.ValidatorException;
 
 import jakarta.persistence.*;
-import org.ie.mizdooni.utils.validator.EmailValidator;
-import org.ie.mizdooni.utils.validator.UserNameVlidator;
-
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Restaurants")
 public class RestaurantModel extends BaseModel {
-    // static private List<RestaurantModel> allObjects = new ArrayList<>();
-    // static private int maxGeneratedId = 1000;
-    // static private int getNewId(){maxGeneratedId += 1; return maxGeneratedId;}
-
     @Id
     @GeneratedValue
     private long id;
@@ -151,64 +140,4 @@ public class RestaurantModel extends BaseModel {
         checkTimesAreSimple();
     }
 
-    // public static void addObject(RestaurantModel model) {
-    // model.setId(getNewId());
-    // allObjects.add(model);
-    // }
-
-    // public static List<RestaurantModel> getAllObjects() {
-    // return allObjects;
-    // }
-
-    // static public RestaurantModel findByName(String name) {
-    // var resultList = allObjects.stream().filter(model ->
-    // model.getName().compareTo(name) == 0)
-    // .collect(Collectors.toList());
-    // if (resultList.isEmpty()) {
-    // return null;
-    // }
-
-    // return resultList.get(0);
-    // }
-
-    // static public List<RestaurantModel> filterByName(String name) {
-    // return getAllObjects().stream().filter(restaurant ->
-    // restaurant.getName().contains(name)).toList();
-    // }
-
-    // static public List<RestaurantModel> filterByType(String type) {
-    // return getAllObjects().stream().filter(restaurant ->
-    // restaurant.getType().equals(type)).toList();
-    // }
-
-    // static public List<RestaurantModel> filterByCity(String city) {
-    // return getAllObjects().stream().filter(restaurant ->
-    // restaurant.getCity().equals(city)).toList();
-    // }
-
-    // static public List<RestaurantModel> sortByReview() {
-    // List<RestaurantModel> allRestaurants = getAllObjects();
-    // allRestaurants.sort(Comparator.comparingDouble(
-    // (RestaurantModel restaurant) ->
-    // ReviewModel.getOverallScoreByRestaurantName(restaurant.getName()))
-    // .reversed());
-    // return allRestaurants;
-    // }
-
-    // static public List<RestaurantModel> findByManager(String username) {
-    // return allObjects.stream().filter(model ->
-    // model.getManagerUsername().compareTo(username) == 0)
-    // .collect(Collectors.toList());
-    // }
-
-    // static public RestaurantModel findById(int id) {
-    // var result = allObjects.stream().filter(model -> model.getId() ==
-    // id).collect(Collectors.toList());
-    // if (result.isEmpty()) {
-    // return null;
-    // }
-
-    // assert result.size() == 1;
-    // return result.get(0);
-    // }
 }

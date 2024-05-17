@@ -1,16 +1,10 @@
 package org.ie.mizdooni.dao;
 
 import com.google.common.base.Preconditions;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.PersistenceContextType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.ie.mizdooni.model.GlobalData;
-import org.ie.mizdooni.model.UserModel;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 

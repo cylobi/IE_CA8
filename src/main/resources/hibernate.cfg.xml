@@ -21,7 +21,7 @@
         
         <!-- Optional: Auto-generate schema --> 
         <!-- drop after run for debug reason -->
-        <property name = "hibernate.hbm2ddl.auto">create</property>
+        <property name = "hibernate.hbm2ddl.auto">create-drop</property>
 
         <mapping class="org.ie.mizdooni.model.ClientUserModel"/>
         <mapping class="org.ie.mizdooni.model.UserModel"/>
