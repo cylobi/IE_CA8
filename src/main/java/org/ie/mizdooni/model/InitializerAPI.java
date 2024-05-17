@@ -2,6 +2,7 @@ package org.ie.mizdooni.model;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.Float;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
@@ -14,6 +15,7 @@ import java.util.Map;
 
 import org.ie.mizdooni.dao.ClientUserDao;
 import org.ie.mizdooni.dao.RestaurantDao;
+import org.ie.mizdooni.dao.ReviewDao;
 import org.ie.mizdooni.dao.TableDao;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -213,6 +215,8 @@ class UserDownloader extends BaseModelDownloader<UserModel> {
 }
 
 class ReviewDownloader extends BaseModelDownloader<ReviewModel> {
+    private ReviewDao dao = new ReviewDao();
+
     protected String getModelUrl() {
         return BASE_URL + "reviews";
     }
@@ -222,6 +226,11 @@ class ReviewDownloader extends BaseModelDownloader<ReviewModel> {
     }
 
     protected Map<String, Object> fixFieldNameAndTypes(Map<String, Object> jsonMap) {
+        String[] rateKeys = { "foodRate", "serviceRate", "ambianceRate", "overallRate" };
+
+        for (var key : rateKeys) {
+            jsonMap.replace(key, Float.valueOf(jsonMap.get(key).toString()));
+        }
 
         return jsonMap;
     }
@@ -231,7 +240,8 @@ class ReviewDownloader extends BaseModelDownloader<ReviewModel> {
     }
 
     protected void addObject(ReviewModel object) {
-        ReviewModel.addObject(object);
+        // ReviewModel.addObject(object);
+        dao.create(object);
     }
 }
 
