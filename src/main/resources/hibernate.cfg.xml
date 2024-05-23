@@ -30,6 +30,9 @@
         <mapping class="org.ie.mizdooni.model.ReviewModel"/>
         <mapping class="org.ie.mizdooni.model.ReserveTableModel"/>
         <mapping class="org.ie.mizdooni.model.GlobalData"/>
+        <mapping class="org.ie.mizdooni.token.Token"/>
+        <mapping class="org.ie.mizdooni.user.User"/>
+
 
   
     </session-factory> 
