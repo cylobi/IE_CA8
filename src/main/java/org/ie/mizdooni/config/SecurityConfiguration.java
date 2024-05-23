@@ -34,6 +34,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor
 @EnableMethodSecurity
 public class SecurityConfiguration { // TODO : remove additionals
+        // bind the filters which we defined
 
         private static final String[] WHITE_LIST_URL = { "/auth***", "/resources/**", "/VAADIN/**", "/api/auth/***",
                         "/api/v1/auth/**", "/v2/api-docs", "/v3/api-docs", "/v3/api-docs/**", "/swagger-resources",
@@ -57,7 +58,7 @@ public class SecurityConfiguration { // TODO : remove additionals
                                                 .hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())
                                                 .requestMatchers(DELETE, "/api/v1/management/**")
                                                 .hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())
-                                                .anyRequest().authenticated())
+                                                .anyRequest().authenticated())// other ones should be authenticated
                                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                                 .authenticationProvider(authenticationProvider)
                                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

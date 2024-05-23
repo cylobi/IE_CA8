@@ -1,6 +1,7 @@
 package org.ie.mizdooni.config;
 
 import org.ie.mizdooni.auditing.ApplicationAuditAware;
+import org.ie.mizdooni.dao.UserDao;
 import org.ie.mizdooni.user.UserRepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
@@ -24,12 +25,14 @@ public class ApplicationConfig {
 
   @Bean
   public UserDetailsService userDetailsService() {
-    return username -> repository.findByEmail(username)
-        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    // return username -> repository.findByEmail(username)
+    // .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    return username -> UserDao.getInstance().findOneByUsername(username);
   }
 
   @Bean
   public AuthenticationProvider authenticationProvider() {
+    // determine user repository and password encoder
     DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
     authProvider.setUserDetailsService(userDetailsService());
     authProvider.setPasswordEncoder(passwordEncoder());
@@ -46,9 +49,22 @@ public class ApplicationConfig {
     return config.getAuthenticationManager();
   }
 
+  class PasswordEnconderTest implements PasswordEncoder {
+    @Override
+    public String encode(CharSequence charSequence) {
+      return charSequence.toString();
+    }
+
+    @Override
+    public boolean matches(CharSequence charSequence, String s) {
+      return charSequence.toString().equals(s);
+    }
+  }
+
   @Bean
   public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
+    // return new BCryptPasswordEncoder();
+    return new PasswordEnconderTest();
   }
 
 }

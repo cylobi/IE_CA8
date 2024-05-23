@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.ie.mizdooni.model.UserModel;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,14 @@ public class JwtService {
 
   public String generateToken(UserDetails userDetails) {
     return generateToken(new HashMap<>(), userDetails);
+  }// TODO remove
+
+  public String generateTokenForUser(UserModel userDetails) {
+    return generateTokenForUser(new HashMap<String, Object>(), userDetails);
+  }
+
+  public String generateTokenForUser(Map<String, Object> extraClaims, UserModel userDetails) {
+    return buildTokenForUser(extraClaims, userDetails, jwtExpiration);
   }
 
   public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
@@ -46,8 +55,19 @@ public class JwtService {
     return buildToken(new HashMap<>(), userDetails, refreshExpiration);
   }
 
+  public String generateRefreshTokenForUser(UserModel userDetails) {
+    return buildTokenForUser(new HashMap<>(), userDetails, refreshExpiration);
+  }
+
   private String buildToken(Map<String, Object> extraClaims, UserDetails userDetails, long expiration) {
     return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
+        .setIssuedAt(new Date(System.currentTimeMillis()))
+        .setExpiration(new Date(System.currentTimeMillis() + expiration))
+        .signWith(getSignInKey(), SignatureAlgorithm.HS256).compact();
+  }
+
+  private String buildTokenForUser(Map<String, Object> extraClaims, UserModel user, long expiration) {
+    return Jwts.builder().setClaims(extraClaims).setSubject(user.getUsername())
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + expiration))
         .signWith(getSignInKey(), SignatureAlgorithm.HS256).compact();

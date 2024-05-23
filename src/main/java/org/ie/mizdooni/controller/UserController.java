@@ -3,6 +3,10 @@ package org.ie.mizdooni.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.RequiredArgsConstructor;
+
+import org.ie.mizdooni.auth.AuthenticationResponse;
+import org.ie.mizdooni.auth.AuthenticationService;
 import org.ie.mizdooni.dao.GlobalDataDao;
 import org.ie.mizdooni.dao.UserDao;
 import org.ie.mizdooni.model.ClientUserModel;
@@ -31,7 +35,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class UserController {
+    private final AuthenticationService service;
     // @GetMapping("/users")
     // @ResponseBody
     // ResponseEntity<String> getAllUsers() throws JsonProcessingException
@@ -61,15 +67,9 @@ public class UserController {
 
     @RequestMapping(path = "/auth/login", method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseEntity<String> login(@RequestBody LoginUserRequestBody body)
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginUserRequestBody body)
             throws BaseWebappException, JsonProcessingException {
-        var user = UserDao.getInstance().findUserByUserPass(body.getUsername(), body.getPassword());
-        if (user == null) {
-            throw new UserNotFoundException();
-        }
-        GlobalDataDao.getInstance().setLoginnedUserByUsername(user.getUsername());
-        String json = new ObjectMapper().writeValueAsString(GlobalDataDao.getInstance().getLoginnedUser());
-        return new ResponseEntity<>(json, HttpStatus.OK);
+        return ResponseEntity.ok(service.authenticateUsingUserpass(body));
     }
 
     @RequestMapping(path = "/auth/register", method = RequestMethod.POST)
@@ -98,30 +98,19 @@ public class UserController {
         return new ResponseEntity<>("Error Processing JSON" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    // private boolean doesUsernameEmailExist(String username, String email) {
-    // var allData = UserModel.getAllObjects();
-    // for (var user : allData) {
-    // if (user.getEmail().compareTo(email) == 0 ||
-    // user.getUsername().compareTo(username) == 0) {
-    // return true;
-    // }
-    // }
-    // return false;
-    // }
-
-     private UserModel createInstanceFromRequest(RegisterRequestBody body) {
+    private UserModel createInstanceFromRequest(RegisterRequestBody body) {
         UserModel instance;
-        if (body.role.equals("client")){
+        if (body.role.equals("client")) {
             instance = new ClientUserModel();
         } else {
             instance = new ManagerUserModel();
         }
-         instance.setUsername(body.username);
-         instance.setPassword(body.password);
-         instance.setEmail(body.email);
-         instance.setCountry(body.country);
-         instance.setCity(body.city);
-         return instance;
-     }
+        instance.setUsername(body.username);
+        instance.setPassword(body.password);
+        instance.setEmail(body.email);
+        instance.setCountry(body.country);
+        instance.setCity(body.city);
+        return instance;
+    }
 
 }
