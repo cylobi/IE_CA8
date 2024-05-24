@@ -67,7 +67,7 @@ public class JwtService {
   }
 
   private String buildTokenForUser(Map<String, Object> extraClaims, UserModel user, long expiration) {
-    return Jwts.builder().setClaims(extraClaims).setSubject(user.getUsername())
+    return Jwts.builder().setClaims(extraClaims).setSubject(user.getUsername()).setIssuer("mizdooni")
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + expiration))
         .signWith(getSignInKey(), SignatureAlgorithm.HS256).compact();
