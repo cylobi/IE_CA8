@@ -8,12 +8,13 @@ import {
 } from "./contexts/UserInfoContext";
 import { useEffect, useState } from "react";
 import UserInfo from "./types/UserInfo";
+import { fetchAuth } from "./utils/Authentication";
 
 export default function App() {
   const [loginnedUser, setLoginnedUser] = useState<UserInfo | null>(null);
 
   useEffect(() => {
-    fetch("/api/users/current_user")
+    fetchAuth("/api/users/current_user")
       .then((r) => r.json())
       .then((data) => setLoginnedUser(data));
   }, []);
