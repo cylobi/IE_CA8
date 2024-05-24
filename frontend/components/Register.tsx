@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import LongFormInput from "Frontend/components/base/LongFormInput";
 import LongButton from "Frontend/components/base/LongButton";
+import { storeTokensAfterLogin } from "Frontend/utils/Authentication";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -39,6 +40,7 @@ const Register = () => {
 
       const data = await response.json();
       console.log(data);
+      storeTokensAfterLogin(data);
       navigate("/home");
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);

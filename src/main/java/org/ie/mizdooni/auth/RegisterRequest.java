@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
-
+public class RegisterRequest {// TODO remove it
   private String firstname;
   private String lastname;
   private String email;

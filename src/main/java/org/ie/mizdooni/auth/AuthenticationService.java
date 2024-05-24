@@ -4,6 +4,7 @@ import org.ie.mizdooni.config.JwtService;
 import org.ie.mizdooni.dao.UserDao;
 import org.ie.mizdooni.model.UserModel;
 import org.ie.mizdooni.serializer.LoginUserRequestBody;
+import org.ie.mizdooni.serializer.RegisterRequestBody;
 import org.ie.mizdooni.token.Token;
 import org.ie.mizdooni.token.TokenRepository;
 import org.ie.mizdooni.token.TokenType;
@@ -40,7 +41,7 @@ public class AuthenticationService {
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
 
-  public AuthenticationResponse register(RegisterRequest request) {
+  public AuthenticationResponse register(RegisterRequest request) { // TODO remove old methods
     var user = User.builder().firstname(request.getFirstname()).lastname(request.getLastname())
         .email(request.getEmail()).password(passwordEncoder.encode(request.getPassword())).role(request.getRole())
         .build();
@@ -48,6 +49,13 @@ public class AuthenticationService {
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
     saveUserToken(savedUser, jwtToken);
+    return AuthenticationResponse.builder().accessToken(jwtToken).refreshToken(refreshToken).build();
+  }
+
+  public AuthenticationResponse registerUserToken(UserModel user) {
+    var jwtToken = jwtService.generateToken(user);
+    var refreshToken = jwtService.generateRefreshToken(user);
+    saveUserToken(user, jwtToken);
     return AuthenticationResponse.builder().accessToken(jwtToken).refreshToken(refreshToken).build();
   }
 

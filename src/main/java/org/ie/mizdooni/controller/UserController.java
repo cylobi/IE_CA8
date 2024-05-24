@@ -67,7 +67,8 @@ public class UserController {
 
     @RequestMapping(path = "/auth/register", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> registerUser(@RequestBody RegisterRequestBody body) throws BaseWebappException {
+    public ResponseEntity<AuthenticationResponse> registerUser(@RequestBody RegisterRequestBody body)
+            throws BaseWebappException {
         boolean isUsernameAllowed = UserDao.getInstance().findOneByUsername(body.username) == null;
         if (!isUsernameAllowed) {
             throw new UserAlreadyExistsException();
@@ -78,7 +79,7 @@ public class UserController {
         }
         var newUser = createInstanceFromRequest(body);
         UserDao.getInstance().create(newUser);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok(service.registerUserToken(newUser));
     }
 
     @ExceptionHandler(BaseWebappException.class)
