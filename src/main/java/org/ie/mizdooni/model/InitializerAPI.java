@@ -18,11 +18,16 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lombok.RequiredArgsConstructor;
 
 abstract class BaseModelDownloader<ModelType extends BaseModel> {
     // protected static String BASE_URL = "http://91.107.137.117:55/";
@@ -199,6 +204,9 @@ class UserDownloader extends BaseModelDownloader<UserModel> {
         jsonMap.put("city", city);
         jsonMap.put("country", country);
         jsonMap.remove("role");
+        CharSequence chseq = (String) jsonMap.get("password");
+        String encodedPass = (new BCryptPasswordEncoder()).encode(chseq);
+        jsonMap.replace("password", encodedPass);
 
         return jsonMap;
     }

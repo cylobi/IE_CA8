@@ -63,8 +63,8 @@ public class ApplicationConfig {
 
   @Bean
   public PasswordEncoder passwordEncoder() {
-    // return new BCryptPasswordEncoder();
-    return new PasswordEnconderTest();
+    return new BCryptPasswordEncoder();
+    // return new PasswordEnconderTest();
   }
 
 }
