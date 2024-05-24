@@ -18,6 +18,13 @@ function isLoggedIn() {
   return localStorage.getItem("access_token") != null;
 }
 
+export function removeTokensAfterLogout() {
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("refresh_token");
+
+  console.log("removing tokens after logout...");
+}
+
 export function fetchAuth(
   input: string | URL | globalThis.Request,
   init?: RequestInit
