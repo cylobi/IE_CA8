@@ -25,11 +25,15 @@
         <mapping class="org.ie.mizdooni.model.ManagerUserModel"/>
         <mapping class="org.ie.mizdooni.model.ClientUserModel"/>
         <mapping class="org.ie.mizdooni.model.UserModel"/>
+        <mapping class="org.ie.mizdooni.token.UserToken"/>
         <mapping class="org.ie.mizdooni.model.RestaurantModel"/>
         <mapping class="org.ie.mizdooni.model.TableModel"/>
         <mapping class="org.ie.mizdooni.model.ReviewModel"/>
         <mapping class="org.ie.mizdooni.model.ReserveTableModel"/>
         <mapping class="org.ie.mizdooni.model.GlobalData"/>
+        <mapping class="org.ie.mizdooni.token.Token"/>
+        <mapping class="org.ie.mizdooni.user.User"/>
+
 
   
     </session-factory> 

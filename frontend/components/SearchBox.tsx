@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DropDown from "./base/DropDown";
 import NormalButton from "./base/NormalButton";
+import { fetchAuth } from "Frontend/utils/Authentication";
 
 function SearchBox() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ function SearchBox() {
 
   const [cities, setCities] = useState<string[]>([]);
   function fetchAllCities() {
-    fetch("/restaurants/all_cities")
+    fetchAuth("/restaurants/all_cities")
       .then((r) => r.json())
       .then((data) => {
         setCities(data);
@@ -23,7 +24,7 @@ function SearchBox() {
 
   const [allTypes, setTypes] = useState<string[]>([]);
   function fetchAllTypes() {
-    fetch("/restaurants/all_types")
+    fetchAuth("/restaurants/all_types")
       .then((r) => r.json())
       .then((data) => {
         setTypes(data);

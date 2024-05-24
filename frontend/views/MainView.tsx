@@ -10,6 +10,7 @@ import MainPageHero from "Frontend/components/MainPageHero";
 import RestaurantInfo from "Frontend/types/RestaurantInfo";
 import RestaurantsGrid from "Frontend/components/RestaurantsGrid";
 import AboutUs from "Frontend/components/AboutUs";
+import { fetchAuth } from "Frontend/utils/Authentication";
 
 interface RestaurantGroupProps {
   url: string;
@@ -21,7 +22,7 @@ function RestaurantGroup({ url, title }: RestaurantGroupProps) {
     RestaurantInfo[] | null
   >();
   function fetchRestaurants() {
-    fetch(url)
+    fetchAuth(url)
       .then((r) => r.json())
       .then((data) => {
         setRestaurantsData(data);
@@ -40,7 +41,6 @@ function RestaurantGroup({ url, title }: RestaurantGroupProps) {
     </div>
   );
 }
-
 
 function MainView() {
   return (

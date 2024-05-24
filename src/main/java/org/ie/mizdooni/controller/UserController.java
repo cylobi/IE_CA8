@@ -3,12 +3,17 @@ package org.ie.mizdooni.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.RequiredArgsConstructor;
+
+import org.ie.mizdooni.auth.AuthenticationResponse;
+import org.ie.mizdooni.auth.AuthenticationService;
 import org.ie.mizdooni.dao.GlobalDataDao;
 import org.ie.mizdooni.dao.UserDao;
 import org.ie.mizdooni.model.ClientUserModel;
 import org.ie.mizdooni.model.ManagerUserModel;
 import org.ie.mizdooni.model.UserAddress;
 import org.ie.mizdooni.model.UserModel;
+import org.ie.mizdooni.serializer.CurrentUserResponseBody;
 //import org.ie.mizdooni.model.UserModel.UserRole;
 import org.ie.mizdooni.serializer.LoginUserRequestBody;
 import org.ie.mizdooni.serializer.RegisterRequestBody;
@@ -31,25 +36,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class UserController {
-    // @GetMapping("/users")
-    // @ResponseBody
-    // ResponseEntity<String> getAllUsers() throws JsonProcessingException
-    // {
-    // String json = new
-    // ObjectMapper().writeValueAsString(UserModel.getAllObjects());
-    // return new ResponseEntity<>(json, HttpStatus.OK);
-    // }
+    private final AuthenticationService service;
 
     @RequestMapping(path = "/users/current_user", method = RequestMethod.GET)
     @ResponseBody
-    ResponseEntity<String> getLoginnedUser() throws JsonProcessingException {
+    public ResponseEntity<CurrentUserResponseBody> getLoginnedUser() throws JsonProcessingException {
         UserModel user = GlobalDataDao.getInstance().getLoginnedUser();
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
-        String json = new ObjectMapper().writeValueAsString(user);
-        return new ResponseEntity<>(json, HttpStatus.OK);
+        var responseBody = new CurrentUserResponseBody(user);
+        return ResponseEntity.ok(responseBody);
     }
 
     @RequestMapping(path = "/auth/logout", method = RequestMethod.PUT)
@@ -61,20 +60,15 @@ public class UserController {
 
     @RequestMapping(path = "/auth/login", method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseEntity<String> login(@RequestBody LoginUserRequestBody body)
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginUserRequestBody body)
             throws BaseWebappException, JsonProcessingException {
-        var user = UserDao.getInstance().findUserByUserPass(body.getUsername(), body.getPassword());
-        if (user == null) {
-            throw new UserNotFoundException();
-        }
-        GlobalDataDao.getInstance().setLoginnedUserByUsername(user.getUsername());
-        String json = new ObjectMapper().writeValueAsString(GlobalDataDao.getInstance().getLoginnedUser());
-        return new ResponseEntity<>(json, HttpStatus.OK);
+        return ResponseEntity.ok(service.authenticateUsingUserpass(body));
     }
 
     @RequestMapping(path = "/auth/register", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> registerUser(@RequestBody RegisterRequestBody body) throws BaseWebappException {
+    public ResponseEntity<AuthenticationResponse> registerUser(@RequestBody RegisterRequestBody body)
+            throws BaseWebappException {
         boolean isUsernameAllowed = UserDao.getInstance().findOneByUsername(body.username) == null;
         if (!isUsernameAllowed) {
             throw new UserAlreadyExistsException();
@@ -85,7 +79,7 @@ public class UserController {
         }
         var newUser = createInstanceFromRequest(body);
         UserDao.getInstance().create(newUser);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok(service.registerUserToken(newUser));
     }
 
     @ExceptionHandler(BaseWebappException.class)
@@ -98,30 +92,19 @@ public class UserController {
         return new ResponseEntity<>("Error Processing JSON" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    // private boolean doesUsernameEmailExist(String username, String email) {
-    // var allData = UserModel.getAllObjects();
-    // for (var user : allData) {
-    // if (user.getEmail().compareTo(email) == 0 ||
-    // user.getUsername().compareTo(username) == 0) {
-    // return true;
-    // }
-    // }
-    // return false;
-    // }
-
-     private UserModel createInstanceFromRequest(RegisterRequestBody body) {
+    private UserModel createInstanceFromRequest(RegisterRequestBody body) {
         UserModel instance;
-        if (body.role.equals("client")){
+        if (body.role.equals("client")) {
             instance = new ClientUserModel();
         } else {
             instance = new ManagerUserModel();
         }
-         instance.setUsername(body.username);
-         instance.setPassword(body.password);
-         instance.setEmail(body.email);
-         instance.setCountry(body.country);
-         instance.setCity(body.city);
-         return instance;
-     }
+        instance.setUsername(body.username);
+        instance.setPassword(body.password);
+        instance.setEmail(body.email);
+        instance.setCountry(body.country);
+        instance.setCity(body.city);
+        return instance;
+    }
 
 }

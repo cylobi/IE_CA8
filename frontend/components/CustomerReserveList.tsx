@@ -1,3 +1,4 @@
+import { fetchAuth } from "Frontend/utils/Authentication";
 import "./CustomerReserveList.css";
 import React, { useState, useEffect } from "react";
 
@@ -15,7 +16,7 @@ export default function () {
   const currentDate = Date.now();
 
   useEffect(() => {
-    fetch("reservations/current_user")
+    fetchAuth("reservations/current_user")
       .then((r) => r.json())
       .then((data) => setData(data));
   }, []);

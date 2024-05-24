@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.ie.mizdooni.model.GlobalData;
 import org.ie.mizdooni.model.UserModel;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 public class GlobalDataDao extends BaseDao<GlobalData> {
@@ -40,7 +42,8 @@ public class GlobalDataDao extends BaseDao<GlobalData> {
     }
 
     public UserModel getLoginnedUser() {
-        return getData().getLoginnedUser();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return UserDao.getInstance().findOneByUsername(username);
     }
 
     public void setLoginnedUserByUsername(String username) {
