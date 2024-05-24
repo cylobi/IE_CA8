@@ -25,8 +25,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 abstract class BaseModelDownloader<ModelType extends BaseModel> {
-    protected static String BASE_URL = "http://91.107.137.117:55/";
-    // protected static String BASE_URL = "http://localhost:5500/";
+    // protected static String BASE_URL = "http://91.107.137.117:55/";
+    protected static String BASE_URL = "http://localhost:5500/";
 
     protected abstract String getModelUrl();
 
@@ -245,6 +245,7 @@ class ReviewDownloader extends BaseModelDownloader<ReviewModel> {
 
 class ReservationReader {
     private ReservationDao dao = new ReservationDao();
+
     public String readFileContent() {
         String filePath = "asset/reservations";
         try {
@@ -294,7 +295,7 @@ class ReservationReader {
             mapper = new ObjectMapper();
             var objects = l.parallelStream().map(mapIter -> convertMap(fixFieldNameAndTypes(mapIter))).toList();
             for (var iter : objects) {
-//                ReserveTableModel.addObject(iter);
+                // ReserveTableModel.addObject(iter);
                 dao.create(iter);
             }
 
@@ -313,8 +314,8 @@ public class InitializerAPI {
             iter.importDataToModel();
         }
 
-//        var reserveImporter = new ReservationReader();
-//        reserveImporter.importDataToModel();
+        // var reserveImporter = new ReservationReader();
+        // reserveImporter.importDataToModel();
         //
         // var user = UserModel.findByUsername("MohammadJavad_Afsari");
         // UserModel.setLoginnedUser(user);
