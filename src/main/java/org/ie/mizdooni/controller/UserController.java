@@ -13,6 +13,7 @@ import org.ie.mizdooni.model.ClientUserModel;
 import org.ie.mizdooni.model.ManagerUserModel;
 import org.ie.mizdooni.model.UserAddress;
 import org.ie.mizdooni.model.UserModel;
+import org.ie.mizdooni.serializer.CurrentUserResponseBody;
 //import org.ie.mizdooni.model.UserModel.UserRole;
 import org.ie.mizdooni.serializer.LoginUserRequestBody;
 import org.ie.mizdooni.serializer.RegisterRequestBody;
@@ -41,13 +42,13 @@ public class UserController {
 
     @RequestMapping(path = "/users/current_user", method = RequestMethod.GET)
     @ResponseBody
-    ResponseEntity<String> getLoginnedUser() throws JsonProcessingException {
+    public ResponseEntity<CurrentUserResponseBody> getLoginnedUser() throws JsonProcessingException {
         UserModel user = GlobalDataDao.getInstance().getLoginnedUser();
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
-        String json = new ObjectMapper().writeValueAsString(user);
-        return new ResponseEntity<>(json, HttpStatus.OK);
+        var responseBody = new CurrentUserResponseBody(user);
+        return ResponseEntity.ok(responseBody);
     }
 
     @RequestMapping(path = "/auth/logout", method = RequestMethod.PUT)
