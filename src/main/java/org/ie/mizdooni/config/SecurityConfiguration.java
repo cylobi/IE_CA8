@@ -62,8 +62,8 @@ public class SecurityConfiguration { // TODO : remove additionals
                                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                                 .authenticationProvider(authenticationProvider)
                                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                                .logout(logout -> logout.logoutUrl("/api/v1/auth/logout")
-                                                .addLogoutHandler(logoutHandler)
+                                // .logout(logout -> logout.logoutUrl("/api/v1/auth/logout")
+                                .logout(logout -> logout.logoutUrl("/api/auth/logout").addLogoutHandler(logoutHandler)
                                                 .logoutSuccessHandler((request, response,
                                                                 authentication) -> SecurityContextHolder
                                                                                 .clearContext()));

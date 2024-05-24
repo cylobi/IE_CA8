@@ -38,14 +38,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequiredArgsConstructor
 public class UserController {
     private final AuthenticationService service;
-    // @GetMapping("/users")
-    // @ResponseBody
-    // ResponseEntity<String> getAllUsers() throws JsonProcessingException
-    // {
-    // String json = new
-    // ObjectMapper().writeValueAsString(UserModel.getAllObjects());
-    // return new ResponseEntity<>(json, HttpStatus.OK);
-    // }
 
     @RequestMapping(path = "/users/current_user", method = RequestMethod.GET)
     @ResponseBody
