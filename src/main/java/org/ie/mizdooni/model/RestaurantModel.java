@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 @Table(name = "Restaurants")
 public class RestaurantModel extends BaseModel {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     public Integer getId() {

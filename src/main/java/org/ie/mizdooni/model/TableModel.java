@@ -36,7 +36,7 @@ import java.util.List;
 public class TableModel extends BaseModel {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer tableNumber;
     @Column(name = "restaurantName", nullable = false)
     private String restaurantName;

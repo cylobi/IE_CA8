@@ -7,6 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -27,7 +28,7 @@ import java.util.stream.Collectors;
 public class ReviewModel extends BaseModel {
     // static private List<ReviewModel> allObjects = new ArrayList<>();
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "username", nullable = false)
@@ -114,8 +115,6 @@ public class ReviewModel extends BaseModel {
     public void setDatetime(LocalDateTime datetime) {
         this.datetime = datetime;
     }
-
-
 
     @Override
     public void validate() throws ValidatorException {

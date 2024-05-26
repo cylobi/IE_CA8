@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Table(name = "Reservations")
 public class ReserveTableModel extends BaseModel {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
     @JoinColumn(name = "CLIENT_USERNAME", referencedColumnName = "username")
@@ -33,34 +33,42 @@ public class ReserveTableModel extends BaseModel {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
+
     public ClientUserModel getUsername() {
         return clientUsername;
     }
+
     public void setUsername(ClientUserModel username) {
         this.clientUsername = username;
     }
+
     public RestaurantModel getRestaurantName() {
         return restaurantName;
     }
+
     public void setRestaurantName(RestaurantModel restaurantName) {
         this.restaurantName = restaurantName;
     }
+
     public TableModel getTableNumber() {
         return tableNumber;
     }
+
     public void setTableNumber(TableModel tableNumber) {
         this.tableNumber = tableNumber;
     }
+
     public Date getDatetime() {
         return reservationDateTime;
     }
+
     public void setDatetime(Date reservationDateTime) {
         this.reservationDateTime = reservationDateTime;
     }
-
 
     @Override
     public void validate() throws ValidatorException {
