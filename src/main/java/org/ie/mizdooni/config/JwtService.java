@@ -9,6 +9,7 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 
 import org.ie.mizdooni.model.UserModel;
@@ -68,6 +69,7 @@ public class JwtService {
 
   private String buildTokenForUser(Map<String, Object> extraClaims, UserModel user, long expiration) {
     return Jwts.builder().setClaims(extraClaims).setSubject(user.getUsername()).setIssuer("mizdooni")
+        .setId(UUID.randomUUID().toString())// session management security
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + expiration))
         .signWith(getSignInKey(), SignatureAlgorithm.HS256).compact();
