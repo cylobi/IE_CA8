@@ -52,19 +52,21 @@ public class SecurityConfiguration { // TODO : remove additionals
                                 .cors(c -> c.configurationSource(corsConfiguration()))
                                 // disable csrf for security reasons
                                 .csrf(AbstractHttpConfigurer::disable)
-                                //
+                                // filter authentication required requests. other ones can pass...
                                 .authorizeHttpRequests(req -> req.requestMatchers(WHITE_LIST_URL).permitAll()
-                                                .anyRequest().authenticated())// other ones should be authenticated
-                                // .formLogin(formLogin -> formLogin.loginPage("/auth")
-                                // .loginProcessingUrl("/api/auth/login"))
+                                                .anyRequest().authenticated())
+                                // set stateless
                                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
+                                // determine who checks username and password
                                 .authenticationProvider(authenticationProvider)
+                                // determine who validate and extract jwt filter data
                                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                                // .logout(logout -> logout.logoutUrl("/api/v1/auth/logout")
+                                // set logout api
                                 .logout(logout -> logout.logoutUrl("/api/auth/logout").addLogoutHandler(logoutHandler)
                                                 .logoutSuccessHandler((request, response,
                                                                 authentication) -> SecurityContextHolder
                                                                                 .clearContext()))
+                                // Enforce HTTPS
                                 .requiresChannel(channel -> channel.anyRequest().requiresSecure())
                 // .exceptionHandling(customizer ->
                 // customizer.authenticationEntryPoint(userAuthenticationEntryPoint))
