@@ -17,23 +17,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
-
-import static org.ie.mizdooni.user.Permission.ADMIN_CREATE;
-import static org.ie.mizdooni.user.Permission.ADMIN_DELETE;
-import static org.ie.mizdooni.user.Permission.ADMIN_READ;
-import static org.ie.mizdooni.user.Permission.ADMIN_UPDATE;
-import static org.ie.mizdooni.user.Permission.MANAGER_CREATE;
-import static org.ie.mizdooni.user.Permission.MANAGER_DELETE;
-import static org.ie.mizdooni.user.Permission.MANAGER_READ;
-import static org.ie.mizdooni.user.Permission.MANAGER_UPDATE;
-import static org.ie.mizdooni.user.Role.ADMIN;
-import static org.ie.mizdooni.user.Role.MANAGER;
-import static org.springframework.http.HttpMethod.DELETE;
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
-import static org.springframework.http.HttpMethod.PUT;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -42,18 +28,16 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 public class SecurityConfiguration { // TODO : remove additionals
         // bind the filters which we defined
 
-        private static final String[] WHITE_LIST_URL = { "/", "/home", "/auth***", "/resources/**", "/VAADIN/**",
-                        "/api/auth/***", "/api/v1/auth/**", "/v2/api-docs", "/v3/api-docs", "/v3/api-docs/**",
-                        "/swagger-resources", "/swagger-resources/**", "/configuration/ui", "/configuration/security",
-                        "/swagger-ui/**", "/webjars/**", "/swagger-ui.html" };
+        private static final String[] WHITE_LIST_URL = { "/", "/home", "/auth***", "/resources/**", "/VAADIN/**" };
         private final JwtAuthenticationFilter jwtAuthFilter;
         private final AuthenticationProvider authenticationProvider;
         private final LogoutHandler logoutHandler;
+        private final UserAuthenticationEntryPoint userAuthenticationEntryPoint;
 
         @Bean
         public CorsConfigurationSource corsConfiguration() {
                 CorsConfiguration configuration = new CorsConfiguration();
-                configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+                configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080"));
                 configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
                 UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
                 source.registerCorsConfiguration("/**", configuration);
@@ -63,18 +47,13 @@ public class SecurityConfiguration { // TODO : remove additionals
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 http.cors(c -> c.configurationSource(corsConfiguration())).csrf(AbstractHttpConfigurer::disable)
+                                .exceptionHandling(customizer -> customizer
+                                                .authenticationEntryPoint(userAuthenticationEntryPoint))
                                 .authorizeHttpRequests(req -> req.requestMatchers(WHITE_LIST_URL).permitAll()
-                                                .requestMatchers("/api/v1/management/**")
-                                                .hasAnyRole(ADMIN.name(), MANAGER.name())
-                                                .requestMatchers(GET, "/api/v1/management/**")
-                                                .hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
-                                                .requestMatchers(POST, "/api/v1/management/**")
-                                                .hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())
-                                                .requestMatchers(PUT, "/api/v1/management/**")
-                                                .hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())
-                                                .requestMatchers(DELETE, "/api/v1/management/**")
-                                                .hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())
                                                 .anyRequest().authenticated())// other ones should be authenticated
+
+                                .formLogin(formLogin -> formLogin.loginPage("/auth")
+                                                .loginProcessingUrl("/api/auth/login").defaultSuccessUrl("/", true))
                                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                                 .authenticationProvider(authenticationProvider)
                                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

@@ -30,8 +30,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 
 abstract class BaseModelDownloader<ModelType extends BaseModel> {
-    // protected static String BASE_URL = "http://91.107.137.117:55/";
-    protected static String BASE_URL = "http://localhost:5500/";
+    protected static String BASE_URL = "http://91.107.137.117:55/";
+    // protected static String BASE_URL = "http://localhost:5500/";
 
     protected abstract String getModelUrl();
 
