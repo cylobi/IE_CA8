@@ -6,7 +6,7 @@ import Login from "Frontend/components/Login";
 import styled from 'styled-components';
 import {useState, useEffect} from "react";
 import {GoogleLogin, useGoogleLogin} from "@react-oauth/google";
-
+import {jwtDecode} from "jwt-decode";
 
 const Background = styled.div`
     width : 100%;
@@ -38,29 +38,15 @@ const AuthenticationView = () => {
 
     const [authMethod, setAuthMethod] = useState(AuthMethod.Login);
 
-    const [user, setUser] = useState([]);
-
-    const login = useGoogleLogin({
-        onSuccess: (codeResponse) => {setUser(codeResponse)
-            console.log(codeResponse)
-        },
-        onError: (error) => console.log("Login Failed:", error)
-    });
-
-    useEffect(() => {
-        if (user) {
-            fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${user.access_token}`,
-                    Accept: "application/json",
-                },
-            })
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.log(error));
-        }
-    }, [user]);
+    // const login = useGoogleLogin({
+    //     onSuccess: (response) => {
+    //         // Accessing user's email and name from the response
+    //         const userEmail = response.profile.email;
+    //         const userName = response.profile.name;
+    //         console.log(`User Email: ${userEmail}, User Name: ${userName}`);
+    //     },
+    //     onError: (error) => console.log("Login Failed:", error)
+    // });
 
     const registerIndicatorStyle: React.CSSProperties = {
         borderTopLeftRadius: '12px',
@@ -92,8 +78,8 @@ const AuthenticationView = () => {
                     {authMethod === AuthMethod.Login && <Login/>}
                     <div id="google-login_button" class="container align-content-center">
                         <GoogleLogin
-                            onSuccess={credentialResponse => {
-                                console.log(credentialResponse);
+                            onSuccess={res => {
+                                console.log(jwtDecode(res.credential));
                             }}
                             onError={() => {
                                 console.log('Login Failed');

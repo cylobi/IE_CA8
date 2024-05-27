@@ -26,6 +26,7 @@
     "bootstrap": "^4.6.2",
     "construct-style-sheets-polyfill": "3.1.0",
     "gapi-script": "^1.2.0",
+    "jwt-decode": "^4.0.0",
     "lit": "3.1.0",
     "styled-components": "^6.1.9"
   },
@@ -92,7 +93,7 @@
       "workbox-core": "7.0.0",
       "workbox-precaching": "7.0.0"
     },
-    "hash": "c0edda62d05d1d25d73ddb9766fb9a91685cc2921f74bf734eb64eea99c50998"
+    "hash": "130c3766af2301e0133dbf7f0bc15e1573b89947e862b6bfc36b798ac50964cf"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
@@ -119,6 +120,7 @@
     "@hilla/generator-typescript-cli": "$@hilla/generator-typescript-cli",
     "bootstrap": "$bootstrap",
     "@react-oauth/google": "$@react-oauth/google",
-    "gapi-script": "$gapi-script"
+    "gapi-script": "$gapi-script",
+    "jwt-decode": "$jwt-decode"
   }
 }

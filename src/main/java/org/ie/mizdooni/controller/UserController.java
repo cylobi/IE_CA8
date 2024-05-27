@@ -15,6 +15,7 @@ import org.ie.mizdooni.model.UserAddress;
 import org.ie.mizdooni.model.UserModel;
 import org.ie.mizdooni.serializer.CurrentUserResponseBody;
 //import org.ie.mizdooni.model.UserModel.UserRole;
+import org.ie.mizdooni.serializer.GoogleOauthRequestBody;
 import org.ie.mizdooni.serializer.LoginUserRequestBody;
 import org.ie.mizdooni.serializer.RegisterRequestBody;
 import org.ie.mizdooni.utils.exception.BaseWebappException;
@@ -80,6 +81,12 @@ public class UserController {
         var newUser = createInstanceFromRequest(body);
         UserDao.getInstance().create(newUser);
         return ResponseEntity.ok(service.registerUserToken(newUser));
+    }
+
+    @RequestMapping(path="/auth/googlOauth", method=RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity registerWithGoogle(@RequestBody GoogleOauthRequestBody body) throws BaseWebappException, JsonProcessingException {
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @ExceptionHandler(BaseWebappException.class)
