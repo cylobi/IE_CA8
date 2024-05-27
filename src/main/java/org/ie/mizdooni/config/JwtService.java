@@ -27,8 +27,17 @@ public class JwtService {
   @Value("${application.security.jwt.refresh-token.expiration}")
   private long refreshExpiration;
 
+  @Value("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")
+  private String googleSecret;
+
   public String extractUsername(String token) {
     return extractClaim(token, Claims::getSubject);
+  }
+
+  public String getGoogleUsername(String jwt){
+    var allClaims = Jwts.parserBuilder().setSigningKey(getGoogleKey()).build().parseClaimsJws(jwt).getBody();
+    var username = allClaims.getSubject();
+    return username;
   }
 
   public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
@@ -94,6 +103,11 @@ public class JwtService {
 
   private Key getSignInKey() {
     byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+    return Keys.hmacShaKeyFor(keyBytes);
+  }
+
+  private Key getGoogleKey(){
+    byte[] keyBytes = googleSecret.getBytes();
     return Keys.hmacShaKeyFor(keyBytes);
   }
 }

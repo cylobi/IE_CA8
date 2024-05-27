@@ -7,6 +7,8 @@ import styled from 'styled-components';
 import {useState, useEffect} from "react";
 import {GoogleLogin, useGoogleLogin} from "@react-oauth/google";
 import {jwtDecode} from "jwt-decode";
+import {storeTokensAfterLogin} from "Frontend/utils/Authentication";
+import { useNavigate } from "react-router-dom";
 
 const Background = styled.div`
     width : 100%;
@@ -60,7 +62,29 @@ const AuthenticationView = () => {
         backgroundColor: authMethod === AuthMethod.Login ? "#ED3545" : "#FFF6F7",
     } as React.CSSProperties;
 
+    const navigate = useNavigate();
+    const handleSubmit = async (jwt) => {
+        try {
+            const response = await fetch("/api/auth/googleOauth", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(jwt),
+            });
 
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+
+            const data = await response.json();
+            console.log(data);
+            storeTokensAfterLogin(data);
+            navigate("/home");
+        } catch (error) {
+            console.error("There was a problem with the fetch operation:", error);
+        }
+    };
 
     return (
         <>
@@ -79,7 +103,7 @@ const AuthenticationView = () => {
                     <div id="google-login_button" class="container align-content-center">
                         <GoogleLogin
                             onSuccess={res => {
-                                console.log(jwtDecode(res.credential));
+                                handleSubmit(res);
                             }}
                             onError={() => {
                                 console.log('Login Failed');

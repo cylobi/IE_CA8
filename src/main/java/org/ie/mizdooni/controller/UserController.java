@@ -3,10 +3,12 @@ package org.ie.mizdooni.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 
 import org.ie.mizdooni.auth.AuthenticationResponse;
 import org.ie.mizdooni.auth.AuthenticationService;
+import org.ie.mizdooni.config.JwtService;
 import org.ie.mizdooni.dao.GlobalDataDao;
 import org.ie.mizdooni.dao.UserDao;
 import org.ie.mizdooni.model.ClientUserModel;
@@ -35,11 +37,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.Jwts;
+import java.util.Base64;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class UserController {
     private final AuthenticationService service;
+    private final JwtService jwtService;
+
 
     @RequestMapping(path = "/users/current_user", method = RequestMethod.GET)
     @ResponseBody
@@ -83,10 +91,21 @@ public class UserController {
         return ResponseEntity.ok(service.registerUserToken(newUser));
     }
 
-    @RequestMapping(path="/auth/googlOauth", method=RequestMethod.POST)
+    @RequestMapping(path="/auth/googleOauth", method=RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity registerWithGoogle(@RequestBody GoogleOauthRequestBody body) throws BaseWebappException, JsonProcessingException {
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<String> registerWithGoogle(@RequestBody GoogleOauthRequestBody body) throws BaseWebappException, JsonProcessingException {
+//        String username = jwtService.getGoogleUsername(body.credential);
+        try {
+            var claims = Jwts.parser()
+                    .setSigningKey(Base64.getUrlEncoder().withoutPadding().encodeToString("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".getBytes()))
+                    .parseClaimsJws(body.credential);
+            // Extract the email from the claims
+            String email = (String) claims.getBody().get("email");
+            System.out.println("Email: " + email);
+        } catch (Exception e) {
+            System.err.println("Error decoding JWT token: " + e.getMessage());
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @ExceptionHandler(BaseWebappException.class)

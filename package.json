@@ -93,7 +93,7 @@
       "workbox-core": "7.0.0",
       "workbox-precaching": "7.0.0"
     },
-    "hash": "77faa9f02639ce6328aa5db0cce3fdee288673ac951b326d5c64084f4240e32f"
+    "hash": "ed986bce480baf3aa41f17ab439b073b9a64f6ed1affd857d82c8ed69bf31984"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
