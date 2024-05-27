@@ -28,7 +28,8 @@ import java.util.Arrays;
 public class SecurityConfiguration { // TODO : remove additionals
         // bind the filters which we defined
 
-        private static final String[] WHITE_LIST_URL = { "/", "/home", "/auth***", "/resources/**", "/VAADIN/**" };
+        private static final String[] WHITE_LIST_URL = { "/", "/home", "/auth***", "/resources/**", "/VAADIN/**",
+                        "/api/auth/**" };
         private final JwtAuthenticationFilter jwtAuthFilter;
         private final AuthenticationProvider authenticationProvider;
         private final LogoutHandler logoutHandler;
@@ -37,7 +38,7 @@ public class SecurityConfiguration { // TODO : remove additionals
         @Bean
         public CorsConfigurationSource corsConfiguration() {
                 CorsConfiguration configuration = new CorsConfiguration();
-                configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080"));
+                configuration.setAllowedOrigins(Arrays.asList("https://localhost:8080"));
                 configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
                 UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
                 source.registerCorsConfiguration("/**", configuration);
@@ -46,13 +47,16 @@ public class SecurityConfiguration { // TODO : remove additionals
 
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-                http.cors(c -> c.configurationSource(corsConfiguration())).csrf(AbstractHttpConfigurer::disable)
-                                .exceptionHandling(customizer -> customizer
-                                                .authenticationEntryPoint(userAuthenticationEntryPoint))
+                http
+                                // CORST configuration
+                                .cors(c -> c.configurationSource(corsConfiguration()))
+                                // disable csrf for security reasons
+                                .csrf(AbstractHttpConfigurer::disable)
+                                //
                                 .authorizeHttpRequests(req -> req.requestMatchers(WHITE_LIST_URL).permitAll()
                                                 .anyRequest().authenticated())// other ones should be authenticated
-                                .formLogin(formLogin -> formLogin.loginPage("/auth")
-                                                .loginProcessingUrl("/api/auth/login").defaultSuccessUrl("/", true))
+                                // .formLogin(formLogin -> formLogin.loginPage("/auth")
+                                // .loginProcessingUrl("/api/auth/login"))
                                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                                 .authenticationProvider(authenticationProvider)
                                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
@@ -61,7 +65,11 @@ public class SecurityConfiguration { // TODO : remove additionals
                                                 .logoutSuccessHandler((request, response,
                                                                 authentication) -> SecurityContextHolder
                                                                                 .clearContext()))
-                                .requiresChannel(channel -> channel.anyRequest().requiresSecure());
+                                .requiresChannel(channel -> channel.anyRequest().requiresSecure())
+                // .exceptionHandling(customizer ->
+                // customizer.authenticationEntryPoint(userAuthenticationEntryPoint))
+
+                ;
 
                 return http.build();
         }
