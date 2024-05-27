@@ -19,11 +19,14 @@
     "@hilla/react-crud": "2.5.5",
     "@hilla/react-form": "2.5.5",
     "@polymer/polymer": "3.5.1",
+    "@react-oauth/google": "^0.12.1",
     "@vaadin/bundles": "24.3.0",
     "@vaadin/common-frontend": "0.0.19",
     "@vaadin/router": "1.7.5",
     "bootstrap": "^4.6.2",
     "construct-style-sheets-polyfill": "3.1.0",
+    "gapi-script": "^1.2.0",
+    "jwt-decode": "^4.0.0",
     "lit": "3.1.0",
     "styled-components": "^6.1.9"
   },
@@ -90,7 +93,7 @@
       "workbox-core": "7.0.0",
       "workbox-precaching": "7.0.0"
     },
-    "hash": "3b9ba2e6fdfb1374c48f783490c5f02e54c94b843eaffd31c724be1f278a82c2"
+    "hash": "ed986bce480baf3aa41f17ab439b073b9a64f6ed1affd857d82c8ed69bf31984"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
@@ -115,6 +118,9 @@
     "@hilla/generator-typescript-plugin-subtypes": "$@hilla/generator-typescript-plugin-subtypes",
     "@hilla/generator-typescript-plugin-backbone": "$@hilla/generator-typescript-plugin-backbone",
     "@hilla/generator-typescript-cli": "$@hilla/generator-typescript-cli",
-    "bootstrap": "$bootstrap"
+    "bootstrap": "$bootstrap",
+    "@react-oauth/google": "$@react-oauth/google",
+    "gapi-script": "$gapi-script",
+    "jwt-decode": "$jwt-decode"
   }
 }

@@ -8,6 +8,7 @@ import {
 } from "./contexts/UserInfoContext";
 import { useEffect, useState } from "react";
 import UserInfo from "./types/UserInfo";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { fetchAuth } from "./utils/Authentication";
 
 export default function App() {
@@ -19,13 +20,18 @@ export default function App() {
       .then((data) => setLoginnedUser(data));
   }, []);
 
+
+  const CLIENT_ID = "379155225364-t3gjj5aua7homc7labkgma4a4jj0mlfd.apps.googleusercontent.com"
+
   return (
     <>
-      <UserInfoContext.Provider value={loginnedUser}>
-        <SetUserInfoContext.Provider value={setLoginnedUser}>
-          <RouterProvider router={router} />
-        </SetUserInfoContext.Provider>
-      </UserInfoContext.Provider>
+      <GoogleOAuthProvider clientId={CLIENT_ID}>
+        <UserInfoContext.Provider value={loginnedUser}>
+          <SetUserInfoContext.Provider value={setLoginnedUser}>
+            <RouterProvider router={router} />
+          </SetUserInfoContext.Provider>
+        </UserInfoContext.Provider>
+      </GoogleOAuthProvider>
     </>
   );
 }
