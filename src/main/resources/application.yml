@@ -5,3 +5,12 @@ application:
       expiration: 86400000 # a day
       refresh-token:
         expiration: 604800000 # 7 days
+server:
+  ssl:
+    enabled: true
+    key-store: classpath:keystore.p12
+    key-store-password: mizdooni
+    key-store-type: PKCS12
+    key-alias: mizdooni
+    key-password: mizdooni
+  port: 8080

@@ -51,7 +51,6 @@ public class SecurityConfiguration { // TODO : remove additionals
                                                 .authenticationEntryPoint(userAuthenticationEntryPoint))
                                 .authorizeHttpRequests(req -> req.requestMatchers(WHITE_LIST_URL).permitAll()
                                                 .anyRequest().authenticated())// other ones should be authenticated
-
                                 .formLogin(formLogin -> formLogin.loginPage("/auth")
                                                 .loginProcessingUrl("/api/auth/login").defaultSuccessUrl("/", true))
                                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
@@ -61,7 +60,8 @@ public class SecurityConfiguration { // TODO : remove additionals
                                 .logout(logout -> logout.logoutUrl("/api/auth/logout").addLogoutHandler(logoutHandler)
                                                 .logoutSuccessHandler((request, response,
                                                                 authentication) -> SecurityContextHolder
-                                                                                .clearContext()));
+                                                                                .clearContext()))
+                                .requiresChannel(channel -> channel.anyRequest().requiresSecure());
 
                 return http.build();
         }
