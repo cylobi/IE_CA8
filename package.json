@@ -28,7 +28,8 @@
     "gapi-script": "^1.2.0",
     "jwt-decode": "^4.0.0",
     "lit": "3.1.0",
-    "styled-components": "^6.1.9"
+    "styled-components": "^6.1.9",
+    "webpack": "^5.92.0"
   },
   "devDependencies": {
     "@lit-labs/react": "^1.1.0",
@@ -47,6 +48,7 @@
     "typescript": "5.3.3",
     "vite": "^5.2.11",
     "vite-plugin-checker": "^0.6.4",
+    "webpack-cli": "^5.1.4",
     "workbox-build": "7.0.0",
     "workbox-core": "7.0.0",
     "workbox-precaching": "7.0.0"
@@ -93,7 +95,7 @@
       "workbox-core": "7.0.0",
       "workbox-precaching": "7.0.0"
     },
-    "hash": "ed986bce480baf3aa41f17ab439b073b9a64f6ed1affd857d82c8ed69bf31984"
+    "hash": "9dbcf5b49e8042508e35292304319c08974ad02175aa38839d62a0451aa7d5ad"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
@@ -121,6 +123,10 @@
     "bootstrap": "$bootstrap",
     "@react-oauth/google": "$@react-oauth/google",
     "gapi-script": "$gapi-script",
-    "jwt-decode": "$jwt-decode"
+    "jwt-decode": "$jwt-decode",
+    "webpack": "$webpack"
+  },
+  "scripts": {
+    "build": "vite build"
   }
 }

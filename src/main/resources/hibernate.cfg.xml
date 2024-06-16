@@ -6,7 +6,7 @@
     <session-factory> 
   
         <!-- Set URL --> 
-        <property name = "hibernate.connection.url">jdbc:mysql://localhost:3306/mizdooni_ca5</property> 
+        <property name = "hibernate.connection.url">jdbc:mysql://db:3306/mizdooni_ca5</property>
   
         <!-- Set Username -->
         <property name = "hibernate.connection.username">springuser</property> 
