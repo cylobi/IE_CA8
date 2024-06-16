@@ -15,7 +15,7 @@
     <description>IE_CA5</description>
     <properties>
         <java.version>17</java.version>
-        <hilla.version>2.5.5</hilla.version>
+<!--        <hilla.version>2.5.5</hilla.version>-->
     </properties>
     <dependencies>
         <dependency>
@@ -23,10 +23,10 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>dev.hilla</groupId>
-            <artifactId>hilla-react-spring-boot-starter</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>dev.hilla</groupId>-->
+<!--            <artifactId>hilla-react-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
         <!-- <dependency>
@@ -114,17 +114,17 @@
 
     </dependencies>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>dev.hilla</groupId>
-                <artifactId>hilla-bom</artifactId>
-                <version>${hilla.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+<!--    <dependencyManagement>-->
+<!--        <dependencies>-->
+<!--            <dependency>-->
+<!--                <groupId>dev.hilla</groupId>-->
+<!--                <artifactId>hilla-bom</artifactId>-->
+<!--                <version>${hilla.version}</version>-->
+<!--                <type>pom</type>-->
+<!--                <scope>import</scope>-->
+<!--            </dependency>-->
+<!--        </dependencies>-->
+<!--    </dependencyManagement>-->
 
     <build>
         <plugins>
@@ -141,19 +141,19 @@
 				</configuration>
             </plugin>
 
-            <plugin>
-                <groupId>dev.hilla</groupId>
-                <artifactId>hilla-maven-plugin</artifactId>
-                <version>${hilla.version}</version>
-                <executions>
-                    <execution>
-                        <id>frontend</id>
-                        <goals>
-                            <goal>prepare-frontend</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>dev.hilla</groupId>-->
+<!--                <artifactId>hilla-maven-plugin</artifactId>-->
+<!--                <version>${hilla.version}</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>frontend</id>-->
+<!--                        <goals>-->
+<!--                            <goal>prepare-frontend</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 
@@ -162,23 +162,23 @@
             <id>production</id>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>dev.hilla</groupId>
-                        <artifactId>hilla-maven-plugin</artifactId>
-                        <version>${hilla.version}</version>
-                        <executions>
-                            <execution>
-                                <id>frontend</id>
-                                <phase>compile</phase>
-                                <goals>
-                                    <goal>build-frontend</goal>
-                                </goals>
-                                <configuration>
-                                    <productionMode>true</productionMode>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
+<!--                    <plugin>-->
+<!--                        <groupId>dev.hilla</groupId>-->
+<!--                        <artifactId>hilla-maven-plugin</artifactId>-->
+<!--                        <version>${hilla.version}</version>-->
+<!--                        <executions>-->
+<!--                            <execution>-->
+<!--                                <id>frontend</id>-->
+<!--                                <phase>compile</phase>-->
+<!--                                <goals>-->
+<!--                                    <goal>build-frontend</goal>-->
+<!--                                </goals>-->
+<!--                                <configuration>-->
+<!--                                    <productionMode>true</productionMode>-->
+<!--                                </configuration>-->
+<!--                            </execution>-->
+<!--                        </executions>-->
+<!--                    </plugin>-->
                 </plugins>
             </build>
         </profile>
