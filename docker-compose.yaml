@@ -2,8 +2,8 @@ version: '3.1'
 
 services:
   backend:
-    container_name: mizdooni-backend-test
-    image: mizdooni-backend-test
+    container_name: mizdooni-backend
+    image: mizdooni-backend-local
     ports:
       - "8080:8080"
     depends_on:

@@ -20,8 +20,8 @@ import static org.ie.mizdooni.user.Role.MANAGER;
 public class IeMizdooniApplication {
 
     public static void main(String[] args) {
-        initializeModelsFromApi();
-        setTestUser();
+        // initializeModelsFromApi();
+        // setTestUser();
         SpringApplication.run(IeMizdooniApplication.class, args);
 
     }
