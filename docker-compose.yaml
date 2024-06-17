@@ -1,27 +1,27 @@
-version: '3.1'
+version: "3.1"
 
 services:
   backend:
     container_name: mizdooni-backend
-    image: mizdooni-backend-local
+    image: mizdooniaf/mizdooni-backend
     ports:
       - "8080:8080"
     depends_on:
       - db
+    networks:
+      - spring-mysql
 
   db:
-    image: mysql:lts
+    image: mizdooniaf/mizdooni-db
     restart: always
-    command: --init-file /docker-entrypoint-initdb.d/init.sql
-    volumes:
-      - db_data:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: mizdooni_ca5
     expose:
       - 3306
-      - 33060
+
+    networks:
+      - spring-mysql
 
 volumes:
   db_data:
+
+networks:
+  spring-mysql: {}

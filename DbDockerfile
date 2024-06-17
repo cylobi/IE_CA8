@@ -1,0 +1,15 @@
+# Use the official MySQL image as a base
+FROM mysql:lts
+
+# Enable the mysql_native_password authentication plugin
+# RUN echo "[mysqld]\ndefault-authentication-plugin=mysql_native_password" > /etc/mysql/conf.d/default-authentication-plugin.cnf
+
+# Copy the init.sql file into the container
+COPY ./init.sql /docker-entrypoint-initdb.d/
+
+# Set environment variables
+ENV MYSQL_ROOT_PASSWORD=ThePassword
+ENV MYSQL_DATABASE=mizdooni_ca5
+
+# Expose the required ports
+EXPOSE 3306 33060

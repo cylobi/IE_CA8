@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mizdooni-db-pod
+  labels:
+    name: mizdooni-db-pod
+    app: mizdooni
+spec:
+  containers:
+  - name: mizdooni-db
+    image:  mizdooniaf/mizdooni-db
+    ports:
+      - containerPort: 3306
+  
+  #   volumeMounts:
+  #     - name: mysql-config-volume ## specify volume name
+  #       mountPath: /etc/mysql/conf.d/default_auth.cnf ## path to mount file
+  #       subPath: default_auth ## name of config
+  # volumes:
+  #   - name: mysql-config-volume ## volume name
+  #     configMap:
+  #       name: mysql-config ## name of ConfigMap

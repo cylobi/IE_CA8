@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2024-06-17T10:39:50Z"
+  labels:
+    app: mizdooni
+    name: mizdooni-app-service
+  name: mizdooni-app
+  namespace: faraday
+  resourceVersion: "11147136"
+  uid: c641f6ba-d4af-4421-bfce-361e14bf53d1
+spec:
+  clusterIP: 10.107.160.101
+  clusterIPs:
+  - 10.107.160.101
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 30004
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: mizdooni
+    name: mizdooni-backend-pod
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
