@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mizdooni-db-deploy
+  labels:
+    name: mizdooni-db-deploy
+    app: mizdooni
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mizdooni
+      name: mizdooni-db-pod
+
+  template:
+    metadata:
+      name: mizdooni-db-pod
+      labels:
+        name: mizdooni-db-pod
+        app: mizdooni
+    spec:
+      containers:
+      - name: mizdooni-db
+        image:  mizdooniaf/mizdooni-db
+        ports:
+          - containerPort: 3306

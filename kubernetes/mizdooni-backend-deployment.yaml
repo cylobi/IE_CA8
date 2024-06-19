@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mizdooni-backend-deploy
+  labels:
+    name: mizdooni-backend-deploy
+    app: mizdooni
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mizdooni
+      name: mizdooni-backend-pod
+
+  template:
+    metadata:
+      name: mizdooni-backend-pod
+      labels:
+        name: mizdooni-backend-pod
+        app: mizdooni
+    spec:
+      containers:
+      - name: mizdooni-backend
+        image:  mizdooniaf/mizdooni-backend:latest
+        imagePullPolicy: "Always"
+        ports:
+          - containerPort: 8080
