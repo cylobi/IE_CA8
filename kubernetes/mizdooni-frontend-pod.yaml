@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mizdooni-frontend-pod
+  labels:
+    name: mizdooni-frontend-pod
+    app: mizdooni
+spec:
+  containers:
+  - name: mizdooni-frontend
+    image:  mizdooniaf/mizdooni-frontend:latest
+    imagePullPolicy: "Always"
+    ports:
+      - containerPort: 80
