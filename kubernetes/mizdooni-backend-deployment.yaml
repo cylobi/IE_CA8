@@ -19,6 +19,17 @@ spec:
         name: mizdooni-backend-pod
         app: mizdooni
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: name
+                operator: In
+                values:
+                - mizdooni-backend-pod
+            topologyKey: "kubernetes.io/hostname"
+
       containers:
       - name: mizdooni-backend
         image:  mizdooniaf/mizdooni-backend:latest
@@ -32,3 +43,4 @@ spec:
           requests:
             memory: "2Gi"
             cpu: "0.5"
+            
