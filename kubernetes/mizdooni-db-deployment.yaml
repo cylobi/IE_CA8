@@ -31,3 +31,11 @@ spec:
           requests:
             memory: "4Gi"
             cpu: "1"
+
+        volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: mizdooni-db-volume
+      volumes:
+      - name: mizdooni-db-volume
+        persistentVolumeClaim:
+          claimName: mizdooni-db-pvc
